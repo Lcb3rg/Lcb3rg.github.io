@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="Lcb3rg">
 <meta property="og:description" content="数组的概念： 数组(Array)，是多个相同类型数据按一定顺序排列的集合，并使用一个名字命名，并通过编号的方式对这些数据进行统一管理。  数组的格式： 如：int a[5];  数组名—-&gt;a  下标（或索引、index）—-&gt;a[0]….a[4]  元素—-&gt;a[0]等于的值  数组的长度—-&gt;5   数组的特点： 数组中的元素在内存中是依次紧密排列的，有序的。  创建数">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/.com//..%5Cimages%5CC%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84%5C%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84.png">
-<meta property="og:image" content="http://example.com/.com//..%5Cimages%5CC%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84%5C%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84.png">
+<meta property="og:image" content="http://example.com/images/C%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84.png">
+<meta property="og:image" content="http://example.com/images/C%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84.png">
 <meta property="article:published_time" content="2024-02-12T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-06T10:40:28.778Z">
+<meta property="article:modified_time" content="2025-05-06T10:52:19.114Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/.com//..%5Cimages%5CC%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84%5C%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84.png">
+<meta name="twitter:image" content="http://example.com/images/C%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84.png">
     
     
       
@@ -194,7 +194,7 @@
 <li><p>**注意：**声明数组时，必须给出数组的大小。</p>
 </li>
 <li><p>解释：</p>
-<p><img src="/.com//..%5Cimages%5CC%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84%5C%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84.png" alt="一维数组"></p>
+<p><img src="/../images/C%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84.png" alt="一维数组"></p>
 </li>
 <li><p>数组元素的调用：</p>
 <ol>
@@ -289,7 +289,7 @@
 </li>
 <li><p>定义方式：</p>
 <ol>
-<li>int a[3] [4]; 表示这个数组是3行4列的</li>
+<li>int a[3][4]; 表示这个数组是3行4列的</li>
 <li>可以理解成一栋楼有3层，每层有4个房间</li>
 </ol>
 </li>
@@ -298,7 +298,7 @@
 <li><p>在<code>内存</code>中，各元素是连续存放的，不是二维的，是<code>线性</code>的。</p>
 </li>
 <li><p>C语言中，二维数组中元素排列的顺序是<code>按行存放</code>的。即：先顺序存放第一行的元素，再存放第二行的元素。（最右边的下标变化最快，第一维的下标变化最慢）。</p>
-<p><img src="/.com//..%5Cimages%5CC%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84%5C%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84.png" alt="二维数组"></p>
+<p><img src="/../images/C%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84.png" alt="二维数组"></p>
 </li>
 </ol>
 </li>
@@ -358,7 +358,7 @@
 <td>&amp;arr[0][0]</td>
 <td>int *</td>
 <td>4字节（sizeof（int））</td>
-<td>&amp;arr[0] [0]+1 &lt;&#x3D;&gt; &amp;arr[0][1]</td>
+<td>&amp;arr[0][0]+1 &lt;&#x3D;&gt; &amp;arr[0][1]</td>
 </tr>
 <tr>
 <td>arr[0][0]</td>
