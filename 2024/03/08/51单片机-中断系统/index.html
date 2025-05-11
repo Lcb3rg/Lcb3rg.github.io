@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="**中断系统：**是单片机用于处理外部紧急事件的一种机制。 **优点：**中断系统使单片机能够实时响应外部事件，提高了系统的灵活性和响应能力。 工作流程： 当CPU正在处理某项任务时，外部发生了某个紧急事件，此时CPU会暂停当前的工作，转而去处理这个紧急事件，处理完之后，再回到原来被中断的位置，继续处理原来的工作。    中断介绍： 中断源：是指能够引发中断的事件。  中断标志位：  用于标识某个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机-中断系统">
+<meta property="og:url" content="http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="**中断系统：**是单片机用于处理外部紧急事件的一种机制。 **优点：**中断系统使单片机能够实时响应外部事件，提高了系统的灵活性和响应能力。 工作流程： 当CPU正在处理某项任务时，外部发生了某个紧急事件，此时CPU会暂停当前的工作，转而去处理这个紧急事件，处理完之后，再回到原来被中断的位置，继续处理原来的工作。    中断介绍： 中断源：是指能够引发中断的事件。  中断标志位：  用于标识某个">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/.com//blog/myblog/source/images/51%E5%8D%95%E7%89%87%E6%9C%BA/%E4%B8%AD%E6%96%AD.png">
+<meta property="og:image" content="http://example.com/.com//blog/myblog/source/images/51%E5%8D%95%E7%89%87%E6%9C%BA/%E4%B8%AD%E6%96%AD%E6%9C%8D%E5%8A%A1%E7%A8%8B%E5%BA%8F.png">
+<meta property="article:published_time" content="2024-03-08T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-11T14:10:35.389Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/.com//blog/myblog/source/images/51%E5%8D%95%E7%89%87%E6%9C%BA/%E4%B8%AD%E6%96%AD.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>51单片机-中断系统</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-UART%E4%B8%B2%E5%8F%A3/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&text=51单片机-中断系统"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&is_video=false&description=51单片机-中断系统"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=51单片机-中断系统&body=Check out this article: http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&name=51单片机-中断系统&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&t=51单片机-中断系统"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">工作流程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">中断介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        51单片机-中断系统
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-03-08T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-03-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>**中断系统：**是单片机用于处理外部紧急事件的一种机制。</p>
+<p>**优点：**中断系统使单片机能够实时响应外部事件，提高了系统的灵活性和响应能力。</p>
+<h2 id="工作流程："><a href="#工作流程：" class="headerlink" title="工作流程："></a>工作流程：</h2><ul>
+<li><p>当CPU正在处理某项任务时，外部发生了某个紧急事件，此时CPU会暂停当前的工作，转而去处理这个紧急事件，处理完之后，再回到原来被中断的位置，继续处理原来的工作。</p>
+<p><img src="/.com//blog\myblog\source\images\51单片机\中断.png" alt="中断"></p>
+</li>
+</ul>
+<h2 id="中断介绍："><a href="#中断介绍：" class="headerlink" title="中断介绍："></a>中断介绍：</h2><ul>
+<li><p>中断源：是指能够引发中断的事件。</p>
+</li>
+<li><p>中断标志位：</p>
+<ol>
+<li>用于标识某个中断是否发生，每个中断源都有一个与之对应的中断标志位。</li>
+<li>当某个中断发生时，相应的中断标位就会置为1，当CPU检测到标志位时，就会处理相应的中断。当中断处理完毕后，中断标志位需要复位（置0），以便接收下一次中断，有些中断源的标志位，会在CPU处理完中断后，自动复位，而有些则需要开发者手动复位，在使用中断时，需要注意查看手册说明。</li>
+</ol>
+</li>
+<li><p>中断服务程序：</p>
+<ol>
+<li>指处理中断的逻辑，当某个中断标志位为1时，CPU会自动执行相应的中断服务程序。</li>
+<li>中断服务程序是指用于处理中断的一段代码，当中断发生时，CPU就会暂停当前程序的执行，转而执行对应的中断服务程序，处理完中断后再恢复到原来的程序。</li>
+</ol>
+</li>
+<li><p>中断优先级：</p>
+<ol>
+<li>是指在多个中断同时发生时，单片机响应中断的先后顺序，并且高优先级的中断可以打断低优先级的中断。</li>
+<li>若两个中断的优先级相同，则根据其中断号决定处理顺序，中断号越小越优先。</li>
+</ol>
+</li>
+<li><p>中断服务程序语法：</p>
+<p><img src="/.com//blog\myblog\source\images\51单片机\中断服务程序.png" alt="中断服务程序"></p>
+</li>
+</ul>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">工作流程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">中断介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&text=51单片机-中断系统"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&is_video=false&description=51单片机-中断系统"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=51单片机-中断系统&body=Check out this article: http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&title=51单片机-中断系统"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&name=51单片机-中断系统&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/03/08/51%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/&t=51单片机-中断系统"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
