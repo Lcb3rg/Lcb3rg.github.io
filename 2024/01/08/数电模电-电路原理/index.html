@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="电流： 电流的方向：电流从正极流向负极，电流是电子移动形成的，电子从负极流向正极  AC是交流电：  交流电的电流方向随时间变化 电荷会在正、负两个方向上流动。周期性的交替反向 交流电通常是通过电网供应的电力 用于各种大型的较大功耗的电器设备和机器设备中（如：电视、冰箱）   DC是直流电：  直流电是指电流方向不变的电流 电荷始终在同一个方向上流动 直流电源通常由电池或者其他直流电源供应 直流电">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数电模电-电路原理">
+<meta property="og:url" content="http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="电流： 电流的方向：电流从正极流向负极，电流是电子移动形成的，电子从负极流向正极  AC是交流电：  交流电的电流方向随时间变化 电荷会在正、负两个方向上流动。周期性的交替反向 交流电通常是通过电网供应的电力 用于各种大型的较大功耗的电器设备和机器设备中（如：电视、冰箱）   DC是直流电：  直流电是指电流方向不变的电流 电荷始终在同一个方向上流动 直流电源通常由电池或者其他直流电源供应 直流电">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/.com//blog/myblog/source/images/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5/%E7%94%B5%E6%B5%81.png">
+<meta property="article:published_time" content="2024-01-08T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-11T15:09:25.854Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/.com//blog/myblog/source/images/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5/%E7%94%B5%E6%B5%81.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>数电模电-电路原理</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E5%85%83%E5%99%A8%E4%BB%B6/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&text=数电模电-电路原理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&is_video=false&description=数电模电-电路原理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数电模电-电路原理&body=Check out this article: http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&name=数电模电-电路原理&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&t=数电模电-电路原理"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E6%B5%81%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">电流：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E5%8E%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">电压：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">逻辑电路：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        数电模电-电路原理
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-01-08T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-01-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="电流："><a href="#电流：" class="headerlink" title="电流："></a>电流：</h2><ol>
+<li><p>电流的方向：电流从正极流向负极，电流是电子移动形成的，电子从负极流向正极</p>
+</li>
+<li><p>AC是交流电：</p>
+<ol>
+<li>交流电的电流方向随时间变化</li>
+<li>电荷会在正、负两个方向上流动。周期性的交替反向</li>
+<li>交流电通常是通过电网供应的电力</li>
+<li>用于各种大型的较大功耗的电器设备和机器设备中（如：电视、冰箱）</li>
+</ol>
+</li>
+<li><p>DC是直流电：</p>
+<ol>
+<li>直流电是指电流方向不变的电流</li>
+<li>电荷始终在同一个方向上流动</li>
+<li>直流电源通常由电池或者其他直流电源供应</li>
+<li>直流电常用于需要稳定电压和恒定方向的小型设备中（如手机，电动自行车）</li>
+</ol>
+</li>
+<li><p>直流电和交流电对比：</p>
+<p><img src="/.com//blog\myblog\source\images\数电模电\电流.png" alt="电流"></p>
+</li>
+</ol>
+<h2 id="电压："><a href="#电压：" class="headerlink" title="电压："></a>电压：</h2><ul>
+<li>电压：就是电势能</li>
+</ul>
+<h2 id="逻辑电路："><a href="#逻辑电路：" class="headerlink" title="逻辑电路："></a>逻辑电路：</h2><ol>
+<li><p>**串联：**串联分压</p>
+</li>
+<li><p>**并联：**并联分流</p>
+</li>
+<li><p>**与门：**只有输入都是高电压，输出才是高电压</p>
+</li>
+<li><p>**或门：**输入只要有一个高电压，输出就是高电压</p>
+</li>
+<li><p>**非门：**输入高电压，输出低电压。输入低电压，输出高电压</p>
+</li>
+<li><p>**异或门：**输入的信号相同，输出低电压，如果不同，输出高电压</p>
+</li>
+<li><p>**上拉电阻：**将一个未知的或浮空的信号线通过一个电阻连接到高电平（通常是VCC）</p>
+<ol>
+<li>**作用：**确保信号线的默认状态为高电平</li>
+</ol>
+</li>
+<li><p>**下拉电阻：**将一个未知的或浮空的信号线通过一个电阻连接到低电平（通常是GND）</p>
+<ol>
+<li>**作用：**确保信号线的默认状态为低电平</li>
+</ol>
+</li>
+<li><p>**上升沿锁存器：**是一种时序逻辑电路，它在时钟信号的上升沿（从低电平到高电平的跳变时刻）对输入数据进行采样并锁存。也就是说，当时钟信号从低电平变为高电平时，锁存器会捕获输入信号并将其保存到输出端。</p>
+<ol>
+<li><strong>工作原理：</strong><ol>
+<li>在时钟信号的上升沿之前，锁存器的输出保持上一个状态不变。</li>
+<li>当时钟信号出现上升沿时，锁存器会立即捕获输入信号的状态，并将其锁存到输出端。</li>
+<li>在上升沿之后，即使输入信号发生变化，锁存器的输出也会保持不变，直到下一个时钟上升沿到来。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>**下降沿锁存器：**是一种时序逻辑电路，它在时钟信号的下降沿（从高电平到低电平的跳变时刻）对输入数据进行采样并锁存。也就是说，当时钟信号从高电平变为低电平时，锁存器会捕获输入信号并将其保存到输出端。</p>
+<ol>
+<li><strong>工作原理：</strong><ol>
+<li>与上升沿锁存器类似，下降沿锁存器在时钟信号的下降沿之前保持输出不变。</li>
+<li>当时钟信号出现下降沿时，锁存器会捕获输入信号的状态，并将其锁存到输出端。</li>
+<li>在下降沿之后，锁存器的输出保持不变，直到下一个时钟下降沿到来。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E6%B5%81%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">电流：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E5%8E%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">电压：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">逻辑电路：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&text=数电模电-电路原理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&is_video=false&description=数电模电-电路原理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数电模电-电路原理&body=Check out this article: http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&title=数电模电-电路原理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&name=数电模电-电路原理&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/&t=数电模电-电路原理"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
