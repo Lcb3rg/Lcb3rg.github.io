@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="用户与组管理： 用户概述  每个用户登录系统后，拥有不同的操作权限 每个账户有自己唯一的SID（安全标识符） Windows系统管理员administrator的UID是500，普通用户的UID是1000开始 不同的账户拥有不同的权限，为不同的账户赋权限，也就是为不同账户的SID赋权限 查看SID值：whoami &#x2F;user 账户密码存储位置：c:\windows\system32\co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络-网络技术 2">
+<meta property="og:url" content="http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="用户与组管理： 用户概述  每个用户登录系统后，拥有不同的操作权限 每个账户有自己唯一的SID（安全标识符） Windows系统管理员administrator的UID是500，普通用户的UID是1000开始 不同的账户拥有不同的权限，为不同的账户赋权限，也就是为不同账户的SID赋权限 查看SID值：whoami &#x2F;user 账户密码存储位置：c:\windows\system32\co">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%901.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%902.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%AE%9A%E4%BD%8D%E5%85%B1%E4%BA%AB.png">
+<meta property="article:published_time" content="2024-01-04T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-18T13:09:10.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%901.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机网络-网络技术 2</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/01/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF3/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&text=计算机网络-网络技术 2"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&is_video=false&description=计算机网络-网络技术 2"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机网络-网络技术 2&body=Check out this article: http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&name=计算机网络-网络技术 2&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&t=计算机网络-网络技术 2"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">用户与组管理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">服务器远程管理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">NTFS安全权限：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9A%EF%BC%88cifs%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">文件共享服务器：（cifs）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机网络-网络技术 2
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-01-04T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-01-04</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="用户与组管理："><a href="#用户与组管理：" class="headerlink" title="用户与组管理："></a>用户与组管理：</h2><ol>
+<li><p>用户概述</p>
+<ol>
+<li>每个用户登录系统后，拥有不同的操作权限</li>
+<li>每个账户有自己唯一的SID（安全标识符）</li>
+<li>Windows系统管理员administrator的UID是500，普通用户的UID是1000开始</li>
+<li>不同的账户拥有不同的权限，为不同的账户赋权限，也就是为不同账户的SID赋权限</li>
+<li>查看SID值：whoami &#x2F;user</li>
+<li>账户密码存储位置：c:\windows\system32\config\SAM #暴力破解#撞库</li>
+<li>Windows系统上，默认密码最长有效期42天</li>
+</ol>
+</li>
+<li><p>内置账户</p>
+<ol>
+<li>给人使用的账户：<ul>
+<li>administrator #管理员账户</li>
+<li>guest #来宾账户</li>
+</ul>
+</li>
+<li>计算机服务组件相关的系统账户：<ul>
+<li>system #系统账户&#x3D;&#x3D;权限至高无上</li>
+<li>local services #本地服务账户&#x3D;&#x3D;权限等于普通用户</li>
+<li>network services #网络服务账户&#x3D;&#x3D;权限等于普通用户</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>配置文件</p>
+<ol>
+<li>每个用户都有自己的配置文件（家目录），在用户第一次登录时自动产生</li>
+<li>路径是：win7&#x2F;win2008–&gt;c:\用户\<ul>
+<li>xp&#x2F;win2003–&gt;c:\Documents and Settings\</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>用户管理命令</p>
+<ol>
+<li>net user #查看用户列表</li>
+<li>net user 用户名 密码 #改密码</li>
+<li>net user 用户名 密码 &#x2F;add #创建一个新用户</li>
+<li>net user 用户名 &#x2F;del #删除一个用户</li>
+<li>net user 用户名 &#x2F;active:yes&#x2F;no #激活或禁用账户</li>
+</ol>
+</li>
+<li><p>组概述</p>
+<ol>
+<li>组的作用：简化权限的赋予</li>
+<li>赋权限的方式：<ul>
+<li>用户–组–赋权限</li>
+<li>用户–赋权限</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>内置组</p>
+<ol>
+<li>内置组的权限默认已经被系统赋予</li>
+<li>administrators #管理员组</li>
+<li>guests #来宾组</li>
+<li>users #普通用户组，默认新建用户都属于该组</li>
+<li>network #网络配置组</li>
+<li>print #打印机组</li>
+<li>Remote Desktop #远程桌面组</li>
+</ol>
+</li>
+<li><p>组管理命令</p>
+<ol>
+<li>net localgroup #查看组列表</li>
+<li>net localgroup 组名 #查看该组的成员</li>
+<li>net localgroup 组名 &#x2F;add #创建一个新的组</li>
+<li>net localgroup 组名 用户名 &#x2F;add #添加用户到组</li>
+<li>net localgroup 组名 用户名 &#x2F;del #从组中踢除用户</li>
+<li>net localgroup 组名 &#x2F;del #删除组</li>
+</ol>
+</li>
+</ol>
+<h2 id="服务器远程管理："><a href="#服务器远程管理：" class="headerlink" title="服务器远程管理："></a>服务器远程管理：</h2><ol>
+<li><p>netstat -an #查看本机开放的所有端口</p>
+<ul>
+<li>telnet(远程登录)：23</li>
+<li>远程桌面协议（RDP）：3389</li>
+<li>文件传输：445</li>
+</ul>
+</li>
+<li><p>远程管理类型</p>
+<ul>
+<li>远程桌面（图形）</li>
+<li>telnet（命令行）</li>
+</ul>
+</li>
+</ol>
+<h2 id="NTFS安全权限："><a href="#NTFS安全权限：" class="headerlink" title="NTFS安全权限："></a>NTFS安全权限：</h2><ol>
+<li><p>NTFS权限概述</p>
+<ol>
+<li>通过设置NTFS权限，实现不同的用户访问不同的权限（针对文件&#x2F;文件夹）</li>
+<li>分配了正确的访问权限后，用户才能访问其资源</li>
+<li>设置权限防止资源被篡改、删除</li>
+</ol>
+</li>
+<li><p>文件系统概述</p>
+<ol>
+<li>文件系统即在外部存储设备上组织文件的方法</li>
+<li>常见的文件系统：<ul>
+<li>FAT Windows</li>
+<li>NTFS Windows</li>
+<li>EXT Linux常见</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>NTFS文件系统特点</p>
+<ol>
+<li>提高磁盘读写性能</li>
+<li>可靠性<ul>
+<li>加密文件系统</li>
+<li>访问控制列表（设置权限）（ACL）</li>
+</ul>
+</li>
+<li>磁盘利用率<ul>
+<li>压缩</li>
+<li>磁盘配额</li>
+</ul>
+</li>
+<li>支持单个文件大于4个G</li>
+</ol>
+</li>
+<li><p>修改NTFS权限</p>
+<ol>
+<li><p>取消权限继承</p>
+<ul>
+<li>作用：取消后，可以任意修改权限列表</li>
+<li>方法：文件夹右键属性—安全—高级—去掉第一个对号—选择复制即可</li>
+</ul>
+</li>
+<li><p>文件及文件夹权限</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%901.png" alt="文件权限1"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%902.png" alt="文件权限2"></p>
+</li>
+<li><p>权限累加</p>
+<ul>
+<li>当用户同时属于多个组时，权限是累加的</li>
+</ul>
+</li>
+<li><p>拒绝最大</p>
+<ul>
+<li>当用户权限累加时，如遇到拒绝权限，拒绝最大</li>
+</ul>
+</li>
+<li><p>取得所有权</p>
+<ul>
+<li>默认只有administrator有这个权限</li>
+<li>作用：可以将任何文件夹的所有者改为administrator</li>
+</ul>
+</li>
+<li><p>强制继承</p>
+<ul>
+<li>作用：对下强制继承父子关系</li>
+<li>方法：文件夹右键属性–安全–高级–勾上第二个对号，即可</li>
+</ul>
+</li>
+<li><p>文件复制对权限的影响</p>
+<ul>
+<li>文件复制后，文件的权限会被目标文件夹的权限覆盖</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="文件共享服务器：（cifs）"><a href="#文件共享服务器：（cifs）" class="headerlink" title="文件共享服务器：（cifs）"></a>文件共享服务器：（cifs）</h2><ol>
+<li><p>共享服务器概述</p>
+<ol>
+<li>通过网络提供文件共享服务，提供文件下载和上传</li>
+</ol>
+</li>
+<li><p>创建共享</p>
+<ol>
+<li>方法：文件夹右键属性–共享–开启共享–设置共享名–设置共享权限</li>
+<li>注意：<ul>
+<li>在本地登录时，只受NTFS权限影响</li>
+<li>在远程登录时，将受共享和NTFS权限的共同影响，且去交集</li>
+<li>所以建议设置共享权限为everyone完全控制，然后具体的权限需求在NTFS权限中设置即可</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>访问共享</p>
+<ol>
+<li>在开始运行或我的电脑地址栏中，输入UNC地址：</li>
+<li>\文件共享服务器IP</li>
+<li>\文件共享服务器IP\共享名</li>
+</ol>
+</li>
+<li><p>创建隐藏的共享</p>
+<ol>
+<li>方法：共享名$</li>
+</ol>
+</li>
+<li><p>访问隐藏共享的方法</p>
+<ol>
+<li>\服务器IP\共享名$</li>
+</ol>
+</li>
+<li><p>共享相关命令</p>
+<ol>
+<li>net share #列出共享列表</li>
+<li>net share 共享名 &#x2F;del #删除共享</li>
+<li>whoami #显示当前用户的名字</li>
+<li>whoami &#x2F;user #显示当前用户信息</li>
+</ol>
+</li>
+<li><p>屏蔽系统隐藏共享自动产生</p>
+<ol>
+<li><p>打开注册表</p>
+<ol>
+<li>打开注册表编译器：regedit</li>
+</ol>
+</li>
+<li><p>定位共享注册表位置</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%AE%9A%E4%BD%8D%E5%85%B1%E4%BA%AB.png" alt="定位共享"></p>
+</li>
+</ol>
+</li>
+<li><p>查看本地网络连接状态</p>
+<ol>
+<li>netstat -an</li>
+</ol>
+</li>
+<li><p>关闭445服务</p>
+<ol>
+<li>445端口是文件传输端口–&gt;SMB（网络通信协议）</li>
+<li>方法1：cmd–&gt;services.msc，并停止及禁用server服务</li>
+<li>方法2：禁止被访问445，配置高级安全防火墙–&gt;入站规则</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">用户与组管理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E7%AE%A1%E7%90%86%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">服务器远程管理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NTFS%E5%AE%89%E5%85%A8%E6%9D%83%E9%99%90%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">NTFS安全权限：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9A%EF%BC%88cifs%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">文件共享服务器：（cifs）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&text=计算机网络-网络技术 2"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&is_video=false&description=计算机网络-网络技术 2"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机网络-网络技术 2&body=Check out this article: http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&title=计算机网络-网络技术 2"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&name=计算机网络-网络技术 2&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/01/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF2/&t=计算机网络-网络技术 2"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
