@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="数据网络基础概念介绍： 什么是数据网络： 数据网络的主要作用是：实现各个业务部件的相互通信   什么是网络工程： 根据客户需求及环境因素，为客户的网络进行规划、设计、实施、调试、排错、培训等进行的一系列工作   数据通讯的基本条件： 物理条件：具有传输介质，既有发送与接收数据硬件设备 传输介质：网线、光纤线、无线信号 网卡设备： 将数据信息（二进制信息）可以转换为电信号&#x2F;光信号&amp;#x2F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络-基础介绍 1">
+<meta property="og:url" content="http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="数据网络基础概念介绍： 什么是数据网络： 数据网络的主要作用是：实现各个业务部件的相互通信   什么是网络工程： 根据客户需求及环境因素，为客户的网络进行规划、设计、实施、调试、排错、培训等进行的一系列工作   数据通讯的基本条件： 物理条件：具有传输介质，既有发送与接收数据硬件设备 传输介质：网线、光纤线、无线信号 网卡设备： 将数据信息（二进制信息）可以转换为电信号&#x2F;光信号&amp;#x2F">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%95%B0%E6%8D%AE%E5%8C%85.png">
+<meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-18T12:45:48.436Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机网络-基础介绍 1</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/01/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D2/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&text=计算机网络-基础介绍 1"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&is_video=false&description=计算机网络-基础介绍 1"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机网络-基础介绍 1&body=Check out this article: http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&name=计算机网络-基础介绍 1&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&t=计算机网络-基础介绍 1"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">数据网络基础概念介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%80%9A%E8%AE%AF%E7%BD%91%E7%BB%9C%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">数据通讯网络原理介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D%EF%BC%9A%EF%BC%88OSI%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">网络层次模型概念介绍：（OSI）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B%E5%90%84%E5%B1%82%E6%AC%A1%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">网络层次模型各层次作用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B%E9%80%9A%E8%AE%AF%E5%8E%9F%E7%90%86%EF%BC%9A%EF%BC%88%E6%95%B0%E6%8D%AE%E5%8C%85%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">网络层次模型通讯原理：（数据包）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机网络-基础介绍 1
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-01-01T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-01-01</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="数据网络基础概念介绍："><a href="#数据网络基础概念介绍：" class="headerlink" title="数据网络基础概念介绍："></a>数据网络基础概念介绍：</h2><ol>
+<li>什么是数据网络：<ul>
+<li>数据网络的主要作用是：实现各个业务部件的相互通信</li>
+</ul>
+</li>
+<li>什么是网络工程：<ul>
+<li>根据客户需求及环境因素，为客户的网络进行规划、设计、实施、调试、排错、培训等进行的一系列工作</li>
+</ul>
+</li>
+<li>数据通讯的基本条件：<ol>
+<li>物理条件：具有传输介质，既有发送与接收数据硬件设备<ol>
+<li>传输介质：网线、光纤线、无线信号</li>
+<li>网卡设备：<ul>
+<li>将数据信息（二进制信息）可以转换为电信号&#x2F;光信号&#x2F;电波–&gt;发送</li>
+<li>将电信号&#x2F;光信号&#x2F;电波可以转换为数据信息（二进制信息）–&gt;接收</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>逻辑条件：需要构建数据包，以及数据传输的协议标准<ol>
+<li>构建数据包：规则方式–基于OSI 7层模型</li>
+<li>协议指定：遵循什么方式传递数据 – 通讯协议 – HTTP – HTML语言</li>
+<li>协商过程：传输数据速率是多少（100Mbps—每秒传输或接收）</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="数据通讯网络原理介绍："><a href="#数据通讯网络原理介绍：" class="headerlink" title="数据通讯网络原理介绍："></a>数据通讯网络原理介绍：</h2><ol>
+<li>数据通讯硬件设备介绍：<ol>
+<li>需要地址表示：mac 和 ip</li>
+<li>集成器：<ul>
+<li>所有接口都处于一个冲突域当中，无法解决冲突（几乎已淘汰）</li>
+</ul>
+</li>
+<li>交换机：<ul>
+<li>能解决数据传递冲突，因为交换机上每一个接口都表示一个独立冲突区域，无法解决数据广播对系统应能影响 – 广播风暴</li>
+</ul>
+</li>
+<li>路由器：<ul>
+<li>可以隔离广播包传递，从而可以解决广播风暴，并且可以实现不同局域网之间通讯，实现通讯需要借助IP地址（网络标识+主机标识）配合路由实现数据传递通讯</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>网络拓扑结构介绍：<ol>
+<li>核心层：（路由器&#x2F;防火墙）<ul>
+<li>核心层的功能主要是实现骨干网络之间的优化传输，骨干层设计任务的重点通常是冗余能力，可靠性和高速的传输</li>
+</ul>
+</li>
+<li>汇聚层：（三层交换机–接口数量多 性能多 路由功能）<ul>
+<li>可以实现数据汇总，对汇总数据进行管理控制</li>
+</ul>
+</li>
+<li>接入层：（PC设备 计算机）<ul>
+<li>可以实现直接和终端设备连接&#x2F;安全配置</li>
+</ul>
+</li>
+<li>网络大致规划为三个类型：<ul>
+<li>局域网：<ul>
+<li>本地私有的一个网络范围，如果是一个规模比较大的局域网，也会成为一个园区网</li>
+</ul>
+</li>
+<li>城域网：<ul>
+<li>如果一个网络的覆盖面积达到了一个城市，就可以成为城域网</li>
+</ul>
+</li>
+<li>广域网：<ul>
+<li>如果覆盖面积达到了全国或者全球，就称为广域网，全球最大的广域网就是Internet互联网</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="网络层次模型概念介绍：（OSI）"><a href="#网络层次模型概念介绍：（OSI）" class="headerlink" title="网络层次模型概念介绍：（OSI）"></a>网络层次模型概念介绍：（OSI）</h2><ol>
+<li><p>OSI层次模型的概念：</p>
+<ul>
+<li>open system interconnect开放系统互联参考模型，是由ISO（国际标准化组织）定义的，是个灵活的、稳健的、可互操作的模型</li>
+</ul>
+</li>
+<li><p>OSI层次模型的作用：</p>
+<ul>
+<li>规范不同系统的互联标准，使两个不同的系统能够较容易的通信，而不需要改变底层的硬件或软件的逻辑</li>
+</ul>
+</li>
+<li><p>OSI层次模型的组成：</p>
+<ol>
+<li>OSI把网络按照层次分为7层，由下而上分别为：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。</li>
+<li>每个层次对应了相应的标准或者协议</li>
+</ol>
+</li>
+<li><p>OSI与TCP&#x2F;IP模型对照：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI.png" alt="OSI"></p>
+</li>
+</ol>
+<h2 id="网络层次模型各层次作用："><a href="#网络层次模型各层次作用：" class="headerlink" title="网络层次模型各层次作用："></a>网络层次模型各层次作用：</h2><ol>
+<li><p>应用层介绍说明：</p>
+<p>制定软件开发接口标准，使各种软件能够控制网络服务实现通讯</p>
+</li>
+<li><p>表示层介绍说明：</p>
+<p>制定编码，加解密，压缩数据标准</p>
+</li>
+<li><p>会话层介绍说明：</p>
+<p> 控制主机与主机是否建立会话或者断开会话</p>
+</li>
+<li><p>传输层介绍说明：</p>
+<ol>
+<li>可以保证数据传输可靠性-TCP</li>
+<li>保证数据传输效率-UDP</li>
+</ol>
+</li>
+<li><p>网络层介绍说明：</p>
+<p>可以实现不同网络之间数据相互传递数据（路由协议–&gt;静态&#x2F;动态）</p>
+</li>
+<li><p>数据链路层介绍说明：</p>
+<p> 可以实现在一个网络内部主机之间数据传递</p>
+</li>
+<li><p>物理层介绍说明：</p>
+<p> 统一一些硬件设备制作工艺标准（网线等）</p>
+</li>
+</ol>
+<h2 id="网络层次模型通讯原理：（数据包）"><a href="#网络层次模型通讯原理：（数据包）" class="headerlink" title="网络层次模型通讯原理：（数据包）"></a>网络层次模型通讯原理：（数据包）</h2><p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%95%B0%E6%8D%AE%E5%8C%85.png" alt="数据包"></p>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">数据网络基础概念介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%80%9A%E8%AE%AF%E7%BD%91%E7%BB%9C%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">数据通讯网络原理介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D%EF%BC%9A%EF%BC%88OSI%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">网络层次模型概念介绍：（OSI）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B%E5%90%84%E5%B1%82%E6%AC%A1%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">网络层次模型各层次作用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B%E9%80%9A%E8%AE%AF%E5%8E%9F%E7%90%86%EF%BC%9A%EF%BC%88%E6%95%B0%E6%8D%AE%E5%8C%85%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">网络层次模型通讯原理：（数据包）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&text=计算机网络-基础介绍 1"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&is_video=false&description=计算机网络-基础介绍 1"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机网络-基础介绍 1&body=Check out this article: http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&title=计算机网络-基础介绍 1"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&name=计算机网络-基础介绍 1&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/01/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D1/&t=计算机网络-基础介绍 1"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

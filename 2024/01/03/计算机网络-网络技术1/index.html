@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="TCP&#x2F;IP体系结构（IP和端口）： 什么是IP地址：  IP地址是电子设备（计算机）在互联网上的唯一标识，用来在互联网中寻找电脑 内网（局域网）IP：路由以内的网络，可以连接互联网，但是互联网无法直接连接内网（需要端口映射） 公网（互联网）IP：顾名思义，互联网IP地址，可以直接和互联网资源互通，不需要端口映射，日常应用如摄像头远程监控、电脑远程开机、主机游戏互联、NAS 总结：IP地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络-基础介绍 2">
+<meta property="og:url" content="http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="TCP&#x2F;IP体系结构（IP和端口）： 什么是IP地址：  IP地址是电子设备（计算机）在互联网上的唯一标识，用来在互联网中寻找电脑 内网（局域网）IP：路由以内的网络，可以连接互联网，但是互联网无法直接连接内网（需要端口映射） 公网（互联网）IP：顾名思义，互联网IP地址，可以直接和互联网资源互通，不需要端口映射，日常应用如摄像头远程监控、电脑远程开机、主机游戏互联、NAS 总结：IP地">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%821.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%822.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%823.png">
+<meta property="og:image" content="http://example.com/2024/01/03/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%824.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%93%8D%E5%BA%941.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%93%8D%E5%BA%942.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%93%8D%E5%BA%943.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/dev1.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/dev2.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/echo.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%A7%BB%E5%8A%A8.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%85%B3%E6%9C%BA.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E9%9A%90%E8%97%8F.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%85%B3%E9%97%AD%E6%8F%90%E7%A4%BA.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%BE%93%E5%85%A5.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%A0%87%E7%AD%BE1.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%A0%87%E7%AD%BE2.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%A0%87%E7%AD%BE3.png">
+<meta property="article:published_time" content="2024-01-03T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-18T12:54:16.130Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%821.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机网络-基础介绍 2</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/01/08/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/01/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D2/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&text=计算机网络-基础介绍 2"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&is_video=false&description=计算机网络-基础介绍 2"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机网络-基础介绍 2&body=Check out this article: http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&name=计算机网络-基础介绍 2&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&t=计算机网络-基础介绍 2"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%88IP%E5%92%8C%E7%AB%AF%E5%8F%A3%EF%BC%89%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">TCP&#x2F;IP体系结构（IP和端口）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">网络测试命令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E7%BC%96%E5%86%99%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">批处理编写：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机网络-基础介绍 2
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-01-03T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-01-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="TCP-IP体系结构（IP和端口）："><a href="#TCP-IP体系结构（IP和端口）：" class="headerlink" title="TCP&#x2F;IP体系结构（IP和端口）："></a>TCP&#x2F;IP体系结构（IP和端口）：</h2><ol>
+<li><p>什么是IP地址：</p>
+<ol>
+<li>IP地址是电子设备（计算机）在互联网上的唯一标识，用来在互联网中寻找电脑</li>
+<li>内网（局域网）IP：路由以内的网络，可以连接互联网，但是互联网无法直接连接内网（需要端口映射）</li>
+<li>公网（互联网）IP：顾名思义，互联网IP地址，可以直接和互联网资源互通，不需要端口映射，日常应用如摄像头远程监控、电脑远程开机、主机游戏互联、NAS</li>
+<li>总结：IP地址就像家庭地址一样，公网IP是小区地址，小区中又有很多住户，内网IP就是自己家具体的门牌号，自己可以从小区出去（内网IP能连接互联网），但是外人进入自己家需要通过门岗验证（公网IP无法直接连接内网IP）</li>
+</ol>
+</li>
+<li><p>什么是端口：</p>
+<ol>
+<li>端口是应用程序（服务）在计算机中的唯一标识</li>
+<li>端口是英文port的意译，可以认为是设备与外界通讯交流的出口</li>
+<li>端口可分为虚拟端口和物理端口，其中虚拟端口指计算机内部或交换机路由器内的端口，不可见（一般说的虚拟端口也称逻辑端口）</li>
+<li>和IP地址不能分开</li>
+</ol>
+</li>
+<li><p>HTTP超文本传输协议：</p>
+<ol>
+<li><p>HTTP协议特点：</p>
+<ol>
+<li>基于tcp&#x2F;ip协议</li>
+<li>默认端口号为80</li>
+<li>请求和响应一一对应</li>
+<li>每次请求相互独立，是无状态协议</li>
+</ol>
+</li>
+<li><p>HTTP有八种请求方式，常用的是get、post</p>
+</li>
+<li><p>get请求：请求参数在uri地址中，uri有长度限制</p>
+</li>
+<li><p>post请求：请求参数在请求体中，无大小限制</p>
+</li>
+<li><p>get和post的区别：</p>
+<ol>
+<li>get参数在uri地址中，post参数在请求体中，get请求大小受限制</li>
+<li>get字符型，post字节型</li>
+</ol>
+</li>
+<li><p>请求消息：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%821.png" alt="请求1"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%822.png" alt="请求2"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%823.png" alt="请求3"></p>
+<img src="../images/计算机网络/请求4.png" alt="请求4" style="zoom:80%;">
+</li>
+<li><p>响应消息：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%93%8D%E5%BA%941.png" alt="响应1"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%93%8D%E5%BA%942.png" alt="响应2"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%93%8D%E5%BA%943.png" alt="响应3"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="网络测试命令："><a href="#网络测试命令：" class="headerlink" title="网络测试命令："></a>网络测试命令：</h2><ul>
+<li><p>如何查看IP地址</p>
+<ol>
+<li>ipconfig #查看IP地址基本信息</li>
+<li>ipconfig &#x2F;all #查看IP地址详细地址</li>
+<li>ipconfig &#x2F;flushdns #清空本机DNS缓存</li>
+<li>ipconfig &#x2F;displaydns #查看DNS缓存记录</li>
+<li>ipconfig &#x2F;release #释放本机IP地址</li>
+<li>ipconfig &#x2F;renew #重新获取IP地址（续约）</li>
+</ol>
+</li>
+<li><p>测试网络连接性</p>
+<ol>
+<li>ping 目标IP地址  #测试网络连通性，有去有回即为可以成功通信</li>
+<li>ping -t 目标IP地址 #一直ping</li>
+<li>ping -n 数字 目标IP地址 #修改ping包的数量</li>
+<li>ping -l 数字 目标IP地址 #修改ping包的大小</li>
+<li>注：如果ping不通，可能对方不在线，或者对方开着防火墙</li>
+</ol>
+</li>
+<li><p>手工解析域名</p>
+<ul>
+<li>nslookup 域名 #手工解析域名的IP地址</li>
+</ul>
+</li>
+<li><p>文件操作命令</p>
+<ol>
+<li><p>删除文件</p>
+<ul>
+<li><p>格式：del 文件名.扩展名</p>
+</li>
+<li><p>del *.txt #删除所有txt类型的文件</p>
+</li>
+<li><p>del **.* #删除所有文件（有提示）*</p>
+</li>
+<li><p>del <strong>.</strong>  &#x2F;s&#x2F;q #无提示删除所有文件</p>
+</li>
+<li><p>注释：*为通配符，代表任意字符，任意长度</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/dev1.png" alt="dev1"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/dev2.png" alt="dev2"></p>
+</li>
+</ul>
+</li>
+<li><p>浏览文件内容</p>
+<ul>
+<li>type 文件名.扩展名 （全部显示）</li>
+<li>| more（分页显示）</li>
+<li>type 文件名.扩展名 | more（按空格下一页）</li>
+</ul>
+</li>
+<li><p>输出信息</p>
+<ul>
+<li><p>echo 字符串（表示在屏幕上输出字符串）</p>
+</li>
+<li><p>格式：echo 字符串 &gt;&gt; 路径（表示把字符串输入到文件里面）</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/echo.png" alt="echo"></p>
+</li>
+<li><p>copy con 文件名.扩展名</p>
+<ul>
+<li>开始编写内容</li>
+<li>Ctrl键+Z回车结束</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>复制和移动</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%A7%BB%E5%8A%A8.png" alt="移动"></p>
+</li>
+<li><p>定时关机或重启</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%85%B3%E6%9C%BA.png" alt="关机"></p>
+</li>
+<li><p>隐藏命令</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E9%9A%90%E8%97%8F.png" alt="隐藏"></p>
+</li>
+<li><p>快速生成一个空文件</p>
+<ul>
+<li>fsutil file createnew c:\windows\system.ini 409600</li>
+<li>表示生成一个文件system.ini大小为409600</li>
+</ul>
+</li>
+<li><p>修改关联</p>
+<ul>
+<li>assoc .txt&#x3D;exefile</li>
+<li>表示把.txt类型文件修改为程序文件</li>
+<li>assoc .txt&#x3D;mp3file</li>
+<li>表示把.txt类型文件修改为mp3类型文件</li>
+</ul>
+</li>
+<li><p>修改名字</p>
+<ul>
+<li>ren 旧名 新名</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="批处理编写："><a href="#批处理编写：" class="headerlink" title="批处理编写："></a>批处理编写：</h2><ol>
+<li><p>作用：自上而下成批的处理每一条命令，直到执行最后一条</p>
+</li>
+<li><p>创建批处理</p>
+<ul>
+<li><p>扩展名：.bat</p>
+</li>
+<li><p>创建方法：新建一个记事本文件，然后将扩展名改成.bat</p>
+</li>
+<li><p>添加标题</p>
+<ul>
+<li>tiele 标题名</li>
+<li>作用：为批处理脚本设置标题</li>
+</ul>
+</li>
+<li><p>暂停</p>
+<ul>
+<li>pause(后面有命令也不再执行)</li>
+<li>作用：暂停批处理运行</li>
+</ul>
+</li>
+<li><p>关闭回显</p>
+<ul>
+<li>@echo off（表示只显示运行的结果）</li>
+<li>作用：关闭回显功能，也就是屏蔽过程，建议放置在批处理的首行</li>
+</ul>
+</li>
+<li><p>修改颜色</p>
+<ul>
+<li>color 0a（0a就是对应的颜色）</li>
+</ul>
+</li>
+<li><p>空行</p>
+<ul>
+<li>echo .（空一行）</li>
+<li>作用：在执行批处理脚本时，可以空一行</li>
+</ul>
+</li>
+<li><p>关闭提示</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%85%B3%E9%97%AD%E6%8F%90%E7%A4%BA.png" alt="关闭提示"></p>
+</li>
+<li><p>开启（打开）</p>
+<ul>
+<li>start（后面什么都不写，表示打开cmd）</li>
+<li>start <a target="_blank" rel="noopener" href="http://www.baidu.com(打开百度这个网页)/">www.baidu.com（打开百度这个网页）</a></li>
+<li>还可以打开某个程序或文件，后面跟路径</li>
+</ul>
+</li>
+<li><p>输入（复制）</p>
+<ul>
+<li><p>set 参数 变量</p>
+</li>
+<li><p>作用：设置变量，常用在脚本中的互动赋值</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%BE%93%E5%85%A5.png" alt="输入"></p>
+</li>
+</ul>
+</li>
+<li><p>标签和跳转</p>
+<ul>
+<li>：5 （定义标签&#x2F;模块名5）</li>
+<li>goto 5（实现跳转到模块5）</li>
+</ul>
+</li>
+<li><p>例子</p>
+<ul>
+<li><p>第一行代码表示把qq.bat这个程序放到电脑启动文件夹下，电脑只要一开机就会执行</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%A0%87%E7%AD%BE1.png" alt="标签1"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%A0%87%E7%AD%BE2.png" alt="标签2"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%A0%87%E7%AD%BE3.png" alt="标签3"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%88IP%E5%92%8C%E7%AB%AF%E5%8F%A3%EF%BC%89%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">TCP&#x2F;IP体系结构（IP和端口）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">网络测试命令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E7%BC%96%E5%86%99%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">批处理编写：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&text=计算机网络-基础介绍 2"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&is_video=false&description=计算机网络-基础介绍 2"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机网络-基础介绍 2&body=Check out this article: http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&title=计算机网络-基础介绍 2"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&name=计算机网络-基础介绍 2&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF1/&t=计算机网络-基础介绍 2"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
