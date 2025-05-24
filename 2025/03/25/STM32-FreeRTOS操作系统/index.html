@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="一句话记住 FreeRTOS：”让单片机能像电脑一样同时做多件事，而且不乱套！” FreeRTOS（Free Real-Time Operating System）是一款免费的、开源的实时操作系统（RTOS），专门为嵌入式系统（如STM32、ESP32等单片机）设计。它就像嵌入式设备的”小管家”，负责管理多个任务（Task），让它们有条不紊地运行，避免混乱。 FreeRTOS 的作用： 让多个任务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32-FreeRTOS操作系统">
+<meta property="og:url" content="http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="一句话记住 FreeRTOS：”让单片机能像电脑一样同时做多件事，而且不乱套！” FreeRTOS（Free Real-Time Operating System）是一款免费的、开源的实时操作系统（RTOS），专门为嵌入式系统（如STM32、ESP32等单片机）设计。它就像嵌入式设备的”小管家”，负责管理多个任务（Task），让它们有条不紊地运行，避免混乱。 FreeRTOS 的作用： 让多个任务">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/STM32/FreeRTOS1.png">
+<meta property="og:image" content="http://example.com/images/STM32/FreeRTOS2.png">
+<meta property="og:image" content="http://example.com/images/STM32/FreeRTOS3.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%BF%A1%E5%8F%B7%E9%87%8F1.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%BF%A1%E5%8F%B7%E9%87%8F2.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%BF%A1%E5%8F%B7%E9%87%8F3.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%BF%A1%E5%8F%B7%E9%87%8F4.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%BA%8B%E4%BB%B61.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%BA%8B%E4%BB%B62.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%BA%8B%E4%BB%B63.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%BA%8B%E4%BB%B64.png">
+<meta property="article:published_time" content="2025-03-25T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-24T08:53:32.039Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/STM32/FreeRTOS1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>STM32-FreeRTOS操作系统</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/24/STM32-RS485%E4%B8%8EModBus%E5%8D%8F%E8%AE%AE/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&text=STM32-FreeRTOS操作系统"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&is_video=false&description=STM32-FreeRTOS操作系统"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32-FreeRTOS操作系统&body=Check out this article: http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&name=STM32-FreeRTOS操作系统&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&t=STM32-FreeRTOS操作系统"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">FreeRTOS 的作用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">FreeRTOS 的核心概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">FreeRTOS 任务状态的概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E7%9A%84%E5%8F%98%E5%8C%96-%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">FreeRTOS 任务状态的变化 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E5%B0%B1%E7%BB%AA%E5%88%97%E8%A1%A8%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">FreeRTOS 就绪列表的原理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E7%95%8C%E4%BF%9D%E6%8A%A4%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">临界保护：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">消息队列：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">信号量：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">事件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">10.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        STM32-FreeRTOS操作系统
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-03-25T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-03-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>一句话记住 <strong>FreeRTOS</strong>：”让单片机能像电脑一样同时做多件事，而且不乱套！”</p>
+<p><strong>FreeRTOS</strong>（Free Real-Time Operating System）是一款免费的、开源的实时操作系统（RTOS），专门为嵌入式系统（如STM32、ESP32等单片机）设计。它就像嵌入式设备的”小管家”，负责管理多个任务（Task），让它们有条不紊地运行，避免混乱。</p>
+<h2 id="FreeRTOS-的作用："><a href="#FreeRTOS-的作用：" class="headerlink" title="FreeRTOS 的作用："></a>FreeRTOS 的作用：</h2><ol>
+<li><strong>让多个任务”同时”运行</strong>（实际上是快速切换，看起来像同时运行）</li>
+<li><strong>确保关键任务优先执行</strong>（比如紧急报警比屏幕刷新更重要，也就是优先级）</li>
+<li><strong>避免代码”卡死”</strong>（如果一个任务出问题，其他任务还能继续运行）</li>
+</ol>
+<h2 id="FreeRTOS-的核心概念："><a href="#FreeRTOS-的核心概念：" class="headerlink" title="FreeRTOS 的核心概念："></a>FreeRTOS 的核心概念：</h2><p><img src="/../images/STM32/FreeRTOS1.png" alt="FreeRTOS1"></p>
+<h2 id="FreeRTOS-任务状态的概念："><a href="#FreeRTOS-任务状态的概念：" class="headerlink" title="FreeRTOS 任务状态的概念："></a>FreeRTOS 任务状态的概念：</h2><ol>
+<li><strong>就绪态</strong>（ Ready）：该任务在就绪列表中， 就绪的任务已经具备执行的能力，只等待调度器进行调度，新创建的任务会初始化为就绪态。</li>
+<li><strong>运行态</strong>（Running）：该状态表明任务正在执行， 此时它占用处理器， FreeRTOS 调度器选择运行的永远是处于最高优先级的就绪态任务，当任务被运行的一刻，它的任务状态就变成了运行态。</li>
+<li><strong>阻塞态</strong>（Blocked）： 如果任务当前正在等待某个时序或外部中断，我们就说这个任务处于阻塞状态，该任务不在就绪列表中。包含任务被挂起、 任务被延时、任务正在等待信号量、读写队列或者等待读写事件等。</li>
+<li><strong>挂起态</strong>(Suspended)： 处于挂起态的任务对调度器而言是不可见的， 让一个任务进入挂起状态的唯一办法就是调用vTaskSuspend()函数；而把一个挂起状态的任务恢复的唯一途径就是调用vTaskResume()或vTaskResumeFromISR()函数，我们可以这么理解挂起态与阻塞态的区别，当任务有较长的时间不允许运行的时候，我们可以挂起任务，这样子调度器就不会管这个任务的任何信息，直到我们调用恢复任务的 API 函数；而任务处于阻塞态的时候，系统还需要判断阻塞态的任务是否超时，是否可以解除阻塞。</li>
+</ol>
+<h2 id="FreeRTOS-任务状态的变化-："><a href="#FreeRTOS-任务状态的变化-：" class="headerlink" title="FreeRTOS 任务状态的变化 ："></a>FreeRTOS 任务状态的变化 ：</h2><p><img src="/../images/STM32/FreeRTOS2.png" alt="FreeRTOS2"></p>
+<ul>
+<li><strong>①创建任务→就绪态</strong>（Ready）：任务创建完成后进入就绪态，表明任务已准备就绪，随时可以运行，只等待调度器进行调度。</li>
+<li><strong>②就绪态→运行态</strong>（Running）：发生任务切换时， 就绪列表中最高优先级的任务被执行，从而进入运行态。</li>
+<li><strong>③运行态→就绪态</strong>：有更高优先级任务创建或者恢复后，会发生任务调度， 此刻就绪列表中最高优先级任务变为运行态，那么原先运行的任务由运行态变为就绪态， 依然在就绪列表中，等待最高优先级的任务运行完毕继续运行原来的任务（此处可以看做是 CPU使用权被更高优先级的任务抢占了）。</li>
+<li><strong>④运行态→阻塞态</strong>（ Blocked）：正在运行的任务发生阻塞（挂起、延时、 读信号量等待）时，该任务会从就绪列表中删除，任务状态由运行态变成阻塞态，然后发生任务切换，运行就绪列表中当前最高优先级任务。</li>
+<li><strong>⑤阻塞态→就绪态</strong>：阻塞的任务被恢复后（任务恢复、延时时间超时、读信号量超时或读到信号量等），此时被恢复的任务会被加入就绪列表，从而由阻塞态变成就绪态；如果此时被恢复任务的优先级高于正在运行任务的优先级，则会发生任务切换， 将该任务将再次转换任务状态，由就绪态变成运行态。</li>
+<li><strong>⑥⑦⑧就绪态、阻塞态、运行态→挂起态</strong>（ Suspended）：任务可以通过调用vTaskSuspend() API 函数都可以将处于任何状态的任务挂起，被挂起的任务得不到 CPU的使用权，也不会参与调度，除非它从挂起态中解除。</li>
+<li><strong>⑨挂起态→就绪态</strong>： 把 一 个 挂 起 状态 的 任 务 恢复的 唯 一 途 径 就 是调用 vTaskResume() 或 vTaskResumeFromISR() API 函数，如果此时被恢复任务的优先级高于正在运行任务的优先级，则会发生任务切换，该任务将再次转换任务状态，由就绪态变成运行态。</li>
+</ul>
+<h2 id="FreeRTOS-就绪列表的原理："><a href="#FreeRTOS-就绪列表的原理：" class="headerlink" title="FreeRTOS 就绪列表的原理："></a>FreeRTOS 就绪列表的原理：</h2><ol>
+<li>是一个链表数组， 每个成员都是一条链表，每个节点都是一个任务。</li>
+<li>任务优先级默认为5，最大256</li>
+</ol>
+<h2 id="临界保护："><a href="#临界保护：" class="headerlink" title="临界保护："></a>临界保护：</h2><ol>
+<li>在临界保护区域的代码，不会被其它任务打断，能够确保程序正常执行完成，但是要记着在程序执行完之后，要退出临界保护</li>
+<li>临界保护有四个函数，两种状态：</li>
+</ol>
+<ul>
+<li><strong>任务间的临界保护</strong>：taskENTER_CRITICAL和taskEXIT_CRITICAL，防止<strong>多个任务</strong>同时访问共享资源，通过 <strong>暂时禁止任务调度</strong>（但不关闭中断），确保当前任务独占资源。</li>
+<li><strong>中断间的临界保护</strong>：taskENTER_CRITICAL_FROM_ISR和taskEXIT_CRITICAL_FROM_ISR ，防止 <strong>中断服务程序</strong>（ISR）与任务 或 <strong>不同优先级中断</strong> 同时访问共享资源，通过 <strong>关闭中断</strong> 或 <strong>提升中断屏蔽优先级</strong>，确保当前代码段不被中断打断。</li>
+</ul>
+<h2 id="消息队列："><a href="#消息队列：" class="headerlink" title="消息队列："></a>消息队列：</h2><ol>
+<li><p>队列是任务到任务、任务到中断、中断到任务数据交流的一种机制（消息传递）。任务和ISR（中断服务程序）统称为进程，任务与任务之间，或任务与ISR之间有时需要进行通讯或同步，称为<strong>进程间通信</strong>。</p>
+</li>
+<li><p>特点：</p>
+<p><img src="/../images/STM32/FreeRTOS3.png" alt="FreeRTOS3"></p>
+<ul>
+<li>入队阻塞：队列满了，此时无法继续写入数据</li>
+<li>出队阻塞：队列为空，此时无法读出数据</li>
+<li>入队阻塞解除，有多个任务等待时，哪一个会进入就绪态：<ul>
+<li>优先级最高的任务</li>
+<li>如果优先级相同，那等待时间最久的任务会进入就绪态</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="信号量："><a href="#信号量：" class="headerlink" title="信号量："></a>信号量：</h2><ol>
+<li><p>信号量：是一种解决<strong>同步问题</strong>的机制，可以实现对共享资源的<strong>有序访问</strong></p>
+<p><img src="/../images/STM32/%E4%BF%A1%E5%8F%B7%E9%87%8F1.png" alt="信号量1"></p>
+</li>
+<li><p>按信号量的功能可分为：二值信号量、计数信号量、互斥信号量和递归互斥信号量</p>
+</li>
+<li><p>信号量的特点：</p>
+<p><img src="/../images/STM32/%E4%BF%A1%E5%8F%B7%E9%87%8F2.png" alt="信号量2"></p>
+</li>
+<li><p>各种信号量的简介：</p>
+<ol>
+<li><p>二值信号量： 特殊的队列，队列长度为 1，存在优先级翻转问题（低优先级先运行，高优先级的后运行）</p>
+</li>
+<li><p>计数信号量：基于二值信号量，可以有长度了</p>
+</li>
+<li><p>互斥信号量： 基本上和二值信号量完全一样，只是为了解决二值信号量的优先级翻转问题（优先级继承）</p>
+<p><img src="/../images/STM32/%E4%BF%A1%E5%8F%B7%E9%87%8F3.png" alt="信号量3"></p>
+</li>
+</ol>
+</li>
+<li><p>信号量与队列区别：</p>
+<p><img src="/../images/STM32/%E4%BF%A1%E5%8F%B7%E9%87%8F4.png" alt="信号量4"></p>
+</li>
+</ol>
+<h2 id="事件："><a href="#事件：" class="headerlink" title="事件："></a>事件：</h2><ol>
+<li><p>特点：</p>
+<p><img src="/../images/STM32/%E4%BA%8B%E4%BB%B61.png" alt="事件1"></p>
+</li>
+<li><p>与队列和信号量的对比：</p>
+<p><img src="/../images/STM32/%E4%BA%8B%E4%BB%B62.png" alt="事件2"></p>
+</li>
+<li><p>一个事件组中的所有事件位保存在一个EventBits_t类型的变量里，所以一个事件又称为一个“事件位”</p>
+<p><img src="/../images/STM32/%E4%BA%8B%E4%BB%B63.png" alt="事件3"></p>
+</li>
+<li><p>简介：</p>
+<p><img src="/../images/STM32/%E4%BA%8B%E4%BB%B64.png" alt="事件4"></p>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ul>
+<li>FreeRTOS-<strong>信号量</strong>介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37281984/article/details/136504174?spm=1001.2014.3001.5502">STM32FreeRTOS信号量（STM32cube高效开发）_stm32 信号量-CSDN博客</a></li>
+<li>FreeRTOS-<strong>消息队列</strong>介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37281984/article/details/136472477?spm=1001.2014.3001.5502">STM32FreeRTOS消息队列（STM32Cube高效开发）_stm32队列-CSDN博客</a></li>
+<li>FreeRTOS-<strong>任务通知</strong>介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37281984/article/details/136373906">STM32FreeRTOS任务通知(STM32cube高效开发)_xtaskgenericnotifyfromisr-CSDN博客</a></li>
+<li>FreeRTOS-<strong>事件组</strong>介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37281984/article/details/136417596">STM32FreeRTOS-事件组1（STM32Cube高效开发教程）_undefined symbol xeventgroupcreate-CSDN博客</a></li>
+<li>FreeRTOS-<strong>消息缓冲区和流缓冲区</strong>：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37281984/article/details/136277095">FreeRTOS-消息缓冲区和流缓冲区（STM32Cubemx高效开发教程）_freertos流缓冲区-CSDN博客</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">FreeRTOS 的作用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">FreeRTOS 的核心概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">FreeRTOS 任务状态的概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E7%9A%84%E5%8F%98%E5%8C%96-%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">FreeRTOS 任务状态的变化 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FreeRTOS-%E5%B0%B1%E7%BB%AA%E5%88%97%E8%A1%A8%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">FreeRTOS 就绪列表的原理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E7%95%8C%E4%BF%9D%E6%8A%A4%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">临界保护：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">消息队列：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">信号量：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">事件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">10.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&text=STM32-FreeRTOS操作系统"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&is_video=false&description=STM32-FreeRTOS操作系统"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32-FreeRTOS操作系统&body=Check out this article: http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=STM32-FreeRTOS操作系统"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&name=STM32-FreeRTOS操作系统&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/25/STM32-FreeRTOS%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&t=STM32-FreeRTOS操作系统"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
