@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="编译型语言和解释型语言： 编译：由编译器把整个源代码翻译成机器码，最终生成二进制文件，一次性提交给计算机执行。代表：C、C++ 解释：由解释器将代码逐行解释成机器码，并交给计算机执行。代表：Python、JavaScript  第一个代码解读：1234567#include&lt;iostream&gt; int main()&#123;    std::cout &lt;&lt; &quot;H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ - 介绍">
+<meta property="og:url" content="http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="编译型语言和解释型语言： 编译：由编译器把整个源代码翻译成机器码，最终生成二进制文件，一次性提交给计算机执行。代表：C、C++ 解释：由解释器将代码逐行解释成机器码，并交给计算机执行。代表：Python、JavaScript  第一个代码解读：1234567#include&lt;iostream&gt; int main()&#123;    std::cout &lt;&lt; &quot;H">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/C++/%E5%85%B3%E9%94%AE%E5%AD%971.png">
+<meta property="og:image" content="http://example.com/images/C++/%E5%85%B3%E9%94%AE%E5%AD%972.png">
+<meta property="og:image" content="http://example.com/images/C++/%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6.png">
+<meta property="article:published_time" content="2025-04-01T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-25T14:22:14.535Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/C++/%E5%85%B3%E9%94%AE%E5%AD%971.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>C++ - 介绍</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/04/02/C++-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/26/STM32-W5500/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&text=C++ - 介绍"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&is_video=false&description=C++ - 介绍"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++ - 介绍&body=Check out this article: http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&name=C++ - 介绍&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&t=C++ - 介绍"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%9E%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">编译型语言和解释型语言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BB%A3%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">第一个代码解读：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">注释：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">标识符：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">局部变量和全局变量：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">作用域：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">常量：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">转义字符：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        C++ - 介绍
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-01T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-04-01</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="编译型语言和解释型语言："><a href="#编译型语言和解释型语言：" class="headerlink" title="编译型语言和解释型语言："></a>编译型语言和解释型语言：</h2><ul>
+<li>编译：由编译器把整个源代码翻译成机器码，最终生成二进制文件，一次性提交给计算机执行。代表：C、C++</li>
+<li>解释：由解释器将代码逐行解释成机器码，并交给计算机执行。代表：Python、JavaScript</li>
+</ul>
+<h2 id="第一个代码解读："><a href="#第一个代码解读：" class="headerlink" title="第一个代码解读："></a>第一个代码解读：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello World!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>#include<iostream>：这是一个预处理指令，告诉编译器需要使用一个叫做iostream的库</iostream></li>
+<li>std：是所谓的“命名空间”，为了避免还有别的cout对象重名起冲突</li>
+<li>:: ：是作用域运算符，专门指明了用的cout是标准库std中的</li>
+<li>&lt;&lt;：是一个用来输出的运算符，它的使用规则是：左边需要一个“输出流”的对象，也就是输出到哪里；右边是要输出的内容</li>
+<li>endl：是一个“操作符”，表示结束一行，并把缓冲区的内容都刷到输出设备</li>
+<li>注意：每个语句结束后，都要加“ ；”分号结束</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这句话的意思是使用标准命名空间 std，当加上这句话之后，就不要再写 std::</li>
+</ul>
+<h2 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h2><ul>
+<li>在C++中，有两种注释的表示。一种是单行注释，用双斜线 “&#x2F;&#x2F;”，表示以它开始的当前行是注释内容；另一种是多行注释，使用一对“界定符”（&#x2F;* 和 *&#x2F;）,在它们之间的所有内容都是注释。</li>
+</ul>
+<h2 id="标识符："><a href="#标识符：" class="headerlink" title="标识符："></a>标识符：</h2><ul>
+<li><p>不能使用C++关键字；</p>
+<ul>
+<li><p>所谓的“关键字”，就是C++保留的一些单词，供语言本身的语法使用。包括：</p>
+<p><img src="/../images/C++/%E5%85%B3%E9%94%AE%E5%AD%971.png" alt="关键字1"></p>
+</li>
+<li><p>以及C++中使用的一些运算操作符的替代名：</p>
+<p><img src="/../images/C++/%E5%85%B3%E9%94%AE%E5%AD%972.png" alt="关键字2"></p>
+</li>
+</ul>
+</li>
+<li><p>不能用连续两个下划线开头，也不能以下划线加大写字母开头，这些被C++保留给标准库使用；</p>
+</li>
+<li><p>函数体外的标识符，不能以下划线开头；</p>
+</li>
+<li><p>要尽量有实际意义（不要定义a、b，而要定义name、age）；</p>
+</li>
+<li><p>变量名一般使用小写字母；</p>
+</li>
+<li><p>自定义类名一般以大写字母开头；</p>
+</li>
+<li><p>如果包含多个单词，一般用下划线分隔，或者将后面的单词首字母大写；</p>
+</li>
+</ul>
+<h2 id="局部变量和全局变量："><a href="#局部变量和全局变量：" class="headerlink" title="局部变量和全局变量："></a>局部变量和全局变量：</h2><ol>
+<li>局部变量：<ul>
+<li>在<code>函数体内定义</code>的变量，也称内部变量。局部变量只能在定义它的函数中使用。</li>
+</ul>
+</li>
+<li>全局变量：<ul>
+<li>在<code>函数之外</code>定义的变量称为外部变量，外部变量是<code>全局变量</code>（也称全程变量）。</li>
+<li>一个程序中，凡是在全局变量之后定义的函数，都可以使用在其之前定义的全局变量。</li>
+</ul>
+</li>
+<li>当局部变量和全局变量同名的时候，采用<strong>就近原则</strong></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> global = <span class="number">2023</span>;<span class="comment">//全局变量</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> local = <span class="number">2022</span>;<span class="comment">//局部变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> global = <span class="number">2024</span>;<span class="comment">//局部变量</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;global = %d\n&quot;</span>, global);<span class="comment">//2024</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="作用域："><a href="#作用域：" class="headerlink" title="作用域："></a>作用域：</h2><ul>
+<li>全局变量：在本文件有效，不赋值的情况下，有默认值</li>
+<li>局部变量：只在自己所在的大括号 {} 里面有效，在不赋值的情况下，不会有默认值</li>
+<li>变量只有在其<code>作用域</code>内才有效。出了作用域，变量不可以再被调用。</li>
+<li>同一个作用域内，不能定义重名的变量。</li>
+<li>注意：当变量出现重名，C++遵循就近原则</li>
+</ul>
+<h2 id="常量："><a href="#常量：" class="headerlink" title="常量："></a>常量：</h2><ol>
+<li><p>程序运行时，其值不能改变的量，即为<code>常量</code>。</p>
+</li>
+<li><p>字面常量：</p>
+<ul>
+<li>2、12是整型常量，2.1、12.5、3.14是实型常量，’a’、 ‘b’、’c’是字符型常量</li>
+</ul>
+</li>
+<li><p>#define 定义的标识符常量：</p>
+<ul>
+<li><p>在文件开头用 #define 来定义常量，也叫作“宏定义”。所谓宏定义，<strong>就是用一个标识符来表示一个常量值</strong>，如果在后面的代码中出现了该标识符，那么<code>编译</code>时就全部替换成指定的常量值。即用宏体替换所有宏名，简称<code>宏替换</code>。</p>
+</li>
+<li><p>定义格式：<code>#define 符号常量名 常量值</code></p>
+<ul>
+<li><p>符号常量名，称为<code>宏体</code>，属于标识符，一般定义时用大写字母表示。</p>
+</li>
+<li><p>常量值，称为<code>宏名</code>，可以是数值常量，也可以是字符常量。</p>
+</li>
+<li><p>习惯上，<strong>宏名用大写字母表示</strong>，以便于与变量区别。但也允许用小写字母。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ZERO 0   <span class="comment">//#define的标识符常量</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;zero = %d\n&quot;</span>, ZERO);<span class="comment">//结果输出0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>跟#include一样，“#”开头的语句都是“预处理语句”，在编译之前，预处理器会查找程序中所有的“ZERO”，并把它替换成0，这个过程称为<strong>预编译处理</strong>。</p>
+</li>
+<li><p>然后将预处理的结果和源程序一起再进行通常的编译处理，以得到目标代码 (OBJ文件)。</p>
+</li>
+</ul>
+</li>
+<li><p>使用const限定符：</p>
+<ol>
+<li>这种方式跟定义一个变量是一样的，只需要在变量的数据类型前再加上一个const关键字，这被称为“<strong>限定符</strong>”。</li>
+<li>格式：const 数据类型 常量名 &#x3D;常量值；</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//const 修饰的常变量</span></span><br><span class="line">        <span class="type">const</span> <span class="type">float</span> PI = <span class="number">3.14f</span>;</span><br><span class="line">        <span class="comment">//PI = 5.14;//是不能直接修改的！</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>const修饰的对象一旦创建就不能改变，所以必须初始化。</li>
+<li>跟使用 #define定义宏常量相比，const定义的常量有详细的<strong>数据类型</strong>，而且会在<code>编译</code>阶段进行安全检查，在<strong>运行时</strong>才完成替换，所以会更加安全和方便。</li>
+</ul>
+</li>
+</ol>
+<h2 id="转义字符："><a href="#转义字符：" class="headerlink" title="转义字符："></a>转义字符：</h2><p><img src="/../images/C++/%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6.png" alt="转义字符"></p>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%9E%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">编译型语言和解释型语言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BB%A3%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">第一个代码解读：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">注释：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">标识符：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">局部变量和全局变量：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">作用域：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">常量：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">转义字符：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&text=C++ - 介绍"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&is_video=false&description=C++ - 介绍"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++ - 介绍&body=Check out this article: http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&title=C++ - 介绍"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&name=C++ - 介绍&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/01/C++-%E4%BB%8B%E7%BB%8D/&t=C++ - 介绍"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
