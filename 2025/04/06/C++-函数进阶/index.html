@@ -14,7 +14,7 @@
 <meta property="og:description" content="内联函数： 内联函数是C++为了提高运行速度做的一项优化  定义内联函数，只需要在函数声明或者函数定义前加上inline关键字 12345&#x2F;&#x2F;内联函数inline const string&amp; longerStr(const string&amp; str1, const string&amp; str2)&#123;	return str1.size() &gt; str2.size()">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-06T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-26T14:22:55.104Z">
+<meta property="article:modified_time" content="2025-05-27T01:45:13.819Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
     
@@ -82,6 +82,8 @@
     <br/>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/04/07/C++-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" aria-label="Next post" href="/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -163,10 +165,61 @@
 <li><p>内联仅仅只是给编译器一个建议，编译器不一定会接受这种建议，如果你没有将函数声明为内联函数，那么编译器也可能将此函数做内联编译。一个好的编译器将会内联小的、简单的函数</p>
 </li>
 </ol>
-<h2 id="默认参数："><a href="#默认参数：" class="headerlink" title="默认参数："></a>默认参数：</h2><p>1. </p>
-<h2 id="占位参数："><a href="#占位参数：" class="headerlink" title="占位参数："></a>占位参数：</h2><p>1. </p>
-<h2 id="函数重载："><a href="#函数重载：" class="headerlink" title="函数重载："></a>函数重载：</h2><p>1. </p>
-<h2 id="extern-“C”："><a href="#extern-“C”：" class="headerlink" title="extern “C”："></a>extern “C”：</h2><p>1. </p>
+<h2 id="默认参数："><a href="#默认参数：" class="headerlink" title="默认参数："></a>默认参数：</h2><ol>
+<li><p>c++在声明函数原型的时可为一个或者多个参数指定默认(缺省)的参数值，当函数调用的时候如果没有指定这个值，编译器会自动用默认值代替  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认实参</span></span><br><span class="line"><span class="function">string <span class="title">stuInfo</span><span class="params">(string name = <span class="string">&quot;&quot;</span>, <span class="type">int</span> age = <span class="number">18</span>, <span class="type">double</span> score = <span class="number">60</span>)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	string info = <span class="string">&quot;学生姓名：&quot;</span> + name + <span class="string">&quot;\t年龄：&quot;</span> + </span><br><span class="line">		<span class="built_in">to_string</span>(age) + <span class="string">&quot;\t平均成绩：&quot;</span> + <span class="built_in">to_string</span>(score);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意：一旦某个形参被定义了默认实参，那它后面的所有形参都必须是默认实参。也就是说，所有默认实参的指定，应该在形参列表的末尾。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误，默认实参不在形参列表末尾</span></span><br><span class="line"><span class="comment">//string stuInfo(string name = &quot;&quot;, int age = 18, double score);    </span></span><br><span class="line"><span class="comment">// 正确，可以前面的形参没有默认实参</span></span><br><span class="line"><span class="function">string <span class="title">stuInfo</span><span class="params">(string name, <span class="type">int</span> age = <span class="number">18</span>, <span class="type">double</span> score = <span class="number">60</span>)</span></span>; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以在声明的时候定义实参：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a=<span class="string">&#x27;x&#x27;</span>,<span class="type">int</span> b=<span class="number">66</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line"><span class="built_in">Fun</span>();</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a,<span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a:&quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;b:&quot;</span> &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认实参定义时要优先放到形参列表的尾部；而调用时，只能省略尾部的参数，不能跳过前面的形参给后面传值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; <span class="built_in">stuInfo</span>() &lt;&lt; endl;              <span class="comment">// &quot;&quot;，18, 60.0</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">stuInfo</span>(<span class="string">&quot;张三&quot;</span>) &lt;&lt; endl;         <span class="comment">// &quot;张三&quot;，18, 60.0</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">stuInfo</span>(<span class="string">&quot;李四&quot;</span>, <span class="number">20</span>) &lt;&lt; endl;     <span class="comment">// &quot;李四&quot;，20, 60.0</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">stuInfo</span>(<span class="string">&quot;王五&quot;</span>, <span class="number">22</span>, <span class="number">85.5</span>) &lt;&lt; endl;<span class="comment">// &quot;王五&quot;，22, 85.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//cout &lt;&lt; stuInfo(19, 92.5) &lt;&lt; endl;// 错误，不能跳过前面的形参给后面传值</span></span><br><span class="line"><span class="comment">//cout &lt;&lt; stuInfo(, , 59.5) &lt;&lt; endl;// 错误，只能省略末尾的形参</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意点：</p>
+<ul>
+<li>注意函数与重载的二义性。</li>
+<li>函数的默认参数从左向右，如果一个参数设置了默认参数，那么这个参数之后的参数都必须设置默认参数。</li>
+<li>如果函数声明和函数定义分开写，函数声明和函数定义不能同时设置默认参数。</li>
+</ul>
+</li>
+</ol>
+<h2 id="占位参数："><a href="#占位参数：" class="headerlink" title="占位参数："></a>占位参数：</h2><ol>
+<li><p>c++在声明函数时，可以设置占位参数。占位参数只有参数类型声明，而没有参数名声明。一般情况下，在函数体内部无法使用占位参数。  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> ,<span class="type">int</span> ,<span class="type">float</span> )</span></span>;<span class="comment">//只有类型，没有变量名</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a,<span class="type">int</span> b,<span class="type">float</span> c,<span class="type">char</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line"><span class="built_in">Fun</span>(<span class="string">&#x27;a&#x27;</span>,<span class="number">1</span>,<span class="number">1.1</span>);</span><br><span class="line"><span class="built_in">Fun</span>(<span class="string">&#x27;b&#x27;</span>,<span class="number">2</span>,<span class="number">2.2</span>,<span class="string">&#x27;3&#x27;</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a,<span class="type">int</span> b,<span class="type">float</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a1:&quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;b1:&quot;</span> &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;c1:&quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a,<span class="type">int</span> b,<span class="type">float</span> c,<span class="type">char</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a2:&quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;b2:&quot;</span> &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;c3:&quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意：占位参数也可以指定缺省值</p>
+</li>
+</ol>
+<h2 id="函数重载："><a href="#函数重载：" class="headerlink" title="函数重载："></a>函数重载：</h2><ol>
+<li><p>在C++中，同一作用域下，同一个函数名是可以定义多次的，前提是形参列表不同（参数类型、数量或顺序不同）。这种名字相同但形参列表不同的函数，叫做“重载函数”。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> x,<span class="type">char</span> y)</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//经过 g++编译环节之后</span></span><br><span class="line">_Z7funcv <span class="comment">//v 代表 void,无参数</span></span><br><span class="line">_Z7funci <span class="comment">//i 代表参数为 int 类型</span></span><br><span class="line">_Z7funcic <span class="comment">//i 代表第一个参数为 int 类型，第二个参数为 char 类型</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="extern-“C”："><a href="#extern-“C”：" class="headerlink" title="extern “C”："></a>extern “C”：</h2><ol>
+<li><p>以下在 Linux 下测试:</p>
+<ul>
+<li><p>c 函数: void MyFunc(){} ,被编译成函数: MyFunc</p>
+</li>
+<li><p>c++函数: void MyFunc(){},被编译成函数: _Z7Myfuncv</p>
+</li>
+<li><p>通过这个测试，由于 c++中需要支持函数重载，所以 c 和 c++中对同一个函数经过编译后生成的函数名是不相同的，这就导致了一个问题，如果在 c++中调用一个使用 c 语言编写模块中的某个函数，那么 c++是根据 c++的名称修饰方式来查找并链接这个函数，那么就会发生链接错误，以上例，</p>
+</li>
+<li><p>c++中调用 MyFunc 函数，在链接阶段会去找 _Z7Myfuncv，结果是没有找到的，因为这个 MyFunc 函数是 c 语言编写的，生成的符号是 MyFunc。</p>
+</li>
+</ul>
+</li>
+<li><p>那么如果我想在 c++调用 c 的函数怎么办？  </p>
+<ul>
+<li>extern “C”的主要作用就是为了实现 c++代码能够调用其他 c 语言代码。</li>
+<li>加上 extern “C”后，这部分代码编译器按 c 语言的方式进行编译和链接，而不是按 c++的方式。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus       <span class="comment">// 如果是C++编译器编译，定义此宏</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;            <span class="comment">// 开始C链接约定</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 这里放C语言兼容的函数声明/变量声明 */</span></span><br><span class="line"><span class="comment">/* 例如： */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">c_function</span><span class="params">(<span class="type">int</span> param)</span></span>;</span><br><span class="line"><span class="type">int</span> global_var;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus      <span class="comment">// 对应开始的#ifdef</span></span></span><br><span class="line">&#125;                      <span class="comment">// 结束C链接约定</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+
 <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
   </div>
 </article>
