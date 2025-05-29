@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="参考模型的分层模型： 分层思想：  实现复杂问题简单化，解耦合   OSI参考模型：   TCP&#x2F;IP协议族：  每个层对应的协议和关系：   数据在不同的层的叫法和设备所在的层：      数据封装传输过程： 物理层： 传输介质： 网线、光纤、空气 光纤类型： 单模光纤：单模的意思是只能传输一种光，在长距离传输比多模效率更高，短距离都是一样的 多模光纤：多模的意思是可以传输多种光">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络技术 - 总述">
+<meta property="og:url" content="http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="参考模型的分层模型： 分层思想：  实现复杂问题简单化，解耦合   OSI参考模型：   TCP&#x2F;IP协议族：  每个层对应的协议和关系：   数据在不同的层的叫法和设备所在的层：      数据封装传输过程： 物理层： 传输介质： 网线、光纤、空气 光纤类型： 单模光纤：单模的意思是只能传输一种光，在长距离传输比多模效率更高，短距离都是一样的 多模光纤：多模的意思是可以传输多种光">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI-1.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP-IP.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP-IP2.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%B8%A7%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BA%A4%E6%8D%A2%E6%9C%BA.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/IP%E6%95%B0%E6%8D%AE%E5%8C%85%E6%A0%BC%E5%BC%8F.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/DHCP%E6%9C%8D%E5%8A%A1.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HSRP%E5%8D%8F%E8%AE%AE.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HSRP%E5%8D%8F%E8%AE%AE%E9%85%8D%E7%BD%AE.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL1.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL2.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL3.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL4.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL5.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL6.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL7.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL8.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL9.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT1.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT2.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT3.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT4.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN1.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN2.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN3.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN4.png">
+<meta property="og:image" content="d:/blog/myblog/source/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN5.png">
+<meta property="og:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN6.png">
+<meta property="article:published_time" content="2024-10-07T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-29T13:50:29.966Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI-1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机网络技术 - 总述</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/10/11/%E6%95%B0%E7%94%B5%E6%A8%A1%E7%94%B5-%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%83%E5%99%A8%E4%BB%B6/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/09/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&text=计算机网络技术 - 总述"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&is_video=false&description=计算机网络技术 - 总述"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机网络技术 - 总述&body=Check out this article: http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&name=计算机网络技术 - 总述&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&t=计算机网络技术 - 总述"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">参考模型的分层模型：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">数据封装传输过程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">物理层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">数据链路层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">交换机：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E7%AB%AF%E5%8F%A3%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">交换机的端口：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IP%E6%95%B0%E6%8D%AE%E5%8C%85%E6%A0%BC%E5%BC%8F%EF%BC%9A%EF%BC%88%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">IP数据包格式：（网络层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%91%BD%E4%BB%A4%EF%BC%88%E5%91%BD%E4%BB%A4%E5%8F%AF%E4%BB%A5%E5%85%B1%E7%94%A8%EF%BC%89%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">路由器&#x2F;交换机命令（命令可以共用）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARP%E5%8D%8F%E8%AE%AE%EF%BC%9A%EF%BC%88%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%89"><span class="toc-number">9.</span> <span class="toc-text">ARP协议：（网络层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%9A%EF%BC%88%E4%BB%8E%E8%BF%9B%E5%85%A5%E5%88%B0%E5%87%BA%E5%8E%BB%E7%9A%84%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="toc-number">10.</span> <span class="toc-text">路由器的工作原理：（从进入到出去的整个过程）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VLAN-Virtual-LAN-%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91-%EF%BC%9A%EF%BC%88%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%89"><span class="toc-number">11.</span> <span class="toc-text">VLAN(Virtual LAN 虚拟局域网)：（交换机）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VTP%E5%8D%8F%E8%AE%AE%EF%BC%9A"><span class="toc-number">12.</span> <span class="toc-text">VTP协议：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#trunk%EF%BC%88%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%EF%BC%89%EF%BC%9A"><span class="toc-number">13.</span> <span class="toc-text">trunk（接口类型）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E9%83%A8%E7%BD%B2DHCP%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">14.</span> <span class="toc-text">路由器部署DHCP服务器命令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1%EF%BC%9A"><span class="toc-number">15.</span> <span class="toc-text">单臂路由：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICMP%E5%8D%8F%E8%AE%AE%EF%BC%9A%EF%BC%88%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%89"><span class="toc-number">16.</span> <span class="toc-text">ICMP协议：（网络层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%9A"><span class="toc-number">17.</span> <span class="toc-text">三层交换机：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HSRP%E5%8D%8F%E8%AE%AE-VRRP%E5%8D%8F%E8%AE%AE%EF%BC%9A"><span class="toc-number">18.</span> <span class="toc-text">HSRP协议&#x2F;VRRP协议：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%EF%BC%9A"><span class="toc-number">19.</span> <span class="toc-text">防火墙：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ACL%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8%EF%BC%9A"><span class="toc-number">20.</span> <span class="toc-text">ACL访问控制列表：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAT%E6%8A%80%E6%9C%AF%EF%BC%9A"><span class="toc-number">21.</span> <span class="toc-text">NAT技术：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN%E6%8A%80%E6%9C%AF%EF%BC%9A%EF%BC%88%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="toc-number">22.</span> <span class="toc-text">VPN技术：（协议）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">23.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机网络技术 - 总述
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-10-07T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-10-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="参考模型的分层模型："><a href="#参考模型的分层模型：" class="headerlink" title="参考模型的分层模型："></a>参考模型的分层模型：</h2><ol>
+<li><p>分层思想：</p>
+<ol>
+<li>实现复杂问题简单化，解耦合</li>
+</ol>
+</li>
+<li><p>OSI参考模型：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI-1.png" alt="OSI-1"></p>
+</li>
+<li><p>TCP&#x2F;IP协议族：</p>
+<ol>
+<li><p>每个层对应的协议和关系：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP-IP.png" alt="TCP-IP"></p>
+</li>
+<li><p>数据在不同的层的叫法和设备所在的层：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP-IP2.png" alt="TCP-IP2"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="数据封装传输过程："><a href="#数据封装传输过程：" class="headerlink" title="数据封装传输过程："></a>数据封装传输过程：</h2><p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93.png" alt="数据传输"></p>
+<h2 id="物理层："><a href="#物理层：" class="headerlink" title="物理层："></a>物理层：</h2><ol>
+<li>传输介质：<ol>
+<li>网线、光纤、空气</li>
+<li>光纤类型：<ul>
+<li>单模光纤：单模的意思是只能传输一种光，在长距离传输比多模效率更高，短距离都是一样的</li>
+<li>多模光纤：多模的意思是可以传输多种光</li>
+</ul>
+</li>
+<li>网线&#x2F;双绞线：<ul>
+<li>5类双绞线、超5类、6类、超6类…..</li>
+<li>T568A：白绿、绿、白橙、蓝、白蓝、橙、白棕、棕</li>
+<li>T568B：白橙、橙、白绿、蓝、白蓝、绿、白棕、棕</li>
+</ul>
+</li>
+<li>网线的用途分类：<ul>
+<li>交叉线：一端为A，一端为B，同种设备之间使用（具有三层功能及三层以上的设备也称为同种设备，如路由器和PC机，此处的功能是指五层模型）</li>
+<li>直通线：两端都为A或B，异种设备之间使用</li>
+<li>全反线：一端为A，另一端为反A，也称console线</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>信号分类：<ol>
+<li>电信号：<ul>
+<li>模拟信号：用到的设备放大器，使用放大器进行远距离传播，但是噪声也会一起放大</li>
+<li>数字信号：用到的设备中继器（相当于是放大器），只能短距离回复信号</li>
+</ul>
+</li>
+<li>光信号：<ul>
+<li>通过光纤来进行传输</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="数据链路层："><a href="#数据链路层：" class="headerlink" title="数据链路层："></a>数据链路层：</h2><p>传输单元–&gt;帧</p>
+<p>帧结构：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%B8%A7%E7%BB%93%E6%9E%84.png" alt="帧结构"></p>
+<p>在数据链路层工作的设备：交换机&#x2F;网卡</p>
+<h2 id="交换机："><a href="#交换机：" class="headerlink" title="交换机："></a>交换机：</h2><ol>
+<li><p>交换机是二层设备，实现不同主机在同一个局域网中数据的通信</p>
+</li>
+<li><p>工作原理（流程）：</p>
+<ul>
+<li>交换机（Switch）的工作原理基于网络数据帧的传输和转发，主要在局域网（LAN）中使用。</li>
+<li>当交换机接收到来自PC发送的帧后，首先学习帧中的源MAC地址来形成MAC地址表，然后检查帧中的目标MAC地址，并匹配MAC地址表，如表中有匹配项，则单播转发，如表中无匹配项，则除源发送端口外广播转发</li>
+</ul>
+</li>
+<li><p>MAC地址表的老化（老化等同于丢失）时间默认是300秒（时间可修改）</p>
+</li>
+<li><p>交换机的主要作用：是根据目标设备的MAC地址，将数据帧从源设备准确地传送到目标设备。（也就是说交换机是根据MAC地址转发数据的）</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BA%A4%E6%8D%A2%E6%9C%BA.png" alt="交换机"></p>
+</li>
+</ol>
+<h2 id="交换机的端口："><a href="#交换机的端口：" class="headerlink" title="交换机的端口："></a>交换机的端口：</h2><ul>
+<li>E：10Mb</li>
+<li>F：100Mb</li>
+<li>G：1000Mb</li>
+<li>Te：10000Mb</li>
+<li>F0&#x2F;1：0表示模块号，1表示接口号</li>
+<li>接口速率自适应：如：1000&#x2F;100&#x2F;10M，表示速率工作模式可以为10、100、1000任何一种状态</li>
+<li>端口状态：up（开启）&#x2F;down（关闭）<ul>
+<li>down有三种可能：<ul>
+<li>人工down掉</li>
+<li>速率不匹配</li>
+<li>双工模式不匹配（双工duplex）</li>
+<li>双工模式：单工、半双工、全双工</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="IP数据包格式：（网络层）"><a href="#IP数据包格式：（网络层）" class="headerlink" title="IP数据包格式：（网络层）"></a>IP数据包格式：（网络层）</h2><ul>
+<li><p>版本：说明是IPv4还是IPv6版本</p>
+</li>
+<li><p>首部长度：IP包头部长度，因为长度可变，因此需要定义</p>
+</li>
+<li><p>优先级与服务类型：</p>
+</li>
+<li><p>总长度：IP数据总长度，也就是3、4、5层所有的数据</p>
+</li>
+<li><p>标识符：标识数据报文的所有分片，同一个数据的报文分片标识是一致的</p>
+</li>
+<li><p>标志：有三个比特，第一个备用的，没有什么含义，第二个比特如果是0表示分片了，是1表示没有分片，第三个比特是0表示不是最后一个分片，是1表示是最后一个分片</p>
+</li>
+<li><p>段偏移量：决定IP分片的顺序</p>
+</li>
+<li><p>TTL：防止数据包在网络上永久循环下去</p>
+</li>
+<li><p>协议号：用来标识封装的上层数据是UDP还是TCP，UDP是17，TCP是6</p>
+</li>
+<li><p>首部校验和：是IP包头的校验和，也就是第三层（20-60字节）</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/IP%E6%95%B0%E6%8D%AE%E5%8C%85%E6%A0%BC%E5%BC%8F.png" alt="IP数据包格式"></p>
+</li>
+</ul>
+<h2 id="路由器-交换机命令（命令可以共用）："><a href="#路由器-交换机命令（命令可以共用）：" class="headerlink" title="路由器&#x2F;交换机命令（命令可以共用）："></a>路由器&#x2F;交换机命令（命令可以共用）：</h2><ul>
+<li><p>静态路由：ip route 目标网段 子网掩码 下一跳IP地址 </p>
+<p>   如：ip route 10.1.1.0 255.255.255.0 20.1.1.1</p>
+</li>
+<li><p>默认路由：ip route 0.0.0.0 0.0.0.0 下一跳IP地址</p>
+</li>
+</ul>
+<p>​	 如：ip route 0.0.0.0 0.0.0.0 20.1.1.1</p>
+<ul>
+<li><p>浮动路由：在静态或默认路由后加空格+正整数</p>
+<p>   如：ip route 10.1.1.0 255.255.255.0 20.1.1.1</p>
+</li>
+</ul>
+<p>​	ip route 10.1.1.0 255.255.255.0 30.1.1.1 5（表示比上边这个优先级小，优先采用上边这个往10.1.1.0网段传递信息）</p>
+<ol>
+<li><p>查看路由表：show ip route</p>
+</li>
+<li><p>查看接口列表：show ip int brief</p>
+</li>
+<li><p>手工开启接口：no shutdown</p>
+</li>
+<li><p>查看running-config配置：show running-config</p>
+</li>
+<li><p>查看MAC地址表：show mac-address-table</p>
+</li>
+<li><p>do的用法：其他模式加do+空格可以强制使用特权模式的命令</p>
+<p>  如：do run、do sh ip b、do wr等</p>
+</li>
+</ol>
+<ul>
+<li>删除配置：<ol>
+<li>在哪配置的，就在哪删除</li>
+<li>命令前加no空格（no+空格+需要删除的命令）</li>
+<li>原命令中有参数，并且参数具有唯一性，则删除时不需要加参数</li>
+<li>如：hostname sw1，删除：no hostname</li>
+</ol>
+</li>
+</ul>
+<h2 id="ARP协议：（网络层）"><a href="#ARP协议：（网络层）" class="headerlink" title="ARP协议：（网络层）"></a>ARP协议：（网络层）</h2><ol>
+<li>广播：将广播地址做为目的地址的数据帧</li>
+<li>广播域：网络中能接受到同一个广播所有节点的集合（越小越好）</li>
+<li>MAC地址广播：广播地址为FF-FF-FF-FF-FF-FF</li>
+<li>IP地址广播：<ol>
+<li>255.255.255.255</li>
+<li>广播IP地址为IP地址网段的广播地址，如192.168.1.255&#x2F;24</li>
+</ol>
+</li>
+<li>什么是ARP协议：<ol>
+<li>Address Resolution Protocol，地址解析协议</li>
+<li>作用：将一个<strong>已知</strong>的IP地址解析成MAC地址</li>
+<li>ARP协议原理：<ul>
+<li>发送ARP广播请求（ARP报文）<ol>
+<li>ARP报文内容：我的IP地址，我的MAC地址，你的IP地址，你的MAC地址是什么（前三个都是知道的）</li>
+</ol>
+</li>
+<li>接受ARP单播应答</li>
+</ul>
+</li>
+<li>ARP缓存表的性质：后来的信息会覆盖前面的信息，只学习更新后面来的信息，然后把前面的信息覆盖，还不会进行身份验证，来确保信息的准确性</li>
+<li>ARP攻击或欺骗的原理：（利用ARP缓存表的原理）<ul>
+<li>通过发送伪造虚假的ARP报文（广播或单播），来实现的攻击或欺骗</li>
+<li>如虚假报文的MAC是伪造的不存在的，实现ARP攻击，结果为中断通信&#x2F;断网</li>
+<li>如果虚假报文的MAC是攻击者自身的MAC地址，实现ARP欺骗，结果可以监听、窃取、篡改、控制流量，但不中断通信</li>
+</ul>
+</li>
+<li>ARP协议没有验证机制，所以才会被攻击和欺骗</li>
+<li>ARP攻击者通过发送虚假伪造的ARP报文对受害者进行ARP缓存投毒，而受害人没有办法进行身份（真伪）验证</li>
+</ol>
+</li>
+<li>ARP防御：<ol>
+<li>静态ARP绑定：<ol>
+<li>手工绑定&#x2F;双向绑定</li>
+<li>Windows客户机上：</li>
+<li>arp -s 10.1.1.254(IP地址) MAC地址</li>
+<li>arp -a 查看ARP缓存表</li>
+</ol>
+</li>
+<li>ARP防火墙：<ol>
+<li>自动绑定静态ARP，主动防御</li>
+</ol>
+</li>
+<li>硬件级ARP防御：<ol>
+<li>交换机支持“端口”做动态ARP绑定（配合DHCP服务器）或做静态ARP绑定</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="路由器的工作原理：（从进入到出去的整个过程）"><a href="#路由器的工作原理：（从进入到出去的整个过程）" class="headerlink" title="路由器的工作原理：（从进入到出去的整个过程）"></a>路由器的工作原理：（从进入到出去的整个过程）</h2><ol>
+<li>一个帧到达路由器后，路由器首先检查目标MAC地址是否是自己的，如果不是则丢弃，如果是则解封装，并将IP包送到路由器内部</li>
+<li>路由器检查IP包头中的目标IP，并匹配路由表，如果匹配失败，则丢弃，并向源IP回馈错误信息，如匹配成功，则将IP包路由到出接口</li>
+<li>封装帧，首先将出接口的MAC地址作为源MAC封装好，然后检查ARP缓存表，检查是否有下一跳的MAC地址，如果有则提取出来作为目标MAC地址封装到帧中，如果没有，则发送ARP广播请求下一跳的MAC地址，并获取到对方的MAC地址，再记录缓存，并封装帧，最后将帧发送出去</li>
+</ol>
+<h2 id="VLAN-Virtual-LAN-虚拟局域网-：（交换机）"><a href="#VLAN-Virtual-LAN-虚拟局域网-：（交换机）" class="headerlink" title="VLAN(Virtual LAN 虚拟局域网)：（交换机）"></a>VLAN(Virtual LAN 虚拟局域网)：（交换机）</h2><ol>
+<li>VLAN是二层技术</li>
+<li>广播的危害：<ol>
+<li>增加网络&#x2F;终端负担，传播病毒，安全性低</li>
+</ol>
+</li>
+<li>如何控制广播：<ol>
+<li>控制广播&#x3D;隔离广播域</li>
+<li>路由器隔离广播（物理隔离广播）</li>
+<li>路由器隔离广播缺点：成本高、不灵活</li>
+<li>VLAN技术控制广播，VLAN技术是在交换机上实现的且是通过逻辑隔离划分的广播域</li>
+</ol>
+</li>
+<li>VLAN的作用：<ol>
+<li>控制广播，逻辑隔离广播域</li>
+</ol>
+</li>
+<li>一个VLAN也就相当于一个广播域</li>
+<li>VLAN的类型：<ol>
+<li>静态VLAN：<ol>
+<li>手工配置</li>
+<li>基于端口划分的VLAN</li>
+</ol>
+</li>
+<li>动态VLAN：<ul>
+<li>第一种：</li>
+<li>手工配置</li>
+<li>基于MAC地址划分的VLAN</li>
+<li>第二种：</li>
+<li>采用802.1x端口认证</li>
+<li>基于账号来划分VLAN</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="VTP协议："><a href="#VTP协议：" class="headerlink" title="VTP协议："></a>VTP协议：</h2><ol>
+<li><p>VTP（VLAN Trunking Protocol）是一种用于在网络中自动同步虚拟局域网（VLAN）信息的协议（<strong>虚拟局域网的<strong><strong>中继</strong></strong>协议</strong>）。它主要用于在网络中管理VLAN的创建、删除和重命名，<strong>以及在<strong><strong>交换机</strong></strong>之间同步VLAN配置</strong>。</p>
+</li>
+<li><p>命令：vtp domain wencol 作用是将当前设备的VTP域名设置为”wencol”，这样配置后，该设备将与其他具有相同VTP域名的设备共享VLAN信息</p>
+</li>
+</ol>
+<h2 id="trunk（接口类型）："><a href="#trunk（接口类型）：" class="headerlink" title="trunk（接口类型）："></a>trunk（接口类型）：</h2><ol>
+<li>在交换机端口上配置，配置完trunk后这个链路就是公共链路，允许所有的VLAN通过（trunk是只允许打标签）</li>
+<li>trunk&#x2F;中继链路&#x2F;公共链路<ol>
+<li>作用：允许所有VLAN数据通过trunk链路</li>
+<li>方法：通过在数据帧上加标签，来区分不同的VLAN的数据</li>
+</ol>
+</li>
+<li>trunk标签：<ol>
+<li>ISL标签：cisco私有的，标签大小30字节（26+4）</li>
+<li>802.1q标签：公有协议，所有厂家都支持，标签大小4字节，属于内部标签</li>
+</ol>
+</li>
+<li>交换机端口链路类型：<ol>
+<li>接入端口：也称为access端口，一般用于连接PC，只能属于某1个VLAN，也只能传输1个VLAN的数据</li>
+<li>中继端口：也称为trunk端口，一般用于连接其他交换机，属于公共端口，允许所有VLAN得的数据</li>
+</ol>
+</li>
+</ol>
+<h2 id="路由器部署DHCP服务器命令："><a href="#路由器部署DHCP服务器命令：" class="headerlink" title="路由器部署DHCP服务器命令："></a>路由器部署DHCP服务器命令：</h2><p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/DHCP%E6%9C%8D%E5%8A%A1.png" alt="DHCP服务"></p>
+<h2 id="单臂路由："><a href="#单臂路由：" class="headerlink" title="单臂路由："></a>单臂路由：</h2><p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1.png" alt="单臂路由"></p>
+<p> encapsulation dot1q 10:也表示给VLAN10起网关，可以识别802.1q标签的10标签</p>
+<ul>
+<li>单臂路由的缺点：(已被三层交换机取代)<ul>
+<li>网络瓶颈</li>
+<li>容易发生单点物理故障（所有子接口依赖于总物理接口）</li>
+<li>VLAN间通信的每一个帧都进行单独路由</li>
+</ul>
+</li>
+</ul>
+<h2 id="ICMP协议：（网络层）"><a href="#ICMP协议：（网络层）" class="headerlink" title="ICMP协议：（网络层）"></a>ICMP协议：（网络层）</h2><ol>
+<li>ICMP没有端口号</li>
+<li>ICMP（Internet Control Message Protocol）网际控制报文协议，用来传送问题消息的。通过它所传递的消息，管理者能迅速对问题做出判断，使问题得到及时解决。</li>
+<li>ICMP协议是干什么的：<ol>
+<li>网络探测与回馈机制</li>
+<li>网络探测</li>
+<li>路由跟踪<ol>
+<li>命令：Windows：tracret IP地址</li>
+<li>Linux或路由器：tracreoute IP地址</li>
+</ol>
+</li>
+<li>错误反馈</li>
+</ol>
+</li>
+<li>ICMP协议的封装格式：<ol>
+<li>帧头+IP包+ICMP头+数据+帧尾</li>
+<li>帧头：MAC地址</li>
+<li>IP包：可以知道谁向谁发送的探测或跟踪</li>
+<li>ICMP头：ICMP类型字段、代码</li>
+<li>ICMP类型字段：<ul>
+<li>8：ping请求</li>
+<li>0：ping应答</li>
+<li>3：目标主机不可达</li>
+<li>11：TTL超时（路由环路）</li>
+</ul>
+</li>
+<li>数据：一般就是一个填充报文，就是单纯的通信，使对方收到数据后，给一个反馈，证明收到数据了，可以通信了，没有意义，数据是有ICMP协议生成的</li>
+<li>帧尾：加密算法</li>
+</ol>
+</li>
+</ol>
+<h2 id="三层交换机："><a href="#三层交换机：" class="headerlink" title="三层交换机："></a>三层交换机：</h2><ol>
+<li>三层交换机&#x3D;三层路由+二层交换机</li>
+<li>三层路由引擎是可以关闭和开启的：<ol>
+<li>都是在全区模式下配置：（思科）</li>
+<li>ip routing 开启三层路由功能</li>
+<li>no ip routing 关闭三层路由功能</li>
+</ol>
+</li>
+<li>三层交换机的优点：<ol>
+<li>与单臂路由相比：</li>
+<li>解决了网络瓶颈问题</li>
+<li>解决了单点故障（虚拟接口不再依赖任何的物理接口）</li>
+<li>一次路由，永久交换（不像其他路由器，经过的帧每次都要解封再封装）</li>
+</ol>
+</li>
+<li>三层交换机上起虚接口：（配置VLAN的网关）<ol>
+<li>int vlan 10（生成进入一个虚拟接口，而这个接口是VLAN10）</li>
+<li>ip add 10.1.1.254 255.255.255.0（给VLAN10配置网关IP）</li>
+<li>no shut（开启端口）</li>
+<li>exit（退出）</li>
+</ol>
+</li>
+<li>二层端口升级为三层端口：<ol>
+<li>int f0&#x2F;x（x表示要进入哪个）</li>
+<li>no switchport（将进入这个端口升级为三层端口）</li>
+</ol>
+</li>
+</ol>
+<h2 id="HSRP协议-VRRP协议："><a href="#HSRP协议-VRRP协议：" class="headerlink" title="HSRP协议&#x2F;VRRP协议："></a>HSRP协议&#x2F;VRRP协议：</h2><p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HSRP%E5%8D%8F%E8%AE%AE.png" alt="HSRP协议"></p>
+<ul>
+<li><p>HSRP（Hot Standby Router Protocol）是一种用于提高网络冗余性的协议。它允许多台路由器在网络中提供冗余的默认网关服务，以确保在主动路由器出现故障时，备用路由器可以立即接管其功能</p>
+</li>
+<li><p>VRRP是一种开放标准的冗余路由协议，由IETF（Internet工程任务组）定义，用于提供冗余的默认网关服务（原理和HSRP相似）</p>
+</li>
+<li><p>HSRP协议工作原理：</p>
+<ul>
+<li>多个路由器在同一LAN（本地区域网络）上配置为HSRP组。其中一个路由器被选举为活动路由器（Active Router），其余的路由器则是备用路由器（Standby Router）。</li>
+<li>活动路由器定期发送HSRP Hello消息到组播地址，以宣告自己的存在。备用路由器收到Hello消息后，知道活动路由器仍然正常运行。</li>
+<li>如果活动路由器停止发送Hello消息（故障或失去了与LAN的连接），备用路由器将在一定的时间内没有接收到活动路由器的消息后，它会认为活动路由器不可用，并开始执行状态切换过程。</li>
+<li>备用路由器成为新的活动路由器，并接管原来活动路由器的IP地址。这个过程是无缝的，对网络中的其他设备来说是透明的。</li>
+</ul>
+</li>
+<li><p>总结：通过HSRP协议，网络管理员可以实现对网络的高可用性设计，确保在路由器故障时仍然能够提供连续的网络服务。</p>
+</li>
+<li><p>命令配置：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HSRP%E5%8D%8F%E8%AE%AE%E9%85%8D%E7%BD%AE.png" alt="HSRP协议配置"></p>
+</li>
+</ul>
+<h2 id="防火墙："><a href="#防火墙：" class="headerlink" title="防火墙："></a>防火墙：</h2><ol>
+<li><p>防火墙的定义：是一款具备安全防护功能网络设备（最本质的意义：网络隔离&#x2F;区域隔离）</p>
+</li>
+<li><p>网络隔离：将需要保护的网络与不可信任网络进行隔离，隐藏信息并进行安全防护</p>
+</li>
+<li><p>防火墙基本功能：</p>
+<ol>
+<li>访问控制</li>
+<li>攻击防护</li>
+<li>冗余设计</li>
+<li>路由、交换</li>
+<li>日志记录</li>
+<li>虚拟专网VPN</li>
+<li>NAT</li>
+</ol>
+</li>
+<li><p>防火墙区域概念：（原理）</p>
+<ol>
+<li>内部区域</li>
+<li>DMZ区域：称为“隔离区”，也称“非军事化区&#x2F;停火区”</li>
+<li>外部区域</li>
+</ol>
+</li>
+<li><p>衡量防火墙性能的5大指标：</p>
+<ol>
+<li>吞吐量：在不丢包的情况下单位时间内通过的数据包数量</li>
+<li>时延：数据包第一个比特进入防火墙到最后一个比特从防火墙输出的时间间隔</li>
+<li>丢包率：通过防火墙传送时所丢失数据包数量占所发送数据包的比率</li>
+<li>并发连接数：防火墙能够同时处理的点对点连接的最大数目</li>
+<li>新建连接数：在不丢包的情况下每秒可以建立的最大连接数</li>
+</ol>
+</li>
+<li><p>防火墙的工作模式：（标准应用）</p>
+<ol>
+<li>透明模式：<ol>
+<li>工作在第二层，不改变数据包的 IP 地址。</li>
+<li>无需修改现有网络结构，易于部署。</li>
+<li>透明模式&#x2F;桥模式一般用于用户网络已经建设完毕，网络功能基本已经实现的情况下，用户需要加装防火墙以实现安全区域隔离的要求</li>
+<li>一般将网络分为内部网、DMZ区和外部网</li>
+</ol>
+</li>
+<li>路由模式：<ol>
+<li>工作在网络层（第三层），处理 IP 地址和网络子网</li>
+<li>路由&#x2F;NAT模式一般用于防火墙当作路由器和NAT设备连接上网的同时，提供安全过滤功能</li>
+</ol>
+</li>
+<li>混杂模式：<ul>
+<li>一般网络情况为透明模式和路由模式的结合</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="ACL访问控制列表："><a href="#ACL访问控制列表：" class="headerlink" title="ACL访问控制列表："></a>ACL访问控制列表：</h2><ol>
+<li><p>ACL（Access Control List，访问控制列表）是一种用于控制网络设备（如路由器、交换机、防火墙等）上数据流的访问权限的机制</p>
+</li>
+<li><p>ACL基于一组规则来决定是否允许或拒绝特定类型的数据流通过设备</p>
+</li>
+<li><p>ACL是一种包过滤技术，ACL表应用在端口上的时候，才表示是流量过滤，其余地方就不是代表过滤了</p>
+</li>
+<li><p>ACL基于IP包头的IP地址、四层TCP&#x2F;UDP头部的端口号、5层数据（一般都是基于三层和四层过滤）</p>
+</li>
+<li><p>ACL在路由器上配置，也可以在防火墙上配置（一般称为策略）</p>
+</li>
+<li><p>ACL主要分为2大类：</p>
+<ol>
+<li><p>标准ACL：</p>
+<ol>
+<li><p>表号：1-99（也就是这个表的名字，没有大小之分）</p>
+</li>
+<li><p>特点：只能基于源IP对包进行过滤</p>
+</li>
+<li><p>命令：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL1.png" alt="ACL1"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL2.png" alt="ACL2"></p>
+<ul>
+<li><p>show ip access-list 查看全部ACL表</p>
+</li>
+<li><p>show ip access-list 表号 查看某个ACL表</p>
+</li>
+<li><p>将ACL表应用到接口：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL3.png" alt="ACL3"></p>
+</li>
+<li><p>no access-list 表号 删除这个表号</p>
+</li>
+</ul>
+</li>
+<li><p>案例：</p>
+<ol>
+<li><p>​    在特权模式配置</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL4.png" alt="ACL4"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>扩展ACL：</p>
+<ol>
+<li><p>表号：100-199</p>
+</li>
+<li><p>特点：可以基于源IP、目标IP、端口号、协议等对包进行过滤</p>
+</li>
+<li><p>命令：</p>
+<ul>
+<li><p>将ACL表应用到接口：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL5.png" alt="ACL5"></p>
+</li>
+<li><p>show ip access-list 查看全部ACL表</p>
+</li>
+<li><p>show ip access-list 表号 查看某个ACL表</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL6.png" alt="ACL6"></p>
+</li>
+</ul>
+</li>
+<li><p>案例：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL7.png" alt="ACL7"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>ACL原理：</p>
+<ol>
+<li>ACL表必须应用到接口的进或出方向才生效</li>
+<li>一个接口的一个方向只能应用一张表</li>
+<li>进还是出方向的应用，取决于流量控制总方向</li>
+<li>ACL表是严格遵循自上而下检查每一条，所以要严格注意书写顺序</li>
+<li>每一条是由条件和动作组成，当流量没有满足某条件，则继续检查下一条，但是当流量满足其中一条时，不论是拒绝还是同意都不会再继续检查下一条，因为已经得到结果，当流量没有满足所有条件时，则会拒绝进入（出去）（ACL表会默认写一条拒绝所有流量进入，一直在ACL表的最后一个），当流量满足其中一个条件时，则就不会被拒绝进入（出去）</li>
+<li>标准ACL尽量写在靠近目标的地方</li>
+<li>wencoll小原理：<ol>
+<li>做流量控制，首先要先判断ACL写的位置（那个路由器？那个接口的那个方向？）</li>
+<li>再考虑怎么写ACL</li>
+<li>如何写？<ol>
+<li>首先要判断最终要允许所有还是拒绝所有</li>
+<li>然后写的时候要注意：将严格的控制写在前面</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>一般情况下，标准或扩展ACL一旦编写号，无法修改某一条，也无法删除某一条，也无法修改顺序，也无法往中间插入新的条目，只能一直在最后添加新的条目（如想修改或插入或删除，只能删除整张表，重新写）</li>
+</ol>
+</li>
+<li><p>命名ACL：</p>
+<ol>
+<li><p>作用：可以对标准或扩展ACL进行自定义命名</p>
+</li>
+<li><p>优点：自定义命名更容易辨认，也便于记忆！可以任意修改某一条，或删除某一条，也可以往中间插入某一条</p>
+</li>
+<li><p>命令：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL8.png" alt="ACL8"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/ACL9.png" alt="ACL9"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="NAT技术："><a href="#NAT技术：" class="headerlink" title="NAT技术："></a>NAT技术：</h2><ol>
+<li><p>NAT（Network Address Translation）网络地址转换</p>
+</li>
+<li><p>私有IP地址范围：</p>
+<ol>
+<li>10.0.0.0&#x2F;8（只要是10开头的都是，不管子网掩码是多少，如：10.1.1.1&#x2F;24也是私有IP地址）</li>
+<li>172.16.0.0&#x2F;16-172.31.0.0&#x2F;16（只要是172.16开头的一直到172.31开头的都是私有IP地址，不管子网掩码是多少）</li>
+<li>192.168.0.0&#x2F;16（只要是192.168开头的，不管子网掩码是多少）</li>
+</ol>
+</li>
+<li><p>NAT主要实现公私有IP地址转换，一般是路由器或者防火墙上来完成，不建议在三层交换机上配置（目的就是为了减少IP地址不够用的问题）</p>
+</li>
+<li><p>NAT有3大类：</p>
+<ol>
+<li><p>静态NAT：（静态PAT，端口映射技术）（外网访问内网一般需要静态）</p>
+<ol>
+<li>一对一映射，每个内部IP地址都映射到一个特定的公共IP地址（一般是针对服务器使用静态NAT）</li>
+</ol>
+</li>
+<li><p>动态NAT：</p>
+<ol>
+<li>一对多映射，内部IP地址动态地映射到一组公共IP地址。（当外部池只有一个IP地址时，也有是多对一了，当其中一个主机占用着这个公网IP的时候，其他的主机也就无法上网）</li>
+</ol>
+</li>
+<li><p>PAT（端口地址转换或NAT重载）（内网访问外网采用动态PAT）：</p>
+<ol>
+<li><p>多对一映射，多个内部IP地址通过不同的端口号共享一个公共IP地址。（路由器也会生成一个端口号）</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT1.png" alt="NAT1"></p>
+</li>
+</ol>
+</li>
+<li><p>定义内外网端口：</p>
+<ol>
+<li>内到外：转换源IP</li>
+<li>外到内：转换目标IP</li>
+</ol>
+</li>
+<li><p>NAT命令：</p>
+<ol>
+<li><p>定义内外网端口：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT2.png" alt="NAT2"></p>
+</li>
+<li><p>配置PAT：</p>
+<ol>
+<li><p>没有进入端口，所以这个ACL就不代表是流量过滤了</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT3.png" alt="NAT3"></p>
+</li>
+</ol>
+</li>
+<li><p>配置静态端口转换：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT4.png" alt="NAT4"></p>
+</li>
+</ol>
+</li>
+<li><p>路由器实现生成路由表，然后才是NAT转换表</p>
+</li>
+<li><p>从内网到外网是先路由再转换（也就是现生成路由表，然后才是NAT转换表），而从外网到内网是先转换再路由（根据NAT转换表进行转换，然后再根据路由表进行路由）</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="VPN技术：（协议）"><a href="#VPN技术：（协议）" class="headerlink" title="VPN技术：（协议）"></a>VPN技术：（协议）</h2><ol>
+<li><p>VPN（Virtual Private Network）虚拟专用网络&#x2F;虚拟专网</p>
+</li>
+<li><p>引入：VPN可以实现在不安全的网络上，安全的传输数据，好像专网，VPN只是一个技术，使用PKI技术来保证数据的安全三要素</p>
+</li>
+<li><p>安全三要素：</p>
+<ol>
+<li>机密性</li>
+<li>完整性</li>
+<li>身份验证&#x2F;不可否认性</li>
+</ol>
+</li>
+<li><p>加密技术：</p>
+<ol>
+<li>对称加密：<ol>
+<li>加密与解密使用相同的密钥</li>
+<li>密钥是通信双方协商生成，生成过程是明文通信，密钥容易泄露</li>
+<li>特点：速度快、安全性低</li>
+<li>对称加密算法：DES、3DES、AES</li>
+</ol>
+</li>
+<li>非对称加密算法：<ol>
+<li>使用公私钥加密数据</li>
+<li>公私钥成对生产，互为加解密关系</li>
+<li>公私钥不能互相推算</li>
+<li>双方交换公钥</li>
+<li>使用对方的公钥加密实现机密性，使用自己的私钥进行签名，实验身份验证</li>
+<li>特点：速度慢，安全性高</li>
+<li>非对称加密算法：RSA、DH</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>完整性算法&#x2F;hash值算法：MD5、SHA</p>
+</li>
+<li><p>VPN的类型：</p>
+<ol>
+<li>远程访问VPN：（Remote Access VPN）<ol>
+<li>一般用在个人到安全连接企业内部</li>
+<li>一般出差员工或者在家办公，安全连接内网时使用</li>
+<li>一般公司部署VPN服务器，员工在外拨号连接VPN即可</li>
+<li>常见RA-VPN协议：PPTP VPN、L2TP VPN、SSTP VPN、EZ VPN、SSLVPN</li>
+</ol>
+</li>
+<li>点到点VPN：<ol>
+<li>一般用在企业对企业安全连接</li>
+<li>一般需要在两个企业总出口设备之间建立VPN通道</li>
+<li>常见的点到点VPN：IPsec VPN</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>IPsecVPN（点对点）：</p>
+<ol>
+<li><p>属于点到点VPN，可以在两家企业之间建立VPN通道</p>
+</li>
+<li><p>VPN隧道优点：安全性、合并两家企业内网</p>
+</li>
+<li><p>VPN隧道技术：</p>
+<ol>
+<li>传输模式：只加密上层数据、不加密私有IP包头、速度快</li>
+<li>隧道模式（默认）：加密整个私有IP包、包括IP包头、更安全、速度慢</li>
+</ol>
+</li>
+<li><p>VPN隧道技术：重新封装技术+加密认证技术</p>
+</li>
+<li><p>IPsecVPN分为2大阶段：</p>
+<ol>
+<li><p>第一阶段：管理连接</p>
+<ul>
+<li><p>目的：通信双方设备通过<strong>非对称加密算法</strong>加密<strong>对称加密算法</strong>所使用的对称密钥</p>
+</li>
+<li><p>命令：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN1.png" alt="VPN1"></p>
+</li>
+</ul>
+</li>
+<li><p>第二阶段：数据连接</p>
+<ul>
+<li><p>目的：通过对称加密算法加密实际所要传输的私网数据</p>
+</li>
+<li><p>命令：</p>
+<p>都是在全局模式下</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN2.png" alt="VPN2"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN3.png" alt="VPN3"></p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN4.png" alt="VPN4"></p>
+<p><img src="D:/blog/myblog/source/images/计算机网络/VPN5.png" alt="VPN5"></p>
+</li>
+</ul>
+</li>
+<li><p>查看命令：</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN6.png" alt="VPN6"></p>
+</li>
+</ol>
+</li>
+<li><p>路由器的工作原理：</p>
+<ol>
+<li>内网–到–外网：先查看状态–NAT–策略（ACL）–路由–VPN–到外网</li>
+</ol>
+</li>
+<li><p>远程访问VPN：</p>
+<ol>
+<li>在公司需要搭建VPN服务器</li>
+<li>VPN服务器需要对VPN客户端进行身份验证</li>
+<li>VPN服务器需要给VPN客户端下发权限及IP地址</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">参考模型的分层模型：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">数据封装传输过程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">物理层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">数据链路层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">交换机：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E7%AB%AF%E5%8F%A3%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">交换机的端口：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IP%E6%95%B0%E6%8D%AE%E5%8C%85%E6%A0%BC%E5%BC%8F%EF%BC%9A%EF%BC%88%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">IP数据包格式：（网络层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%91%BD%E4%BB%A4%EF%BC%88%E5%91%BD%E4%BB%A4%E5%8F%AF%E4%BB%A5%E5%85%B1%E7%94%A8%EF%BC%89%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">路由器&#x2F;交换机命令（命令可以共用）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARP%E5%8D%8F%E8%AE%AE%EF%BC%9A%EF%BC%88%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%89"><span class="toc-number">9.</span> <span class="toc-text">ARP协议：（网络层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%9A%EF%BC%88%E4%BB%8E%E8%BF%9B%E5%85%A5%E5%88%B0%E5%87%BA%E5%8E%BB%E7%9A%84%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="toc-number">10.</span> <span class="toc-text">路由器的工作原理：（从进入到出去的整个过程）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VLAN-Virtual-LAN-%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91-%EF%BC%9A%EF%BC%88%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%89"><span class="toc-number">11.</span> <span class="toc-text">VLAN(Virtual LAN 虚拟局域网)：（交换机）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VTP%E5%8D%8F%E8%AE%AE%EF%BC%9A"><span class="toc-number">12.</span> <span class="toc-text">VTP协议：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#trunk%EF%BC%88%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%EF%BC%89%EF%BC%9A"><span class="toc-number">13.</span> <span class="toc-text">trunk（接口类型）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E9%83%A8%E7%BD%B2DHCP%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">14.</span> <span class="toc-text">路由器部署DHCP服务器命令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1%EF%BC%9A"><span class="toc-number">15.</span> <span class="toc-text">单臂路由：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICMP%E5%8D%8F%E8%AE%AE%EF%BC%9A%EF%BC%88%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%89"><span class="toc-number">16.</span> <span class="toc-text">ICMP协议：（网络层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%9A"><span class="toc-number">17.</span> <span class="toc-text">三层交换机：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HSRP%E5%8D%8F%E8%AE%AE-VRRP%E5%8D%8F%E8%AE%AE%EF%BC%9A"><span class="toc-number">18.</span> <span class="toc-text">HSRP协议&#x2F;VRRP协议：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%EF%BC%9A"><span class="toc-number">19.</span> <span class="toc-text">防火墙：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ACL%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8%EF%BC%9A"><span class="toc-number">20.</span> <span class="toc-text">ACL访问控制列表：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAT%E6%8A%80%E6%9C%AF%EF%BC%9A"><span class="toc-number">21.</span> <span class="toc-text">NAT技术：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPN%E6%8A%80%E6%9C%AF%EF%BC%9A%EF%BC%88%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="toc-number">22.</span> <span class="toc-text">VPN技术：（协议）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">23.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&text=计算机网络技术 - 总述"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&is_video=false&description=计算机网络技术 - 总述"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机网络技术 - 总述&body=Check out this article: http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&title=计算机网络技术 - 总述"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&name=计算机网络技术 - 总述&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/10/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF-%E6%80%BB%E8%BF%B0/&t=计算机网络技术 - 总述"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
