@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="C语言允许为一个数据类型起一个新的别名，就像给人起“绰号”一样。 为结构体、共用体起别名：（替换结构体最常用）12345typedef struct animal &#123;  char* name;  int legs;  int speed;&#125; Animal;  使用 typedef 命令，为 struct animal 起了一个别名 Animal 。同样关于结构体的几种定义方式也">
 <meta property="og:type" content="article">
-<meta property="og:title" content="typedef的使用">
-<meta property="og:url" content="http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="C语言 - typedef的使用">
+<meta property="og:url" content="http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Lcb3rg">
 <meta property="og:description" content="C语言允许为一个数据类型起一个新的别名，就像给人起“绰号”一样。 为结构体、共用体起别名：（替换结构体最常用）12345typedef struct animal &#123;  char* name;  int legs;  int speed;&#125; Animal;  使用 typedef 命令，为 struct animal 起了一个别名 Animal 。同样关于结构体的几种定义方式也">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-02-27T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-24T09:41:51.345Z">
+<meta property="article:published_time" content="2024-11-10T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-29T14:13:04.706Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
     
@@ -36,7 +36,7 @@
       
     
     <!-- title -->
-    <title>typedef的使用</title>
+    <title>C语言 - typedef的使用</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -83,10 +83,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2024/03/01/C%E8%AF%AD%E8%A8%80-%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2024/11/15/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2024/02/25/C%E8%AF%AD%E8%A8%80-%E5%85%B1%E7%94%A8%E4%BD%93/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2024/11/05/C%E8%AF%AD%E8%A8%80-%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E5%85%B1%E7%94%A8%E4%BD%93/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -99,17 +99,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&text=typedef的使用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&is_video=false&description=typedef的使用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=typedef的使用&body=Check out this article: http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&name=typedef的使用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&t=typedef的使用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&text=C语言 - typedef的使用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&is_video=false&description=C语言 - typedef的使用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C语言 - typedef的使用&body=Check out this article: http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&name=C语言 - typedef的使用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&t=C语言 - typedef的使用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -129,7 +129,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        typedef的使用
+        C语言 - typedef的使用
     </h1>
 
 
@@ -141,7 +141,7 @@
       
     <div class="postdate">
       
-        <time datetime="2024-02-27T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-02-27</time>
+        <time datetime="2024-11-10T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-11-10</time>
         
       
     </div>
@@ -232,17 +232,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&text=typedef的使用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&is_video=false&description=typedef的使用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=typedef的使用&body=Check out this article: http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=typedef的使用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&name=typedef的使用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/02/27/typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&t=typedef的使用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&text=C语言 - typedef的使用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&is_video=false&description=C语言 - typedef的使用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C语言 - typedef的使用&body=Check out this article: http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&title=C语言 - typedef的使用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&name=C语言 - typedef的使用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/11/10/C%E8%AF%AD%E8%A8%80-typedef%E7%9A%84%E4%BD%BF%E7%94%A8/&t=C语言 - typedef的使用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="前言： 每个C应用程序只有一个，且必须有一个main()主函数。无论主函数写在什么位置，C程序总是从main()函数开始执行。main()函数可以调用其它的子函数，子函数之间可以相互调用任意多次。 库函数：使用库函数，必须包含 #include 对应的头文件。  函数定义的格式：  返回值类型： 无返回值的类型：针对函数无返回值或明确不需返回值的情况，使用 void (即空类型)表示。 有返回值的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C语言函数">
-<meta property="og:url" content="http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:title" content="C语言 - 函数">
+<meta property="og:url" content="http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="Lcb3rg">
 <meta property="og:description" content="前言： 每个C应用程序只有一个，且必须有一个main()主函数。无论主函数写在什么位置，C程序总是从main()函数开始执行。main()函数可以调用其它的子函数，子函数之间可以相互调用任意多次。 库函数：使用库函数，必须包含 #include 对应的头文件。  函数定义的格式：  返回值类型： 无返回值的类型：针对函数无返回值或明确不需返回值的情况，使用 void (即空类型)表示。 有返回值的">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/C%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B01.png">
 <meta property="og:image" content="http://example.com/images/C%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B02.png">
 <meta property="og:image" content="http://example.com/images/C%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B03.png">
-<meta property="article:published_time" content="2024-02-18T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-24T09:39:59.176Z">
+<meta property="article:published_time" content="2024-10-26T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-29T14:09:04.298Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/C%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0/%E5%87%BD%E6%95%B01.png">
@@ -40,7 +40,7 @@
       
     
     <!-- title -->
-    <title>C语言函数</title>
+    <title>C语言 - 函数</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -87,10 +87,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2024/02/21/%E5%86%8D%E8%B0%88%E5%8F%98%E9%87%8F/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2024/10/30/C%E8%AF%AD%E8%A8%80-%E5%86%8D%E8%B0%88%E5%8F%98%E9%87%8F/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2024/02/14/C%E8%AF%AD%E8%A8%80-%E6%8C%87%E9%92%88/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2024/10/22/C%E8%AF%AD%E8%A8%80-%E6%8C%87%E9%92%88/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -103,24 +103,24 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&text=C语言函数"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&is_video=false&description=C语言函数"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=C语言函数&body=Check out this article: http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&name=C语言函数&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&t=C语言函数"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&text=C语言 - 函数"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&is_video=false&description=C语言 - 函数"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C语言 - 函数&body=Check out this article: http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&name=C语言 - 函数&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&t=C语言 - 函数"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E7%9A%84%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">函数定义的格式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">函数定义注意事项：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%A2%E5%8F%82%E3%80%81%E5%AE%9E%E5%8F%82%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">形参、实参：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">函数的调用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main-%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">main()函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exit-%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">exit()函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">函数的声明：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">参数的传递：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="toc-number">10.</span> <span class="toc-text">函数的高级应用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">11.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E7%9A%84%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">函数定义的格式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">函数定义注意事项：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%A2%E5%8F%82%E3%80%81%E5%AE%9E%E5%8F%82%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">形参、实参：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">函数的调用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main-%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">main()函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exit-%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">exit()函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">函数的声明：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">参数的传递：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="toc-number">10.</span> <span class="toc-text">函数的高级应用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">11.</span> <span class="toc-text">字符串常用函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">12.</span> <span class="toc-text">基本数据类型和字符串的转换函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">13.</span> <span class="toc-text">日期和时间相关函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">14.</span> <span class="toc-text">数学运算相关函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">15.</span> <span class="toc-text">内存管理相关函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99%EF%BC%9A"><span class="toc-number">16.</span> <span class="toc-text">动态分配内存的基本原则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%86%85%E5%AD%98%E9%94%99%E8%AF%AF%E5%8F%8A%E5%85%B6%E5%AF%B9%E7%AD%96%EF%BC%9A"><span class="toc-number">17.</span> <span class="toc-text">常见的内存错误及其对策：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">18.</span> <span class="toc-text">参考链接：</span></a></li></ol>
       </div>
     
   </span>
@@ -133,7 +133,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        C语言函数
+        C语言 - 函数
     </h1>
 
 
@@ -145,7 +145,7 @@
       
     <div class="postdate">
       
-        <time datetime="2024-02-18T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-02-18</time>
+        <time datetime="2024-10-26T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-10-26</time>
         
       
     </div>
@@ -528,6 +528,267 @@
 </ol>
 </li>
 </ol>
+<h2 id="字符串常用函数："><a href="#字符串常用函数：" class="headerlink" title="字符串常用函数："></a>字符串常用函数：</h2><ol>
+<li><p>这些函数都在<code>#include &lt;string.h&gt;</code>头文件当中</p>
+</li>
+<li><p>**strlen()**函数：</p>
+<ul>
+<li><p>作用：返回字符串的长度，不包括末尾的空字符 ‘\0’ 。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str[<span class="number">10</span>] = <span class="string">&quot;China&quot;</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, <span class="built_in">strlen</span>(str));<span class="comment">//5</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>**sizeof：**这是个关键字运算符，并不是函数</p>
+<ul>
+<li><p>作用：计算数据类型或变量所占用的内存大小（以字节为单位）包含“\0”</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="keyword">sizeof</span>(a);<span class="comment">//4</span></span><br><span class="line"><span class="type">char</span> a[<span class="number">10</span>]=<span class="string">&quot;huan&quot;</span>;</span><br><span class="line"><span class="keyword">sizeof</span>(a);<span class="comment">//输出10，返回的是整个数组的大小</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>**strcpy()**函数：</p>
+<ol>
+<li><p>格式：strcpy(字符数组1, 字符数组2) </p>
+</li>
+<li><p>作用：字符串的复制，直接将字符数组2的字符串复制到字符数组1中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str1[<span class="number">10</span>]=<span class="string">&quot;111111234&quot;</span>, str2[] = <span class="string">&quot;China&quot;</span>;</span><br><span class="line"><span class="built_in">strcpy</span>(str1, str2);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,str1); <span class="comment">//China 遇到\0停止输出</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>;i++)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,str1[i]); <span class="comment">//China\0234\0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>**注意：**复制时将字符串China和其后的′\0′一起复制到字符数组str1中，取代字符数组str1中前面的字符，未被取代的字符保持原有内容。</p>
+</li>
+</ol>
+</li>
+<li><p>**strncpy()**函数：</p>
+<ol>
+<li>格式：strncpy(字符串1, 字符串2, n);</li>
+<li>作用：将字符串2中前面n个字符复制到字符数组1中去。</li>
+</ol>
+</li>
+<li><p>**strcat()**函数：</p>
+<ol>
+<li><p>格式：strcat(字符数组1, 字符数组2)</p>
+</li>
+<li><p>作用：把两个字符数组中的字符串连接起来，把字符串2接到字符串1的后面，结果放在字符数组1中，函数调用后得到一个函数值——字符数组1的地址。</p>
+</li>
+<li><p>注意：连接前两个字符串的后面都有′\0′，连接时将字符串1后面的′\0′取消，只在新字符串最后保留′\0′。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str1[<span class="number">30</span>] = &#123;<span class="string">&quot;People′s of &quot;</span>&#125;;</span><br><span class="line"><span class="type">char</span> str2[] = &#123;<span class="string">&quot;China&quot;</span>&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, <span class="built_in">strcat</span>(str1, str2)); <span class="comment">//People′s of China</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, str1);  <span class="comment">//People′s of China</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>**strncat()**函数：</p>
+<ol>
+<li>格式：strncat(str1, str2, n);</li>
+<li>作用：将字符串2中前面n个字符连接到字符数组1中去</li>
+</ol>
+</li>
+<li><p>**strcmp()**函数：</p>
+<ol>
+<li><p>格式：strcmp(字符串1, 字符串2)</p>
+</li>
+<li><p>作用：比较字符串1和字符串2。</p>
+</li>
+<li><p>**字符串比较的规则是：**将两个字符串自左至右逐个字符相比(按ASCII码值大小比较)，直到出现不同的字符或遇到′\0′为止。</p>
+<p>(1) 如全部字符相同，则认为两个字符串相等。返回值为0</p>
+<p>(2) 若出现不相同的字符，如果返回值为正数，则字符串1大；反之，返回值为负数，则字符串2大。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *str1 = <span class="string">&quot;abxy&quot;</span>;</span><br><span class="line"><span class="type">char</span> *str2 = <span class="string">&quot;abmn&quot;</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">strcmp</span>(str1, str2));  <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> compare1 = <span class="built_in">strcmp</span>(<span class="string">&quot;China&quot;</span>, <span class="string">&quot;Korea&quot;</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,compare1);  <span class="comment">// -1</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p><strong>strlwr()&#x2F;strupr()</strong>：</p>
+<ol>
+<li><p><strong>strlwr(字符串)</strong>：将字符串中大写字母换成小写字母。</p>
+</li>
+<li><p><strong>strupr(字符串)</strong>：将字符串中小写字母换成大写字母。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str[] = <span class="string">&quot;HelloWorld&quot;</span>;</span><br><span class="line">strlwr(str);</span><br><span class="line"><span class="built_in">puts</span>(str); <span class="comment">//helloworld</span></span><br><span class="line"></span><br><span class="line">strupr(str);</span><br><span class="line"><span class="built_in">puts</span>(str); <span class="comment">//HELLOWORLD</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h2 id="基本数据类型和字符串的转换函数："><a href="#基本数据类型和字符串的转换函数：" class="headerlink" title="基本数据类型和字符串的转换函数："></a>基本数据类型和字符串的转换函数：</h2><ol>
+<li><p>基本数据类型 -&gt; 字符串：</p>
+<ol>
+<li><p>**sprintf()**函数可以将其他数据类型转换成字符串类型。此函数声明在<code>stdio.h</code>头文件中。</p>
+</li>
+<li><p>sprintf()和平时我们常用的printf()函数的功能相似，只是sprintf()函数输出到字符串中，而printf()函数输出到屏幕上。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str[<span class="number">20</span>];</span><br><span class="line"><span class="type">int</span> a = <span class="number">111</span>；</span><br><span class="line"><span class="type">char</span> c = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"><span class="built_in">sprintf</span>(str, <span class="string">&quot;%d%c&quot;</span>, a, c);<span class="comment">//把a c 加入到字符数组str中</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;str=%s\n&quot;</span>, str); <span class="comment">//111a</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>字符串 -&gt; 基本数据类型：</p>
+<ol>
+<li><p>调用头文件<code> &lt;stdlib.h&gt;</code> 的函数<code>atoi()</code> 或 <code>atof()</code> 即可。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> str1[<span class="number">10</span>] = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"><span class="type">char</span> str2[<span class="number">4</span>] = <span class="string">&quot;111&quot;</span>;</span><br><span class="line"><span class="type">int</span> i = atoi(str1);<span class="comment">//123456</span></span><br><span class="line"><span class="type">int</span> j = atof(str1);<span class="comment">//111</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h2 id="日期和时间相关函数："><a href="#日期和时间相关函数：" class="headerlink" title="日期和时间相关函数："></a><strong>日期和时间相关函数</strong>：</h2><ol>
+<li>头文件是  <code>&lt;time.h&gt;</code></li>
+<li>举例说明：</li>
+</ol>
+<ul>
+<li>返回一个值，即格林尼治时间1970年1月1日00:00:00到当前时刻的时长，时长单位是秒。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">time_t</span> <span class="title function_">time</span><span class="params">(<span class="type">time_t</span> *t)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获取当前时间，返回一个表示当地时间的字符串(当地时间是基于参数timer的)。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">ctime</span><span class="params">(<span class="type">const</span> <span class="type">time_t</span> *timer)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>计算time1和time2之间相差的秒数（time1-time2）</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">difftime</span><span class="params">(<span class="type">time_t</span> time1, <span class="type">time_t</span> time2)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>例子举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span> <span class="comment">//该头文件中，声明日期和时间相关的函数</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  运行test函数，看看执行花费时间</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10000000</span>; i++) &#123;</span><br><span class="line">        sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; <span class="number">100</span>; j++) &#123;</span><br><span class="line">            sum += j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;程序启动...\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">time_t</span> <span class="type">start_t</span>;</span><br><span class="line">    <span class="comment">//先得到执行test前的时间</span></span><br><span class="line">    time(&amp;<span class="type">start_t</span>); <span class="comment">//获取当前时间</span></span><br><span class="line"></span><br><span class="line">    test(); <span class="comment">//执行test</span></span><br><span class="line"></span><br><span class="line">    <span class="type">time_t</span> <span class="type">end_t</span>;</span><br><span class="line">    <span class="comment">//再得到执行test后的时间</span></span><br><span class="line">    time(&amp;<span class="type">end_t</span>); <span class="comment">//获取当前时间</span></span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> <span class="type">diff_t</span>; <span class="comment">//存放时间差</span></span><br><span class="line">    <span class="type">diff_t</span> = difftime(<span class="type">end_t</span>, <span class="type">start_t</span>); <span class="comment">//时间差，按秒 ent_t - start_t</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//然后得到两个时间差就是耗用的时间</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="type">start_t</span>); <span class="comment">//1697026306</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="type">end_t</span>); <span class="comment">//1697026308</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;执行test()函数 耗用了%.2f 秒\n&quot;</span>, <span class="type">diff_t</span>); <span class="comment">//执行test()函数 耗用了2.00 秒</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取时间对应的字符串的表示</span></span><br><span class="line">    <span class="type">char</span> * startTimeStr = ctime(&amp;<span class="type">start_t</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,startTimeStr); <span class="comment">//Wed Oct 11 20:11:48 2023</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="数学运算相关函数："><a href="#数学运算相关函数：" class="headerlink" title="数学运算相关函数："></a>数学运算相关函数：</h2><ol>
+<li><code>math.h</code>头文件定义了各种数学函数。在这个库中所有可用的功能都带有一个 double 类型的参数，且都返回 double 类型的结果。</li>
+</ol>
+<ul>
+<li><p>double exp(double x) ：返回 e 的 x 次幂的值。</p>
+</li>
+<li><p>double log(double x) ：返回 x 的自然对数（基数为 e 的对数）</p>
+</li>
+<li><p>double pow(double x, double y) ：返回 x 的 y 次幂。</p>
+</li>
+<li><p>double sqrt(double x) ：返回 x 的平方根。</p>
+</li>
+<li><p>double fabs(double x) ：返回 x 的绝对值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">double</span> d1 = <span class="built_in">pow</span>(<span class="number">2.0</span>, <span class="number">3.0</span>);</span><br><span class="line">    <span class="type">double</span> d2 = <span class="built_in">sqrt</span>(<span class="number">5.0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;d1=%.2f\n&quot;</span>, d1); <span class="comment">//d1=8.00</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;d2=%f\n&quot;</span>, d2);   <span class="comment">//d2=2.236068</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="内存管理相关函数："><a href="#内存管理相关函数：" class="headerlink" title="内存管理相关函数："></a>内存管理相关函数：</h2><ol>
+<li><p>C程序的内存分配：</p>
+<ol>
+<li>内存从大到小排序：栈–堆–静态区–常量区–代码区</li>
+<li>非静态的局部变量——内存中的动态存储区：stack 栈</li>
+<li>临时使用的数据——建立动态内存分配区域，需要时随时开辟，不需要时及时释放——heap 堆</li>
+<li>全局变量和静态局部变量——内存中的静态存储区&#x2F;全局区</li>
+<li>const修饰常量、字符串常量——常量区</li>
+<li>自己编写的代码、指令等——代码区</li>
+<li>根据需要<code>向系统申请</code>所需大小的空间，由于未在声明部分定义其为变量或者数组，不能通过变量名或者数组名来引用这些数据，只能通过<strong>指针</strong>来引用）</li>
+</ol>
+</li>
+<li><p>void指针（无类型指针）</p>
+<ol>
+<li><p>C 语言提供了一种不定类型的指针，叫做 void 指针。它只有内存块的<code>地址信息</code>，<code>没有类型信息</code>，等到使用该块内存的时候，再向编译器补充说明，里面的数据类型是什么。</p>
+</li>
+<li><p>void 指针可以<code>指向任意类型</code>的数据，但是<code>不能解读数据</code>。</p>
+</li>
+<li><p>void 指针与其他所有类型指针之间是<code>互相转换关系</code>，任一类型的指针都可以转为 void 指针，而 void 指针也可以转为任一类型的指针。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x=<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> *p=&amp;x;</span><br><span class="line"><span class="type">void</span> *q=&amp;x;</span><br><span class="line">q=p;<span class="comment">//无类型的指针变量可以与其他类型的指针变量相互转换</span></span><br><span class="line"><span class="type">int</span> y=*q;<span class="comment">//无法解读出void类型指针指向的数据</span></span><br><span class="line"><span class="type">int</span> z=*((<span class="type">int</span> *)q);<span class="comment">//可以先转换为int *类型的，再取值</span></span><br></pre></td></tr></table></figure>
+
+<p>由于不知道 void 指针指向什么类型的值，所以不能用<code>*</code>运算符取出它指向的值。</p>
+</li>
+</ol>
+</li>
+<li><p>内存动态分配函数：</p>
+<ol>
+<li><p>头文件<code>&lt;stdlib.h&gt;</code>声明了四个关于内存动态分配的函数。<strong>所谓动态分配内存，就是按需分配，申请才能获得。</strong></p>
+</li>
+<li><p>掌握：malloc()</p>
+<ol>
+<li><p>函数原型：void *malloc(unsigned int size);  &#x2F;&#x2F;size的类型为无符号整型</p>
+</li>
+<li><p>作用：在内存的<code>动态存储区(堆区)</code>中分配一个<code>长度为size</code>的<code>连续空间</code>。并将该空间的首地址作为函数值返回，即此函数是一个指针函数。</p>
+</li>
+<li><p>由于返回的指针的基类型为 void，应通过显式类型转换后才能存入其他基类型的指针变量，否则会有警告。如果分配不成功，返回空指针（NULL）。</p>
+</li>
+<li><p>举例1：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p;</span><br><span class="line">p=(<span class="type">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>));<span class="comment">//因为返回的是void *，所以转换为int *类型</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>举例2：动态申请数组空间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p;</span><br><span class="line">p = (<span class="type">int</span> *)<span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">  p[i] = i * <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
+<p>得到一个元素类型为int型，长度为n的数组。取元素方式与之前相同，如获取第2个元素：p[1]。</p>
+</li>
+<li><p>举例3：动态申请结构体空间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">p</span>;</span></span><br><span class="line">p = (<span class="keyword">struct</span> node *) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> node));  <span class="comment">//(struct node*)为强制类型转换</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于返回值为NULL：</p>
+<ul>
+<li>malloc() 分配内存有可能分配失败，这时返回常量 NULL。Null 的值为0，是一个无法读写的内存地址，可以理解成一个不指向任何地方的指针。</li>
+<li>由于存在分配失败的可能，所以最好在使用 malloc() 之后检查一下，是否分配成功。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>掌握：**free()<strong>与</strong>malloc()**联用</p>
+<ol>
+<li><p>函数原型：**void free(void *p);**函数无返回值</p>
+</li>
+<li><p>作用：释放指针变量p所指向的内存空间，使这部分内存能重新被其它变量使用。否则这个内存块会一直占用到程序运行结束。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p;</span><br><span class="line">p=(<span class="type">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">    </span><br><span class="line"><span class="comment">//...各种操作...</span></span><br><span class="line">    </span><br><span class="line"><span class="built_in">free</span>(p); <span class="comment">//千万不要忘了使用free()释放内存！</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<p>1、指针 p 必须是经过动态分配函数 malloc 成功后返回的首地址。</p>
+<p>2、分配的内存块一旦释放，就不应该再次操作已经释放的地址，也不应该再次使用 free() 对该地址释放第二次。</p>
+<p>3、如果忘记调用free()函数，同时p所在的函数调用结束后p指针已经消失了，导致无法访问未回收的内存块，构成内存泄漏。</p>
+</li>
+</ol>
+</li>
+<li><p>了解：<strong>calloc()</strong></p>
+<ol>
+<li><p>函数原型：void *calloc(unsigned int n,unsigned int size);</p>
+</li>
+<li><p>作用：在内存的**动态存储区(堆区)*<em>中分配n个，单位长度为size的连续空间，这个空间一般比较大，总共占用n</em>size 个字节。其内容初始化为0，并将该空间的首地址作为函数的返回值。如果函数没有成功执行，返回NULL。</p>
+</li>
+<li><p>calloc()函数适合为<code>一维数组</code>开辟动态存储空间，n为数组元素个数，每个元素长度为size。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p;</span><br><span class="line">p = (<span class="type">int</span> *)<span class="built_in">calloc</span>(<span class="number">10</span>,<span class="keyword">sizeof</span>(<span class="type">int</span>)); <span class="comment">//开辟空间的同时，其内容初始化为零</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="type">int</span>* p;</span><br><span class="line">p = (<span class="type">int</span> *)<span class="built_in">malloc</span>(<span class="number">10</span> * <span class="keyword">sizeof</span>(<span class="type">int</span>));<span class="comment">//未初始化</span></span><br><span class="line"><span class="built_in">memset</span>(p, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="type">int</span>) * <span class="number">10</span>);<span class="comment">//使用memset函数初始化</span></span><br></pre></td></tr></table></figure>
+
+<p>上面示例中， calloc() 相当于 malloc() + memset() 。</p>
+</li>
+</ol>
+</li>
+<li><p>了解：realloc()</p>
+<ol>
+<li><p>函数原型：void <em>realloc(void</em> p, unsigned int size)</p>
+</li>
+<li><p>作用：重新分配malloc()或calloc()函数获得的动态空间大小，即调整大小的内存空间。将先前开辟的内存块的指针p指向的动态空间大小改变为size，单位字节。返回值是一个全新的地址（数据也会自动复制过去），也可能返回跟原来一样的地址。分配失败返回NULL。</p>
+</li>
+<li><p>realloc() 优先在原有内存块上进行缩减，尽量不移动数据，所以通常是返回原先的地址。</p>
+</li>
+<li><p>如果新内存块小于原来的大小，则丢弃超出的部分；如果大于原来的大小，则不对新增的部分进行初始化（程序员可以自动调用 memset() ）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>* b;</span><br><span class="line">b = (<span class="type">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>) * <span class="number">10</span>);</span><br><span class="line">b = (<span class="type">int</span> *)<span class="built_in">realloc</span>(b, <span class="keyword">sizeof</span>(<span class="type">int</span>) * <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>指针 b 原来指向10个成员的整数数组，使用 realloc() 调整为2000个成员的数组。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="动态分配内存的基本原则："><a href="#动态分配内存的基本原则：" class="headerlink" title="动态分配内存的基本原则："></a>动态分配内存的基本原则：</h2><ol>
+<li>避免分配大量的小内存块：分配堆上的内存有一些系统开销，所以分配许多小的内存块比分配几个大内存块的系统开销大</li>
+<li>仅在需要时分配内存：只要使用完堆上的内存块，就需要及时释放它，否则可能出现内存泄漏。这里需要遵守原则：谁分配，谁释放。</li>
+<li>总是确保释放以分配的内存：在编写分配内存的代码时，就要确定在代码的什么地方释放内存。</li>
+</ol>
+<h2 id="常见的内存错误及其对策："><a href="#常见的内存错误及其对策：" class="headerlink" title="常见的内存错误及其对策："></a>常见的内存错误及其对策：</h2><ol>
+<li><p>内存分配未成功，却使用了它：</p>
+<ul>
+<li>解决办法是，在使用内存之前检查指针是否为NULL。比如，如果指针p是函数的参数，那么在函数的入口处应该用<code>if(p==NULL)</code>或<code>if(p!=NULL)</code>进行防错处理。</li>
+</ul>
+</li>
+<li><p>内存分配虽然成功，但是尚未初始化就引用它：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * p = <span class="literal">NULL</span>;</span><br><span class="line">p = (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line"><span class="keyword">if</span> (p == <span class="literal">NULL</span>)&#123;<span class="comment">/*...*/</span>&#125;</span><br><span class="line"><span class="comment">/*初始化为0*/</span></span><br><span class="line"><span class="built_in">memset</span>(p, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br></pre></td></tr></table></figure>
+
+<p>题外话，无论用何种方式创建数组，都别忘了赋初值，即便是赋零值也不可省略，不要嫌麻烦。</p>
+</li>
+<li><p>内存分配成功并且已经初始化，但操作时提示内存越界：</p>
+<ul>
+<li>在使用数组时经常发生下标“+1”或者“-1”的操作，特别是在for循环语句中，循环次数很容易搞错，导致数组操作越界。</li>
+</ul>
+</li>
+<li><p>忘记了释放内存，造成内存泄漏：</p>
+<ul>
+<li>动态内存的申请与释放必须配对，程序中<code>malloc()</code>与<code>free()</code>的使用次数一定要相同，否则肯定有错误。</li>
+</ul>
+</li>
+<li><p>未正确的释放内存，造成内存泄漏：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">getMemory</span><span class="params">(<span class="type">int</span> *p)</span> &#123;</span><br><span class="line">    p = (<span class="type">int</span> *) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>));  <span class="comment">// 在这里修改的是局部指针 p，不会影响 main 函数中的原始指针 ptr</span></span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> *ptr = <span class="literal">NULL</span>;</span><br><span class="line">    getMemory(ptr);  <span class="comment">// 将 ptr 的值传递给 getMemory，但是在函数内部修改的是 p，而不是 ptr</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;ptr = %d\n&quot;</span>, *ptr);  <span class="comment">// 这里的 *ptr 是未定义行为，因为 ptr 没有指向有效的内存</span></span><br><span class="line">    <span class="built_in">free</span>(ptr);  <span class="comment">// 这里试图释放未分配的内存，会导致问题</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，getMemory()中的p申请了新的内存，只是把 p所指的内存地址改变了，但是ptr丝毫未变。getMemory()中的p也始终没有进行内存的释放。事实上，因为没有用free释放内存，每执行一次getMemory()就会泄漏一块内存。</p>
+</li>
+<li><p>释放了内存却继续使用它：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> *p;</span><br><span class="line"><span class="type">void</span> <span class="title function_">addr</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">long</span> k;</span><br><span class="line">    k = <span class="number">0</span>;</span><br><span class="line">    p = &amp;k;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">port</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">long</span> i, j;</span><br><span class="line">    j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        (*p)--;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    addr();</span><br><span class="line">    port();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于addr函数中的变量k在函数返回后就已经不存在了，但是在全局变量p中却保存了它的地址。在下一个函数port中，试图通过全局指针p访问一个不存在的变量，进而出错。</p>
+</li>
+</ol>
 <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
   </div>
 </article>
@@ -557,23 +818,23 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E7%9A%84%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">函数定义的格式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">函数定义注意事项：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%A2%E5%8F%82%E3%80%81%E5%AE%9E%E5%8F%82%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">形参、实参：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">函数的调用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main-%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">main()函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exit-%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">exit()函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">函数的声明：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">参数的传递：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="toc-number">10.</span> <span class="toc-text">函数的高级应用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">11.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E7%9A%84%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">函数定义的格式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">函数定义注意事项：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%A2%E5%8F%82%E3%80%81%E5%AE%9E%E5%8F%82%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">形参、实参：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">函数的调用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main-%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">main()函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exit-%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">exit()函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">函数的声明：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">参数的传递：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="toc-number">10.</span> <span class="toc-text">函数的高级应用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">11.</span> <span class="toc-text">字符串常用函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">12.</span> <span class="toc-text">基本数据类型和字符串的转换函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">13.</span> <span class="toc-text">日期和时间相关函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">14.</span> <span class="toc-text">数学运算相关函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">15.</span> <span class="toc-text">内存管理相关函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99%EF%BC%9A"><span class="toc-number">16.</span> <span class="toc-text">动态分配内存的基本原则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%86%85%E5%AD%98%E9%94%99%E8%AF%AF%E5%8F%8A%E5%85%B6%E5%AF%B9%E7%AD%96%EF%BC%9A"><span class="toc-number">17.</span> <span class="toc-text">常见的内存错误及其对策：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">18.</span> <span class="toc-text">参考链接：</span></a></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&text=C语言函数"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&is_video=false&description=C语言函数"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=C语言函数&body=Check out this article: http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言函数"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&name=C语言函数&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/02/18/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&t=C语言函数"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&text=C语言 - 函数"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&is_video=false&description=C语言 - 函数"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C语言 - 函数&body=Check out this article: http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&title=C语言 - 函数"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&name=C语言 - 函数&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/10/26/C%E8%AF%AD%E8%A8%80-%E5%87%BD%E6%95%B0/&t=C语言 - 函数"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
