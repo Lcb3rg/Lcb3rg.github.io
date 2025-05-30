@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="SPI（串行外围设备接口），SPI接口主要应用于EEPROM，FLASH，各种传感器，AD转换器等。它是一种高速的，全双工，同步的串行通信总线。 物理层： 1个SPI设备一般有4条线  SCK:时钟信号线，用于通讯数据同步。它由通讯主机(MCU)产生，决定了通讯的速率。不同的设备支持的最高时钟频率不一样，如STM32的SPI时钟频率最大为fpck&#x2F;2。两个设备之间通讯时，通讯速率受限于低">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 - SPI通信">
+<meta property="og:url" content="http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="SPI（串行外围设备接口），SPI接口主要应用于EEPROM，FLASH，各种传感器，AD转换器等。它是一种高速的，全双工，同步的串行通信总线。 物理层： 1个SPI设备一般有4条线  SCK:时钟信号线，用于通讯数据同步。它由通讯主机(MCU)产生，决定了通讯的速率。不同的设备支持的最高时钟频率不一样，如STM32的SPI时钟频率最大为fpck&#x2F;2。两个设备之间通讯时，通讯速率受限于低">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/STM32/SPI1.png">
+<meta property="og:image" content="http://example.com/images/STM32/SPI2.png">
+<meta property="og:image" content="http://example.com/images/STM32/SPI3.png">
+<meta property="article:published_time" content="2025-01-12T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-30T01:32:30.644Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/STM32/SPI1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>STM32 - SPI通信</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/01/22/STM32-%E5%AD%98%E5%82%A8%E5%92%8CLCD%E5%92%8CFSMC/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/01/05/STM32-ADC%E6%95%B0%E6%A8%A1%E8%BD%AC%E6%8D%A2/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&text=STM32 - SPI通信"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&is_video=false&description=STM32 - SPI通信"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - SPI通信&body=Check out this article: http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&name=STM32 - SPI通信&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&t=STM32 - SPI通信"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">物理层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%B1%82%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">协议层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32F103%E4%B8%ADSPI%E9%80%9A%E4%BF%A1%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">STM32F103中SPI通信：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        STM32 - SPI通信
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-01-12T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-01-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><strong>SPI</strong>（串行外围设备接口），SPI接口主要应用于EEPROM，FLASH，各种传感器，AD转换器等。它是一种高速的，全双工，同步的串行通信总线。</p>
+<h2 id="物理层："><a href="#物理层：" class="headerlink" title="物理层："></a>物理层：</h2><ol>
+<li><p><code>1</code>个<code>SPI</code>设备一般有<code>4</code>条线</p>
+</li>
+<li><p><code>SCK</code>:时钟信号线，用于通讯数据同步。它由通讯主机(MCU)产生，决定了通讯的速率。不同的设备支持的最高时钟频率不一样，如STM32的SPI时钟频率最大为fpck&#x2F;2。两个设备之间通讯时，通讯速率受限于低速设备。</p>
+</li>
+<li><p>MOSI:主设备输出&#x2F;从设备输入引脚。主机的数据从这条信号线输出，从机由这条信号线读入主机发送的数据，这条线上数据的方向为主机到从机。</p>
+</li>
+<li><p>MISO:主设备输入&#x2F;从设备输出引脚，主机从这条信号线读入数据，从机的数据由这条信号线输入到主机。在这条线上数据的方向为从机到主机。</p>
+</li>
+<li><p>SS:片选线或者使能线。有时候也称NSS或CS,SPI通信时各个设备是没有地址的，主机和哪个从机通讯，就把谁的SS置为低电平。</p>
+</li>
+</ol>
+<h2 id="协议层："><a href="#协议层：" class="headerlink" title="协议层："></a>协议层：</h2><ol>
+<li><p><img src="/../images/STM32/SPI1.png" alt="SPI1"></p>
+<p><img src="/../images/STM32/SPI2.png" alt="SPI2"></p>
+<p><img src="/../images/STM32/SPI3.png" alt="SPI3"></p>
+</li>
+</ol>
+<h2 id="STM32F103中SPI通信："><a href="#STM32F103中SPI通信：" class="headerlink" title="STM32F103中SPI通信："></a>STM32F103中SPI通信：</h2><ol>
+<li>STM32F103系列提供了<code>3</code>个SPI，SPI1挂在APB2总线，SPI2&#x2F;3挂在APB1总线。用的比较多还是<strong>双线全双工模式</strong>。</li>
+<li>STM32 的 SPI 外设可用作通讯的主机及从机，支持最高的 SCK 时钟频率为 fpclk&#x2F;2 （STM32F103 型号的芯片默认fpclk1为36MHz，fpclk2为72MHz。），完全支持 SPI 协议的 <code>4</code> 种模式，数据帧长度可设置为 <code>8</code> 位或 <code>16</code> 位，可设置数据 MSB 先行或 LSB 先行（<strong>高位先行还是低位先行</strong>）。它还支持双线全双工、单线双向以及单线模式。</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">物理层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%B1%82%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">协议层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32F103%E4%B8%ADSPI%E9%80%9A%E4%BF%A1%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">STM32F103中SPI通信：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&text=STM32 - SPI通信"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&is_video=false&description=STM32 - SPI通信"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - SPI通信&body=Check out this article: http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&title=STM32 - SPI通信"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&name=STM32 - SPI通信&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/01/12/STM32-SPI%E9%80%9A%E4%BF%A1/&t=STM32 - SPI通信"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
