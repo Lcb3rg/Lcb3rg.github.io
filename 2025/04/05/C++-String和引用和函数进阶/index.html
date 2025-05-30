@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="String字符串： C++的标准库中，提供了一种用来表示字符串的数据类型string，这种类型能够表示长度可变的字符序列。使用它必须包含string头文件  定义和初始化： 12345678910&#x2F;&#x2F; 默认初始化，空字符串string s1;&#x2F;&#x2F; 用另一个字符串变量，做拷贝初始化string s2 &#x3D; s1;&#x2F;&#x2F; 用一个字符串字面值，做拷贝初始化string s3 &#x3D; &quot;Hello W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ - String&#x2F;引用&#x2F;函数进阶">
+<meta property="og:url" content="http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="String字符串： C++的标准库中，提供了一种用来表示字符串的数据类型string，这种类型能够表示长度可变的字符序列。使用它必须包含string头文件  定义和初始化： 12345678910&#x2F;&#x2F; 默认初始化，空字符串string s1;&#x2F;&#x2F; 用另一个字符串变量，做拷贝初始化string s2 &#x3D; s1;&#x2F;&#x2F; 用一个字符串字面值，做拷贝初始化string s3 &#x3D; &quot;Hello W">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-05T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-30T01:20:10.710Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>C++ - String/引用/函数进阶</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/04/12/C++-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/04/01/C++-%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&text=C++ - String/引用/函数进阶"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&is_video=false&description=C++ - String/引用/函数进阶"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++ - String/引用/函数进阶&body=Check out this article: http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&name=C++ - String/引用/函数进阶&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&t=C++ - String/引用/函数进阶"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#String%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">String字符串：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%EF%BC%9A%EF%BC%88-%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">引用：（&amp;）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">内联函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">默认参数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%A0%E4%BD%8D%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">占位参数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">函数重载：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#extern-%E2%80%9CC%E2%80%9D%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">extern “C”：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        C++ - String/引用/函数进阶
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-05T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-04-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="String字符串："><a href="#String字符串：" class="headerlink" title="String字符串："></a>String字符串：</h2><ul>
+<li><p>C++的标准库中，提供了一种用来表示字符串的数据类型string，这种类型能够表示长度可变的字符序列。使用它必须包含string头文件</p>
+</li>
+<li><p>定义和初始化：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认初始化，空字符串</span></span><br><span class="line">string s1;</span><br><span class="line"><span class="comment">// 用另一个字符串变量，做拷贝初始化</span></span><br><span class="line">string s2 = s1;</span><br><span class="line"><span class="comment">// 用一个字符串字面值，做拷贝初始化</span></span><br><span class="line">string s3 = <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line"><span class="comment">// 用一个字符串字面值，做直接初始化</span></span><br><span class="line"><span class="function">string <span class="title">s4</span><span class="params">(<span class="string">&quot;hello world&quot;</span>)</span></span>;</span><br><span class="line"><span class="comment">// 定义字符和重复的次数，做直接初始化，得到 hhhhhhhh</span></span><br><span class="line"><span class="function">string <span class="title">s5</span><span class="params">(<span class="number">8</span>, <span class="string">&#x27;h&#x27;</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>处理字符串中的字符：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line"><span class="comment">// 获取第3个字符</span></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;str[2] = &quot;</span> &lt;&lt; str[<span class="number">2</span>] &lt;&lt; endl;</span><br><span class="line"><span class="comment">// 将第1个字符改为&#x27;H&#x27;</span></span><br><span class="line">str[<span class="number">0</span>] = <span class="string">&#x27;H&#x27;</span>;</span><br><span class="line"><span class="comment">// 将最后一个字符改为&#x27;D&#x27;</span></span><br><span class="line">str[str.<span class="built_in">size</span>() - <span class="number">1</span>] = <span class="string">&#x27;D&#x27;</span>;</span><br><span class="line"></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;str = &quot;</span> &lt;&lt; str &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串相加：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串相加</span></span><br><span class="line">string str1 = <span class="string">&quot;hello&quot;</span>, <span class="built_in">str2</span>(<span class="string">&quot;world&quot;</span>);</span><br><span class="line">string str3 = str1 + str2;            <span class="comment">//str3 = &quot;helloworld&quot;</span></span><br><span class="line">string str4 = str1 + <span class="string">&quot;,&quot;</span> + str2 + <span class="string">&quot;!&quot;</span>;<span class="comment">//str4 = &quot;hello,world!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//string str5 = &quot;hello,&quot; + &quot;world!&quot;;//错误，不能将两个字符串字面值相加</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较字符串：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">str1 = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">str2 = <span class="string">&quot;hello world!&quot;</span>;</span><br><span class="line">str3 = <span class="string">&quot;hehehe&quot;</span>;</span><br><span class="line"></span><br><span class="line">str1 == str2;    <span class="comment">// false</span></span><br><span class="line">str1 &lt; str2;     <span class="comment">// true</span></span><br><span class="line">str1 &gt;= str3;     <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果两个字符串长度相同，每个位置包含的字符也都相同，那么两者“相等”；否则“不相等”；</li>
+<li>如果两个字符串长度不同，而较短的字符串每个字符都跟较长字符串对应位置字符相同，那么较短字符串“小于”较长字符串；</li>
+<li>如果两个字符串在某一位置上开始不同，那么就比较这两个字符的ASCII码，比较结果就代表两个字符串的大小关系</li>
+</ul>
+</li>
+</ul>
+<h2 id="引用：（-）"><a href="#引用：（-）" class="headerlink" title="引用：（&amp;）"></a>引用：（&amp;）</h2><ul>
+<li><p>在做声明时，可以在变量名前加上“&amp;”符号，表示它是另一个变量的引用。引用必须被初始化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span>&amp; ref = a; <span class="comment">// ref是a的引用</span></span><br><span class="line"><span class="comment">//int&amp; ref2;  // 错误，引用必须初始化</span></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;ref = &quot;</span> &lt;&lt; ref &lt;&lt; endl;     <span class="comment">// ref等于a的值</span></span><br><span class="line"></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a的地址为：&quot;</span> &lt;&lt; &amp;a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;ref的地址为：&quot;</span> &lt;&lt; &amp;ref &lt;&lt; endl;<span class="comment">// ref和a的地址完全一样</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引用本质上就是一个“别名”，它本身不是数据对象，所以本身不会存储数据，而是和初始值“绑定”（bind）在一起，绑定之后就不能再绑定别的对象了。</p>
+</li>
+<li><p>定义了应用之后，对引用做的所有操作，就像直接操作绑定的原始变量一样。所以，引用也是一种间接访问数据对象的方式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ref = <span class="number">20</span>;               <span class="comment">// 更改ref相当于更改a</span></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;<span class="comment">//a=20</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> b = <span class="number">26</span>;</span><br><span class="line">ref = b;               <span class="comment">// ref没有绑定b，而是把b的值赋给了ref绑定的a</span></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a的地址为：&quot;</span> &lt;&lt; &amp;a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;b的地址为：&quot;</span> &lt;&lt; &amp;b &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;ref的地址为：&quot;</span> &lt;&lt; &amp;ref &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当然，既然是别名，那么根据这个别名再另起一个别名也是可以的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用的引用  地址都是一样的</span></span><br><span class="line"><span class="type">int</span>&amp; rref = ref;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;rref = &quot;</span> &lt;&lt; rref &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a的地址为：&quot;</span> &lt;&lt; &amp;a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;ref的地址为：&quot;</span> &lt;&lt; &amp;ref &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;rref的地址为：&quot;</span> &lt;&lt; &amp;rref &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>“引用的引用”，是把引用作为另一个引用的初始值，其实就是给原来绑定的对象又绑定了一个别名，这两个引用绑定的是同一个对象。</p>
+</li>
+<li><p>注意：引用只能绑定到对象上，而不能跟字面值常量绑定；也就是说，不能把一个字面值直接作为初始值赋给一个引用。而且，引用本身的类型必须跟绑定的对象类型一致。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//int&amp; ref2 = 10;       // 错误，不能创建字面值的引用</span></span><br><span class="line"><span class="type">double</span> d = <span class="number">3.14</span>;</span><br><span class="line"><span class="comment">//int&amp; ref3 = d;        // 错误，引用类型和原数据对象类型必须一致</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="内联函数："><a href="#内联函数：" class="headerlink" title="内联函数："></a>内联函数：</h2><ol>
+<li><p>内联函数是C++为了提高运行速度做的一项优化</p>
+</li>
+<li><p>定义内联函数，只需要在函数声明或者函数定义前加上inline关键字</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//内联函数</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">const</span> string&amp; <span class="title">longerStr</span><span class="params">(<span class="type">const</span> string&amp; str1, <span class="type">const</span> string&amp; str2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> str<span class="number">1.</span><span class="built_in">size</span>() &gt; str<span class="number">2.</span><span class="built_in">size</span>() ? str1 : str2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内联仅仅只是给编译器一个建议，编译器不一定会接受这种建议，如果你没有将函数声明为内联函数，那么编译器也可能将此函数做内联编译。一个好的编译器将会内联小的、简单的函数</p>
+</li>
+</ol>
+<h2 id="默认参数："><a href="#默认参数：" class="headerlink" title="默认参数："></a>默认参数：</h2><ol>
+<li><p>c++在声明函数原型的时可为一个或者多个参数指定默认(缺省)的参数值，当函数调用的时候如果没有指定这个值，编译器会自动用默认值代替  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认实参</span></span><br><span class="line"><span class="function">string <span class="title">stuInfo</span><span class="params">(string name = <span class="string">&quot;&quot;</span>, <span class="type">int</span> age = <span class="number">18</span>, <span class="type">double</span> score = <span class="number">60</span>)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	string info = <span class="string">&quot;学生姓名：&quot;</span> + name + <span class="string">&quot;\t年龄：&quot;</span> + </span><br><span class="line">		<span class="built_in">to_string</span>(age) + <span class="string">&quot;\t平均成绩：&quot;</span> + <span class="built_in">to_string</span>(score);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意：一旦某个形参被定义了默认实参，那它后面的所有形参都必须是默认实参。也就是说，所有默认实参的指定，应该在形参列表的末尾。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误，默认实参不在形参列表末尾</span></span><br><span class="line"><span class="comment">//string stuInfo(string name = &quot;&quot;, int age = 18, double score);    </span></span><br><span class="line"><span class="comment">// 正确，可以前面的形参没有默认实参</span></span><br><span class="line"><span class="function">string <span class="title">stuInfo</span><span class="params">(string name, <span class="type">int</span> age = <span class="number">18</span>, <span class="type">double</span> score = <span class="number">60</span>)</span></span>; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以在声明的时候定义实参：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a=<span class="string">&#x27;x&#x27;</span>,<span class="type">int</span> b=<span class="number">66</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line"><span class="built_in">Fun</span>();</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a,<span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a:&quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;b:&quot;</span> &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认实参定义时要优先放到形参列表的尾部；而调用时，只能省略尾部的参数，不能跳过前面的形参给后面传值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; <span class="built_in">stuInfo</span>() &lt;&lt; endl;              <span class="comment">// &quot;&quot;，18, 60.0</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">stuInfo</span>(<span class="string">&quot;张三&quot;</span>) &lt;&lt; endl;         <span class="comment">// &quot;张三&quot;，18, 60.0</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">stuInfo</span>(<span class="string">&quot;李四&quot;</span>, <span class="number">20</span>) &lt;&lt; endl;     <span class="comment">// &quot;李四&quot;，20, 60.0</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">stuInfo</span>(<span class="string">&quot;王五&quot;</span>, <span class="number">22</span>, <span class="number">85.5</span>) &lt;&lt; endl;<span class="comment">// &quot;王五&quot;，22, 85.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//cout &lt;&lt; stuInfo(19, 92.5) &lt;&lt; endl;// 错误，不能跳过前面的形参给后面传值</span></span><br><span class="line"><span class="comment">//cout &lt;&lt; stuInfo(, , 59.5) &lt;&lt; endl;// 错误，只能省略末尾的形参</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意点：</p>
+<ul>
+<li>注意函数与重载的二义性。</li>
+<li>函数的默认参数从左向右，如果一个参数设置了默认参数，那么这个参数之后的参数都必须设置默认参数。</li>
+<li>如果函数声明和函数定义分开写，函数声明和函数定义不能同时设置默认参数。</li>
+</ul>
+</li>
+</ol>
+<h2 id="占位参数："><a href="#占位参数：" class="headerlink" title="占位参数："></a>占位参数：</h2><ol>
+<li><p>c++在声明函数时，可以设置占位参数。占位参数只有参数类型声明，而没有参数名声明。一般情况下，在函数体内部无法使用占位参数。  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> ,<span class="type">int</span> ,<span class="type">float</span> )</span></span>;<span class="comment">//只有类型，没有变量名</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a,<span class="type">int</span> b,<span class="type">float</span> c,<span class="type">char</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line"><span class="built_in">Fun</span>(<span class="string">&#x27;a&#x27;</span>,<span class="number">1</span>,<span class="number">1.1</span>);</span><br><span class="line"><span class="built_in">Fun</span>(<span class="string">&#x27;b&#x27;</span>,<span class="number">2</span>,<span class="number">2.2</span>,<span class="string">&#x27;3&#x27;</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a,<span class="type">int</span> b,<span class="type">float</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a1:&quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;b1:&quot;</span> &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;c1:&quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Fun</span><span class="params">(<span class="type">char</span> a,<span class="type">int</span> b,<span class="type">float</span> c,<span class="type">char</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;a2:&quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;b2:&quot;</span> &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;c3:&quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意：占位参数也可以指定缺省值</p>
+</li>
+</ol>
+<h2 id="函数重载："><a href="#函数重载：" class="headerlink" title="函数重载："></a>函数重载：</h2><ol>
+<li><p>在C++中，同一作用域下，同一个函数名是可以定义多次的，前提是形参列表不同（参数类型、数量或顺序不同）。这种名字相同但形参列表不同的函数，叫做“重载函数”。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> x,<span class="type">char</span> y)</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//经过 g++编译环节之后</span></span><br><span class="line">_Z7funcv <span class="comment">//v 代表 void,无参数</span></span><br><span class="line">_Z7funci <span class="comment">//i 代表参数为 int 类型</span></span><br><span class="line">_Z7funcic <span class="comment">//i 代表第一个参数为 int 类型，第二个参数为 char 类型</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="extern-“C”："><a href="#extern-“C”：" class="headerlink" title="extern “C”："></a>extern “C”：</h2><ol>
+<li><p>以下在 Linux 下测试:</p>
+<ul>
+<li><p>c 函数: void MyFunc(){} ,被编译成函数: MyFunc</p>
+</li>
+<li><p>c++函数: void MyFunc(){},被编译成函数: _Z7Myfuncv</p>
+</li>
+<li><p>通过这个测试，由于 c++中需要支持函数重载，所以 c 和 c++中对同一个函数经过编译后生成的函数名是不相同的，这就导致了一个问题，如果在 c++中调用一个使用 c 语言编写模块中的某个函数，那么 c++是根据 c++的名称修饰方式来查找并链接这个函数，那么就会发生链接错误，以上例，</p>
+</li>
+<li><p>c++中调用 MyFunc 函数，在链接阶段会去找 _Z7Myfuncv，结果是没有找到的，因为这个 MyFunc 函数是 c 语言编写的，生成的符号是 MyFunc。</p>
+</li>
+</ul>
+</li>
+<li><p>那么如果我想在 c++调用 c 的函数怎么办？  </p>
+<ul>
+<li>extern “C”的主要作用就是为了实现 c++代码能够调用其他 c 语言代码。</li>
+<li>加上 extern “C”后，这部分代码编译器按 c 语言的方式进行编译和链接，而不是按 c++的方式。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus       <span class="comment">// 如果是C++编译器编译，定义此宏</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;            <span class="comment">// 开始C链接约定</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 这里放C语言兼容的函数声明/变量声明 */</span></span><br><span class="line"><span class="comment">/* 例如： */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">c_function</span><span class="params">(<span class="type">int</span> param)</span></span>;</span><br><span class="line"><span class="type">int</span> global_var;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus      <span class="comment">// 对应开始的#ifdef</span></span></span><br><span class="line">&#125;                      <span class="comment">// 结束C链接约定</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#String%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">String字符串：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%EF%BC%9A%EF%BC%88-%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">引用：（&amp;）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">内联函数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">默认参数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%A0%E4%BD%8D%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">占位参数：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">函数重载：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#extern-%E2%80%9CC%E2%80%9D%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">extern “C”：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&text=C++ - String/引用/函数进阶"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&is_video=false&description=C++ - String/引用/函数进阶"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++ - String/引用/函数进阶&body=Check out this article: http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&title=C++ - String/引用/函数进阶"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&name=C++ - String/引用/函数进阶&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/05/C++-String%E5%92%8C%E5%BC%95%E7%94%A8%E5%92%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/&t=C++ - String/引用/函数进阶"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
