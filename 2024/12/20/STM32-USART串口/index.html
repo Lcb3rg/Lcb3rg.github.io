@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="USART（Universal Synchronous&#x2F;Asynchronous Receiver&#x2F;Transmitter，通用同步 &#x2F; 异步收发器）是一种串行通信接口，用于实现设备之间的双向数据传输。它支持异步通信（无需时钟信号）和同步通信（需要时钟信号）两种模式，广泛应用于单片机、嵌入式系统、工业控制等领域 并行通信和串行通讯： 串行通信：数据逐位（bit-by-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 - USART串口通讯">
+<meta property="og:url" content="http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="USART（Universal Synchronous&#x2F;Asynchronous Receiver&#x2F;Transmitter，通用同步 &#x2F; 异步收发器）是一种串行通信接口，用于实现设备之间的双向数据传输。它支持异步通信（无需时钟信号）和同步通信（需要时钟信号）两种模式，广泛应用于单片机、嵌入式系统、工业控制等领域 并行通信和串行通讯： 串行通信：数据逐位（bit-by-">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%B8%B2%E5%B9%B6%E8%A1%8C.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%B8%B2%E5%8F%A3.png">
+<meta property="og:image" content="http://example.com/images/STM32/%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE.png">
+<meta property="article:published_time" content="2024-12-20T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-30T01:38:04.556Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/STM32/%E4%B8%B2%E5%B9%B6%E8%A1%8C.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>STM32 - USART串口通讯</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/12/16/STM32-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&text=STM32 - USART串口通讯"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&is_video=false&description=STM32 - USART串口通讯"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - USART串口通讯&body=Check out this article: http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&name=STM32 - USART串口通讯&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&t=STM32 - USART串口通讯"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E9%80%9A%E4%BF%A1%E5%92%8C%E4%B8%B2%E8%A1%8C%E9%80%9A%E8%AE%AF%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">并行通信和串行通讯：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%B7%A5%EF%BC%8C%E5%8D%8A%E5%8F%8C%E5%B7%A5%EF%BC%8C%E5%85%A8%E5%8F%8C%E5%B7%A5%E9%80%9A%E8%AE%AF%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">单工，半双工，全双工通讯：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5%E9%80%9A%E8%AE%AF%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">同步和异步通讯：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">串口介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">串口通讯协议：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        STM32 - USART串口通讯
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-12-20T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-12-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><strong>USART</strong>（Universal Synchronous&#x2F;Asynchronous Receiver&#x2F;Transmitter，通用同步 &#x2F; 异步收发器）是一种串行通信接口，用于实现设备之间的双向数据传输。它支持异步通信（无需时钟信号）和同步通信（需要时钟信号）两种模式，广泛应用于单片机、嵌入式系统、工业控制等领域</p>
+<h2 id="并行通信和串行通讯："><a href="#并行通信和串行通讯：" class="headerlink" title="并行通信和串行通讯："></a>并行通信和串行通讯：</h2><ul>
+<li><p>串行通信：数据逐位（bit-by-bit）依次通过单一通信线路传输。例如：UART、SPI、$$I^2C$$ 等协议均采用串行方式。</p>
+</li>
+<li><p>并行通信：多个数据位（如8位）同时通过多条并行的物理线路传输。例如：51和STM32单片机通过GPIO端口连接外部存储器时，使用8根或16根数据线并行传输数据。</p>
+<p><img src="/../images/STM32/%E4%B8%B2%E5%B9%B6%E8%A1%8C.png" alt="串并行"></p>
+</li>
+</ul>
+<h2 id="单工，半双工，全双工通讯："><a href="#单工，半双工，全双工通讯：" class="headerlink" title="单工，半双工，全双工通讯："></a>单工，半双工，全双工通讯：</h2><ul>
+<li>**单工通信：**只允许数据在一个方向上传输，即数据只能从发送端传输到接收端，接收端无法向发送端传输数据。简单来说，就是一种“单向”通信模式，可以类比电视广播。</li>
+<li><strong>双工通信：<strong>允许数据在两个方向上传输，其下又分为两种类型：<strong>半双工</strong>和</strong>全双工</strong>。</li>
+<li>*<em>半双工</em>***通信：**允许数据在两个方向上传输，但不能同时进行。在同一时刻，数据只能在一个方向上传输。这意味着通信的两端可以轮流发送和接收数据，但不能同时进行。可以类比对讲机。</li>
+<li><strong>全双工通信</strong>**：**允许数据同时在两个方向上传输。这种通信方式最为高效，因为它允许通信双方同时发送和接收数据，可以类比电话。</li>
+</ul>
+<h2 id="同步和异步通讯："><a href="#同步和异步通讯：" class="headerlink" title="同步和异步通讯："></a>同步和异步通讯：</h2><ol>
+<li>同步通讯：<ul>
+<li>通信双方使用<strong>同一个时钟信号</strong>来同步数据的发送和接收。</li>
+<li>发送方和接收方必须在时钟信号的驱动下严格同步，确保数据在正确的时刻被采样。</li>
+</ul>
+</li>
+<li>异步通讯：<ul>
+<li>通信双方<strong>没有共享的时钟信号</strong>，而是通过<strong>起始位</strong>和<strong>停止位</strong>来同步数据传输。</li>
+<li>发送方和接收方使用各自的时钟（波特率）进行通信，但需要预先约定相同的波特率。</li>
+</ul>
+</li>
+</ol>
+<h2 id="串口介绍："><a href="#串口介绍：" class="headerlink" title="串口介绍："></a>串口介绍：</h2><ul>
+<li><p>串口通讯（Serial Communication）是一种异步、全双工的串行通信接口，常用于微控制器与计算机、其他微控制器或外部设备之间的数据交换，下图是UART通信所需的信号线，其中<code>Tx</code>用于发送数据，<code>Rx</code>用于接受数据。</p>
+<p><img src="/../images/STM32/%E4%B8%B2%E5%8F%A3.png" alt="串口"></p>
+</li>
+</ul>
+<h2 id="串口通讯协议："><a href="#串口通讯协议：" class="headerlink" title="串口通讯协议："></a>串口通讯协议：</h2><ol>
+<li><p>数据格式：</p>
+<ol>
+<li><p>在串口通信中，数据是逐帧（Frame）发送的，每个数据帧通常包括起始位、数据位、校验位（可选）和停止位，具体结构如下图所示。</p>
+<p><img src="/../images/STM32/%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE.png" alt="串口协议"></p>
+</li>
+</ol>
+<ul>
+<li><strong>空闲状态</strong><ul>
+<li>串口协议规定，当总线处于空闲状态下，也就是没有数据传输时，应为高电平。</li>
+</ul>
+</li>
+<li><strong>起始位</strong><ul>
+<li>起始位表示一个数据帧的开始，起始位为低电平（区别于空闲状态）。</li>
+</ul>
+</li>
+<li><strong>数据位</strong><ul>
+<li>传输的主体内容，位于起始位之后，有效数据的长度可以是<code>5</code>到<code>8</code>位，一般都是8位，正好表示一个字节。先发送最低位，最后发送最高位，低电平表示<code>0</code>，高电平表示<code>1</code>。</li>
+</ul>
+</li>
+<li><strong>校验位（可选）</strong><ul>
+<li>用于校验当前帧的正确性，校验算法可以是奇校验或偶校验。</li>
+<li><strong>奇校验（<strong><strong>odd</strong> <strong>parity</strong></strong>）</strong>：如果数据位中1的数目是偶数，则校验位为1，如果1的数目是奇数，校验位为0，目的是保证数据位+校验位中的1的总个数是奇数。</li>
+<li><strong>偶校验（even</strong> <strong>parity</strong><strong>）</strong>：如果数据位中1的数目是偶数，则校验位为0，如果1的数目为奇数，校验位为1，目的是保证数据位+校验位中的1的个数是偶数。</li>
+</ul>
+</li>
+<li><strong>停止位</strong><ul>
+<li>停止位表示数据帧的结束，通常为<code>1</code>位或<code>2</code>位，停止位为高电平。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>发送方和接收方的约定：</p>
+<ol>
+<li><strong>波特率</strong><ol>
+<li>波特率（Baud Rate），他表示每秒钟传输多少个码元，用于表示数据的传输速率。</li>
+<li>因为STM32提供了串口异步通讯，异步通讯中由于没有时钟信号，所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码。常见的波特率为 4800、9600、115200等。</li>
+<li>需要注意波特率（Baud Rate）和比特率（Bit Rate）的区别，比特率表示每秒传输的位（bit）数，而波特率表示每秒传输的符号（symbol）数（码元）。但是串口通信中，二进制的世界码元和位是等价的，只有0和1这两个符号（位），因此1个符号用1位就能表示，所以此处的波特率和比特率是等价的。</li>
+<li>解释：二进制符号只有0和1，所以符号和位数一样，四进制中符号有0、1、2、3，但是符号0转化为位数是00，符号1转化为位数是01，符号2转化为位数是10，符号3转化为位数是11，所以说比特率&#x3D;波特率×log2(M)<em>M</em> 是调制方式中每个符号可以表示的比特数，也可以理解成是进制数，如果是四进制，M就等于4</li>
+</ol>
+</li>
+<li><strong>数据位</strong><ol>
+<li>发送方和接收方需要明确数据位的位数。</li>
+</ol>
+</li>
+<li><strong>校验位</strong><ol>
+<li>发送方和接收方需要明确是否有校验位，如果有，需要明确校验算法是奇校验还是偶校验。</li>
+</ol>
+</li>
+<li><strong>停止位</strong><ol>
+<li>发送方和接收方需要明确停止位的位数。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E9%80%9A%E4%BF%A1%E5%92%8C%E4%B8%B2%E8%A1%8C%E9%80%9A%E8%AE%AF%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">并行通信和串行通讯：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%B7%A5%EF%BC%8C%E5%8D%8A%E5%8F%8C%E5%B7%A5%EF%BC%8C%E5%85%A8%E5%8F%8C%E5%B7%A5%E9%80%9A%E8%AE%AF%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">单工，半双工，全双工通讯：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5%E9%80%9A%E8%AE%AF%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">同步和异步通讯：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">串口介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">串口通讯协议：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&text=STM32 - USART串口通讯"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&is_video=false&description=STM32 - USART串口通讯"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - USART串口通讯&body=Check out this article: http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&title=STM32 - USART串口通讯"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&name=STM32 - USART串口通讯&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/&t=STM32 - USART串口通讯"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="IIC（Inter-Integrated Circuit），通常简称为IIC，是一种用在集成电路（IC）之间的串行通信总线。 IIC为同步串行半双工通信，使用两根线路进行通信，分别是数据线（SDA）和时钟线（SCL），SDA线用于数据传输，SCL线用于数据传输的时钟，确保数据同步。SCL的每个时钟周期，SDA传输一位数据。  IIC协议规定： 数据的接收方会在每个时钟周期的高电平期间读取数据，具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 - IIC协议">
+<meta property="og:url" content="http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="IIC（Inter-Integrated Circuit），通常简称为IIC，是一种用在集成电路（IC）之间的串行通信总线。 IIC为同步串行半双工通信，使用两根线路进行通信，分别是数据线（SDA）和时钟线（SCL），SDA线用于数据传输，SCL线用于数据传输的时钟，确保数据同步。SCL的每个时钟周期，SDA传输一位数据。  IIC协议规定： 数据的接收方会在每个时钟周期的高电平期间读取数据，具">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/STM32/IIC1.png">
+<meta property="og:image" content="http://example.com/images/STM32/IIC2.png">
+<meta property="og:image" content="http://example.com/images/STM32/IIC3.png">
+<meta property="og:image" content="http://example.com/images/STM32/IIC4.png">
+<meta property="og:image" content="http://example.com/images/STM32/IIC5.png">
+<meta property="og:image" content="http://example.com/images/STM32/IIC6.png">
+<meta property="article:published_time" content="2024-12-27T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-30T01:38:26.661Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/STM32/IIC1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>STM32 - IIC协议</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/01/05/STM32-%E5%AE%9A%E6%97%B6%E5%99%A8/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/12/20/STM32-USART%E4%B8%B2%E5%8F%A3/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&text=STM32 - IIC协议"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&is_video=false&description=STM32 - IIC协议"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - IIC协议&body=Check out this article: http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&name=STM32 - IIC协议&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&t=STM32 - IIC协议"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IIC%E5%8D%8F%E8%AE%AE%E8%A7%84%E5%AE%9A%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">IIC协议规定：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">主从架构：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">通信协议：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        STM32 - IIC协议
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-12-27T00:00:00.000Z" class="dt-published" itemprop="datePublished">2024-12-27</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <ol>
+<li>IIC（Inter-Integrated Circuit），通常简称为IIC，是一种用在集成电路（IC）之间的串行通信总线。</li>
+<li>IIC为<strong>同步串行半双工</strong>通信，使用两根线路进行通信，分别是数据线（SDA）和时钟线（SCL），SDA线用于数据传输，SCL线用于数据传输的时钟，确保数据同步。SCL的每个时钟周期，SDA传输一位数据。</li>
+</ol>
+<h2 id="IIC协议规定："><a href="#IIC协议规定：" class="headerlink" title="IIC协议规定："></a>IIC协议规定：</h2><ul>
+<li><p>数据的接收方会在每个时钟周期的<strong>高电平</strong>期间读取数据，具体来讲就是在SCL处于高电平时，读取SDA上的数据。</p>
+<p><img src="/../images/STM32/IIC1.png" alt="IIC1"></p>
+</li>
+<li><p>因此，SDA必须在SCL低电平期准备好要发送的下一位数据，然后在SCL高电平期间保持稳定。</p>
+</li>
+</ul>
+<h2 id="主从架构："><a href="#主从架构：" class="headerlink" title="主从架构："></a>主从架构：</h2><ul>
+<li><p>IIC采用主从架构，一个主设备可连接多个从设备。主设备负责发起通信和控制总线，而从设备负责响应主设备的请求。如下图所示。</p>
+<p><img src="/../images/STM32/IIC2.png" alt="IIC2"></p>
+</li>
+<li><p>IIC总线中的每个从设备都有一个唯一的地址（用7位二进制数字表示），用于在总线上标识自己。主设备可以根据地址选择性的与特定的从设备进行通信。</p>
+</li>
+<li><p>需要注意的是，SCL信号线上的时钟信号始终由<strong>主设备</strong>产生，而SDA信号线上的数据信号既可由主设备产生，也可由从设备产生。当主设备向从设备发送数据时，SDA信号由主设备产生，从设备接收信号；当主设备从从设备读取数据时，SDA信号由从设备产生，主设备接收信号</p>
+</li>
+</ul>
+<h2 id="通信协议："><a href="#通信协议：" class="headerlink" title="通信协议："></a>通信协议：</h2><ol>
+<li><p>空闲状态：</p>
+<ol>
+<li>IIC协议规定，当SDA和SCL均为高电平时，总线为空闲状态。</li>
+</ol>
+</li>
+<li><p>起始和结束信号：</p>
+<ol>
+<li><p>主设备和从设备间的每次通信，都需要以一个<strong>起始信号</strong>开始，以一个<strong>结束信号</strong>终止。起始信号和结束信号的定义如下：</p>
+</li>
+<li><p><strong>起始信号</strong>：当SCL处于高电平时，SDA由高变低。</p>
+</li>
+<li><p><strong>停止信号</strong>：当SCL处于高电平时，SDA由低变高。</p>
+</li>
+<li><p><strong>注意</strong>：起始信号和结束信号，都只能由<strong>主设备</strong>产生。</p>
+<p><img src="/../images/STM32/IIC3.png" alt="IIC3"></p>
+</li>
+</ol>
+</li>
+<li><p>确认信号：</p>
+<ul>
+<li><p>IIC协议规定：发送方每发送一个字节（8位）的数据，接收方都要向发送方回复一个1位的确认信号。</p>
+<p><img src="/../images/STM32/IIC4.png" alt="IIC4"></p>
+</li>
+<li><p>如果该确认信号为 0 表示接收方已成功接收到该字节，发送方可继续发送下一字节，这个信号在IIC协议中称为<code>ACK</code>（Acknowledge）；如果该信号为 1 ，则表示接收方未能成功接收到该字节，或者不希望接收更多数据，该信号在IIC协议中称为<code>NACK</code>（Not Acknowledge）。</p>
+</li>
+</ul>
+</li>
+<li><p>从机地址和读写标识：</p>
+<ol>
+<li><p>由于一个IIC总线上可能有多个从设备，所以开始通信前，主设备需要先与目标设备取得联系，然后再进行数据传输，除此之外，主机还需要向目标设备明确本次通信的操作是写数据还是读数据。（是以主机为角度）</p>
+</li>
+<li><p>上述操作的实现思路如下：</p>
+</li>
+<li><p>当主设备发送起始信号之后，会向所有设备发送一个字节的数据，这一个字节中，前7位为目标设备地址，第8位为读&#x2F;写标识（1表示读，0表示写），如下图所示：</p>
+<p><img src="/../images/STM32/IIC5.png" alt="IIC5"></p>
+</li>
+<li><p>当各从设备收到这个字节的数据后，会将7位地址与自身进行对比，相同则会向主设备回复确认信号，不相同则不做任何回应。</p>
+</li>
+<li><p>当主设备收到目标设备的确认信号后，便会开始与该设备进行通信。</p>
+</li>
+</ol>
+</li>
+<li><p>完整通信流程：</p>
+<ol>
+<li><p>发送起始信号</p>
+</li>
+<li><p>发送目标从设备地址+读写标识位</p>
+</li>
+<li><p>接收从设备回复的确认信号</p>
+</li>
+<li><p>与从设备进行数据传输（发送&#x2F;接收）</p>
+</li>
+<li><p>发送终止信号</p>
+<p><img src="/../images/STM32/IIC6.png" alt="IIC6"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IIC%E5%8D%8F%E8%AE%AE%E8%A7%84%E5%AE%9A%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">IIC协议规定：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">主从架构：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">通信协议：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&text=STM32 - IIC协议"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&is_video=false&description=STM32 - IIC协议"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - IIC协议&body=Check out this article: http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&title=STM32 - IIC协议"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&name=STM32 - IIC协议&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/12/27/STM32-IIC%E5%8D%8F%E8%AE%AE/&t=STM32 - IIC协议"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
