@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="DMA概述： 直接存储器存取（direct memory access，DMA）用来提供在外设和存储器之间或者存储器和存储器之间的高速数据传输，无须CPU干预，数据可以通过DMA快速地移动，这就节省了CPU的资源来做其他操作。  STM32F103共有2个DMA控制器，12个通道（DMA1有7个通道，DMA2有5个通道），每个通道专门用来管理来自于一个或多个外设对存储器访问的请求，还有1个仲裁器来">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM32-DMA直接存储访问">
+<meta property="og:title" content="STM32 - DMA直接存储访问">
 <meta property="og:url" content="http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/index.html">
 <meta property="og:site_name" content="Lcb3rg">
 <meta property="og:description" content="DMA概述： 直接存储器存取（direct memory access，DMA）用来提供在外设和存储器之间或者存储器和存储器之间的高速数据传输，无须CPU干预，数据可以通过DMA快速地移动，这就节省了CPU的资源来做其他操作。  STM32F103共有2个DMA控制器，12个通道（DMA1有7个通道，DMA2有5个通道），每个通道专门用来管理来自于一个或多个外设对存储器访问的请求，还有1个仲裁器来">
@@ -16,7 +16,7 @@
 <meta property="og:image" content="http://example.com/images/STM32/DMA1.png">
 <meta property="og:image" content="http://example.com/images/STM32/DMA2.png">
 <meta property="article:published_time" content="2025-03-19T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-24T09:41:08.768Z">
+<meta property="article:modified_time" content="2025-05-30T01:26:20.681Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/STM32/DMA1.png">
@@ -39,7 +39,7 @@
       
     
     <!-- title -->
-    <title>STM32-DMA直接存储访问</title>
+    <title>STM32 - DMA直接存储访问</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -103,16 +103,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&text=STM32-DMA直接存储访问"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&is_video=false&description=STM32-DMA直接存储访问"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=STM32-DMA直接存储访问&body=Check out this article: http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&name=STM32-DMA直接存储访问&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&t=STM32-DMA直接存储访问"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&text=STM32 - DMA直接存储访问"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&is_video=false&description=STM32 - DMA直接存储访问"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - DMA直接存储访问&body=Check out this article: http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&name=STM32 - DMA直接存储访问&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&t=STM32 - DMA直接存储访问"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -132,7 +132,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        STM32-DMA直接存储访问
+        STM32 - DMA直接存储访问
     </h1>
 
 
@@ -241,16 +241,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&text=STM32-DMA直接存储访问"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&is_video=false&description=STM32-DMA直接存储访问"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=STM32-DMA直接存储访问&body=Check out this article: http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32-DMA直接存储访问"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&name=STM32-DMA直接存储访问&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&t=STM32-DMA直接存储访问"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&text=STM32 - DMA直接存储访问"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&is_video=false&description=STM32 - DMA直接存储访问"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - DMA直接存储访问&body=Check out this article: http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&title=STM32 - DMA直接存储访问"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&name=STM32 - DMA直接存储访问&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/19/STM32-DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE/&t=STM32 - DMA直接存储访问"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
