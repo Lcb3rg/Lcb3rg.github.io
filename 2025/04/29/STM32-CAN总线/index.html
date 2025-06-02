@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="CAN（Controller Area Network 控制器局域网，简称CAN或者CAN bus）是一种功能丰富的车用总线标准。被设计用于在不需要主机（Host）的情况下，允许网络上的单片机和仪器相互通信。 CAN 是异步半双工差分串行通信。 它基于消息传递协议（传输的信息里面有对应的标识），设计之初在车辆上复用通信线缆，以降低铜线使用量，后来也被其他行业所使用。 CAN拥有良好的弹性调整能力">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 - CAN总线">
+<meta property="og:url" content="http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="CAN（Controller Area Network 控制器局域网，简称CAN或者CAN bus）是一种功能丰富的车用总线标准。被设计用于在不需要主机（Host）的情况下，允许网络上的单片机和仪器相互通信。 CAN 是异步半双工差分串行通信。 它基于消息传递协议（传输的信息里面有对应的标识），设计之初在车辆上复用通信线缆，以降低铜线使用量，后来也被其他行业所使用。 CAN拥有良好的弹性调整能力">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/STM32/CAN1.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN2.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN3.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN4.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN5.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN6.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN7.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN8.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN9.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN10.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN11.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN12.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN13.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN14.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN15.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN16.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN18.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN19.png">
+<meta property="og:image" content="http://example.com/images/STM32/CAN20.png">
+<meta property="article:published_time" content="2025-04-29T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-02T09:44:36.796Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/STM32/CAN1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>STM32 - CAN总线</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/04/30/C++-%E5%8F%8B%E5%85%83%E5%92%8C%E6%A8%A1%E7%89%88/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/04/26/C++-%E5%A4%9A%E6%80%81/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&text=STM32 - CAN总线"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&is_video=false&description=STM32 - CAN总线"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - CAN总线&body=Check out this article: http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&name=STM32 - CAN总线&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&t=STM32 - CAN总线"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">如图所示：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAN%E7%89%A9%E7%90%86%E5%B1%82%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">CAN物理层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAN%E5%8D%8F%E8%AE%AE%E5%B1%82%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">CAN协议层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32%E4%B8%AD%E7%9A%84CAN%E5%A4%96%E8%AE%BE%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">STM32中的CAN外设：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        STM32 - CAN总线
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-29T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-04-29</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <ol>
+<li>CAN（Controller Area Network 控制器局域网，简称CAN或者CAN bus）是一种功能丰富的车用总线标准。被设计用于在不需要主机（Host）的情况下，允许网络上的单片机和仪器相互通信。</li>
+<li>CAN 是异步半双工差分串行通信。</li>
+<li>它基于消息传递协议（传输的信息里面有对应的标识），设计之初在车辆上复用通信线缆，以降低铜线使用量，后来也被其他行业所使用。</li>
+<li>CAN拥有良好的弹性调整能力，可以在现有网络中增加节点而不用在软、硬件上做出调整。除此之外，消息的传递不基于特殊种类的节点，增加了升级网络的便利性。</li>
+</ol>
+<h2 id="如图所示："><a href="#如图所示：" class="headerlink" title="如图所示："></a>如图所示：</h2><p><img src="/../images/STM32/CAN1.png" alt="CAN1"></p>
+<h2 id="CAN物理层："><a href="#CAN物理层：" class="headerlink" title="CAN物理层："></a>CAN物理层：</h2><ol>
+<li><p>CAN网络节点：</p>
+<p><img src="/../images/STM32/CAN2.png" alt="CAN2"></p>
+<ol>
+<li>CAN网络节点发数据：<ol>
+<li>当CAN节点需要发送数据时，控制器把要发送的二进制编码通过CAN_Tx线发送到收发器。</li>
+<li>收发器把这个普通的逻辑电平信号转化成差分信号，通过差分线CAN_High和CAN_Low线输出到CAN总线网络</li>
+</ol>
+</li>
+<li>CAN网络节点收数据：<ol>
+<li>而通过收发器接收总线上的数据到控制器时，则是相反的过程。</li>
+<li>收发器把总线上收到的CAN High及CAN Low信号转化成普通的逻辑电平信号。</li>
+<li>通过CAN_Rx输出到控制器中。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>CAN总线网络：</p>
+<ol>
+<li><p>当CAN线上接入多个设备时，就构成了CAN总线网络。</p>
+</li>
+<li><p>根据接法不同，总线网络分2种：</p>
+<ol>
+<li>闭环总线网络</li>
+<li>开环总线网络</li>
+</ol>
+</li>
+<li><p>闭环总线网络：</p>
+<p><img src="/../images/STM32/CAN3.png" alt="CAN3"></p>
+</li>
+<li><p>开环总线网络：</p>
+<p><img src="/../images/STM32/CAN4.png" alt="CAN4"></p>
+</li>
+</ol>
+</li>
+<li><p>差分信号：</p>
+<ol>
+<li><p>CAN_High及CAN_Low中走的是一对差分信号。</p>
+</li>
+<li><p>传统的单端信号传输：一根信号线一根地线。</p>
+</li>
+<li><p>差分传输是一种<strong>信号传输的技术</strong>，差分传输在这两根线上都传输信号，这两个信号的振幅相同，相位相反</p>
+</li>
+<li><p>信号接收端通过比较这两个电压的差值来判断发送端发送的逻辑状态（高电平还是低电平）。</p>
+</li>
+<li><p>在电路板上，差分走线必须是等长、等宽、紧密靠近、且在同一层面的两根线。</p>
+<p><img src="/../images/STM32/CAN5.png" alt="CAN5"></p>
+</li>
+</ol>
+<ul>
+<li>差分信号优缺点：<ul>
+<li>优点：<ul>
+<li>**抗干扰能力强：**干扰噪声一般会等值、同时的被加载到两根信号线上，而其差值为0，即，噪声对信号的逻辑意义不产生影响。</li>
+<li><strong>能有效抑制电磁干扰(EMI)</strong>：由于两根线靠得很近且信号幅值相等，这两根线与地线之间的耦合电磁场的幅值也相等，同时他们的信号极性相反，其电磁场将相互抵消。因此对外界的电磁干扰也小。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>差分信号一定要走两根等长、等宽、紧密靠近、且在同一层面的线。对电路板比较小，走线比较紧张的情况下，给布线带来挑战。</li>
+</ul>
+</li>
+<li>差分信号线具有这些优点，在USB协议、485协议、以太网协议及CAN协议的物理层中，都使用了差分信号传输。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="CAN协议层："><a href="#CAN协议层：" class="headerlink" title="CAN协议层："></a>CAN协议层：</h2><ol>
+<li><p>CAN的帧（报文）种类：</p>
+<ol>
+<li>CAN总线是广播类型的总线。这意味着所有节点都可以侦听到所有传输的报文。无法将报文单独发送给指定节点；所有节点都将捕获所有报文。但是CAN硬件能够提供<strong>本地过滤</strong>功能，让每个节点对报文有选择性地做出响应。</li>
+<li>CAN使用短报文结构，最大实用负载是94位。报文中没有任何明确的地址；相反，可以认为报文是通过内容寻址，也就是说，报文的内容隐式地确定了地址。</li>
+<li>CAN总线上有5种不同的报文类型（或“帧”）：数据帧、远程帧、错误帧、过载帧和帧间隔。</li>
+<li><strong>数据帧</strong>：是最常见的报文类型，用于<strong>发送单元向接收单元发送数据</strong>。</li>
+<li>**远程帧（遥控帧）：**用于接收单元向具有相同id的发送单元请求发送数据（请求发送数据）。</li>
+<li>**错误帧：**当检测出错误时向其他单元通知错误的帧。</li>
+<li>**过载帧：**并不常用，因为当今的CAN控制器会非常智能化地避免使用过载帧。</li>
+<li>**帧间隔：**用于将数据帧和遥控帧与前面的帧分离开来的帧。</li>
+<li>其中<strong>错误帧、过载帧、帧间隔</strong>都是由硬件自动完成的，没有办法用软件来控制。对于一般使用者来说，只需要<strong>掌握数据帧与遥控帧</strong>。数据帧和遥控帧有标准格式与扩展格式。标准格式有11位标识符，扩展格式有29位标识符。</li>
+</ol>
+</li>
+<li><p>数据帧介绍：</p>
+<ol>
+<li><p>标准格式有11位标识符，扩展格式有29位标识符。</p>
+</li>
+<li><p>标准帧：</p>
+<ol>
+<li><p>帧起始：</p>
+<ol>
+<li>1bit，显性信号(逻辑0)。</li>
+<li>表示数据帧(或远程帧)的开始。</li>
+<li>只能在总线空闲的时候才可以发送帧起始。</li>
+</ol>
+</li>
+<li><p>仲裁段：（包括两部分）</p>
+<ol>
+<li>标识符位 ( lD )：<ol>
+<li>长度为11位(11 bits)，ID10<del>ID0。按照ID10</del>ID0的顺序进行传输。</li>
+<li>是一个功能性的地址，CAN接收器通过标识符来过滤数据帧。</li>
+<li>不同节点的标识符位是不能相同的。</li>
+</ol>
+</li>
+<li>远程发送请求位 ( RTR )：<ol>
+<li>长度为1位 (1 bits) 用于区分该帧是数据帧还是远程帧</li>
+<li>隐性信号 ( 1 ) 代表 远程帧</li>
+<li>显性信号 ( 0 ) 代表 数据帧</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>控制段：（一共六位）</p>
+<ol>
+<li>IDE位：<ol>
+<li>1位。区分标准格式与扩展格式。</li>
+<li>显性电平时表示标准格式。</li>
+<li>隐性电平时表示扩展格式。</li>
+</ol>
+</li>
+<li>R0位：<ol>
+<li>1位，保留位，以后使用。</li>
+</ol>
+</li>
+<li>DLC段：<ol>
+<li>4位，表示本报文中的数据段含有多少个字节。</li>
+<li>用于DLC段表示的数字为0~8。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>数据段：</p>
+<ol>
+<li>数据帧的核心内容，它是节点要发送的原始信息。</li>
+<li>由 0~8个字节组成，高位先行。</li>
+</ol>
+</li>
+<li><p>CRC段：（包含两部分）</p>
+<ol>
+<li>CRC校验码：15位，用于校验输出是否正确。</li>
+<li>CRC界定符：1位，隐性位，表示校验码的结束。</li>
+</ol>
+</li>
+<li><p>ACK段：（包含两部分）</p>
+<ol>
+<li>ACK确认位：<ol>
+<li>发送端的ACK确认位是隐性位。</li>
+<li>接收端收到正确的CRC校验位后，把这一位置为显性位。</li>
+</ol>
+</li>
+<li>ACK界定符：1位，隐性位，用于与后面的帧结束隔开。</li>
+</ol>
+</li>
+<li><p>EOF段：（帧结束）</p>
+<ol>
+<li><p>7位，表示帧结束，帧结束段由发送节点发送的7个隐性位表示结束。</p>
+<p><img src="/../images/STM32/CAN6.png" alt="CAN6"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>扩展帧：</p>
+<p><img src="/../images/STM32/CAN7.png" alt="CAN7"></p>
+<ul>
+<li>SRR替代远程请求位(RTR)，固定就是隐性信号。</li>
+<li>IDE表示扩展帧还是标准帧，18位扩展ID。</li>
+<li>RTR表示数据帧还是远程帧。</li>
+<li>R1、R0 是保留位。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>远程帧介绍：</p>
+<ul>
+<li><p>远程帧与数据帧相比<strong>没有数据段</strong>。</p>
+<p><img src="/../images/STM32/CAN8.png" alt="CAN8"></p>
+<p><img src="/../images/STM32/CAN9.png" alt="CAN9"></p>
+</li>
+</ul>
+</li>
+<li><p>CAN总线仲裁：</p>
+<ol>
+<li>当CAN总线空闲时，多个单元同时开始发送时，从仲裁段（报文id）的第一位开始进行仲裁。连续输出显性电平（0）最多的单元可以继续发送，即首先出现隐性电平的单元失去对总线的占有权变为接收。（即报文id小的优先级高）。也就是从仲裁段第一位开始比，谁先出现 1 ，谁就输掉总线的竞争。</li>
+<li>竞争失败，会自动检测总线空闲，在第一时间再次尝试发送。</li>
+</ol>
+</li>
+<li><p>CAN的位时序：</p>
+<ol>
+<li><p>位同步：</p>
+<ol>
+<li>CAN通讯提出了位同步的方式来确保通讯时序。</li>
+<li>一帧中包含了很多个位。</li>
+<li>CAN把每1位分为4段(从时间角度划分)<ol>
+<li>同步段(SS:Synchronization Segment)</li>
+<li>传播时间段(PTS:Propagation Time Segment)</li>
+<li>相位缓冲段1(PBS1:Phase Buffer Segment 1)</li>
+<li>相位缓冲段2(PBS2:Phase Buffer Segment 2)</li>
+</ol>
+</li>
+<li>4段的总时间段构成了位时间(Bit Time)，就是传输一个位所需的总时间。</li>
+<li>位时间通常被分为若干等长的时间单元，称为时间量化器(Time Quanta, Tq)</li>
+<li>一个Tq的长度可以根据传输速率的需要设置。</li>
+<li>在STM32的CAN外设中，通过设置波特率分频器的值来确定Tq的大小。</li>
+<li>同步段：（SS）<ol>
+<li>SS 段的大小固定为 1Tq</li>
+<li>若通讯节点检测到总线上信号的跳变沿被包含在 SS 段的范围之内，则表示节点与总线的时序是同步的。</li>
+</ol>
+</li>
+<li>传播时间段：（PTS）<ol>
+<li>CAN总线上数据的传输会受到各种物理延迟。</li>
+<li>比如发送单元的发送延迟、总线上信号的传播延迟、接收单元的输入延迟等。</li>
+<li>PTS 段就是用来补偿这些因素产生的时间延迟。</li>
+<li>PTS段长度至少为1个Tq。一般 1-8 Tq。</li>
+</ol>
+</li>
+<li>相位缓冲段1：(PBS1)<ol>
+<li>主要用来补偿边沿阶段的误差。</li>
+<li>它的时间长度在重新同步阶段的时候可以被自动加长。</li>
+<li>PBS1段的初始大小可以为 1~8 Tq。</li>
+</ol>
+</li>
+<li>相位缓冲段2：(PBS2）<ol>
+<li>另一个相位缓冲段，也是用来补偿边沿阶段误差的。</li>
+<li>它的时间长度在重新同步阶段时可以缩短。</li>
+<li>PBS2 段的初始大小可以为 2~8 Tq。</li>
+</ol>
+</li>
+<li>采样点：<ol>
+<li>采样点位于PBS1和PBS2的交界处。</li>
+</ol>
+</li>
+</ol>
+<p><img src="/../images/STM32/CAN10.png" alt="CAN10"></p>
+</li>
+<li><p>数据同步：</p>
+<ol>
+<li>根据同步方式差异，CAN 的数据同步分为硬同步和再同步。</li>
+<li>硬同步：<ol>
+<li>当一个节点检测到起始位时，它会执行硬同步，以便将其内部的时间基准与数据帧的时间基准对齐。</li>
+<li>在硬同步过程中，控制器的时间基准会立即调整为与检测到的边沿对齐。</li>
+</ol>
+</li>
+<li>再同步：<ol>
+<li>在检测到总线上的时序与节点使用的时序有相位差时(即总线上的跳变沿不在节点时序的 SS 段范围)，通过延长 PBS1 段或缩短 PBS2 段，来获得同步</li>
+</ol>
+</li>
+<li>所有的同步都是由CAN控制器硬件自动完成的</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>CAN的波特率：</p>
+<ol>
+<li>各个通讯节点约定好1个Tq 的时间长度以及每一位占据多少个 Tq，就可以确定CAN通讯的波特率。</li>
+</ol>
+<p><img src="/../images/STM32/CAN11.png" alt="CAN11"></p>
+</li>
+<li><p>CAN的位填充：</p>
+<ol>
+<li>位填充（Bit Stuffing）是用于确保数据同步和错误检测关键机制。它的主要作用是避免长时间连续相同的位电平，从而帮助接收节点正确识别数据帧的起始、结束及数据内容。</li>
+<li>填充规则：连续出现5个相同电平的位后，插入 1 个反向位。<ol>
+<li>原始数据：<code>11111</code> → 填充后：<code>111110</code>（第 6 位插入 <code>0</code>）。</li>
+<li>原始数据：<code>00000</code> → 填充后：<code>000001</code>（第 6 位插入 <code>1</code>）。</li>
+</ol>
+</li>
+<li>在数据帧和遥控帧的特定字段中（从 SOF（帧起始） 到 CRC 序列 之间）才会进行填充。</li>
+<li>硬件自动完成，对软件透明，不影响应用层开发。</li>
+</ol>
+</li>
+</ol>
+<h2 id="STM32中的CAN外设："><a href="#STM32中的CAN外设：" class="headerlink" title="STM32中的CAN外设："></a>STM32中的CAN外设：</h2><ol>
+<li><p>STM32的芯片中具有bxCAN控制器（Basic Extended CAN），它支持CAN协议2.0A 和2.0B Active标准。</p>
+</li>
+<li><p>CAN控制器的3种工作模式：</p>
+<ul>
+<li><p>CAN控制器有3种工作模式：初始化模式、正常模式、睡眠模式</p>
+<p><img src="/../images/STM32/CAN12.png" alt="CAN12"></p>
+</li>
+<li><p>上电复位后CAN控制器默认会进入睡眠模式，作用是降低功耗。当需要将进行初始的时候（配置寄存器），会进入初始化模式。当需要通讯的时候，就进入正常模式。</p>
+</li>
+</ul>
+</li>
+<li><p>CAN控制器的3种测试模式：</p>
+<ul>
+<li><p>CAN控制器有3种测试模式：静默模式、环回模式、环回静默模式。当控制器进入初始化模式的时候才可以配置测试模式。</p>
+<p><img src="/../images/STM32/CAN13.png" alt="CAN13"></p>
+<p><img src="/../images/STM32/CAN14.png" alt="CAN14"></p>
+<p><img src="/../images/STM32/CAN15.png" alt="CAN15"></p>
+</li>
+<li><p><strong>静默模式</strong>可以用于检测总线的数据流量。</p>
+</li>
+<li><p><strong>环回模式</strong>可以用于自检（影响总线）。</p>
+</li>
+<li><p><strong>环回静默模式</strong>也是用于自检，不会影响到总线。</p>
+</li>
+</ul>
+</li>
+<li><p>功能框图：双CAN框图(互联型产品)  </p>
+<p><img src="/../images/STM32/CAN16.png" alt="CAN16"></p>
+<ol>
+<li><p>主动内核：</p>
+<ol>
+<li>含各种控制&#x2F;状态&#x2F;配置寄存器，可以配置模式、波特率等。在STM32CubeMx中可以非常方便的配置。</li>
+</ol>
+</li>
+<li><p>发送邮箱：</p>
+<ol>
+<li>用来缓存待发送的报文，最多可以缓存3个报文。发送调度决定报文的发送顺序。</li>
+</ol>
+</li>
+<li><p>接收FIFO：</p>
+<ol>
+<li>共有2个接收FIFO，每个FIFO都可以存放3个完整的报文。它们完全由硬件来管理。从而节省了CPU的处理负荷，简化了软件并保证了数据的一致性。应用程序只能通过读取FIFO输出邮箱，来读取FIFO中最先收到的报文。</li>
+</ol>
+</li>
+<li><p>接收滤波器（过滤器）：</p>
+<ol>
+<li><p>作用：对接到的报文进行过滤，最后放入FIFO 0或FIFO 1。</p>
+</li>
+<li><p>当总线上报文数据量很大时，总线上的设备会频繁获取报文，占用CPU。过滤器的存在，选择性接收有效报文，减轻系统负担。</p>
+</li>
+<li><p>有2种过滤模式：</p>
+<ol>
+<li>标识符列表模式：它把要接收报文的ID列成一个表，要求报文ID与列表中的某一个标识符完全相同才可以接收，可以理解为白名单管理。</li>
+<li>掩码模式（屏蔽位模式）：它把可接收报文ID的某几位作为列表，这几位被称为掩码，可以把它理解成关键字搜索，只要掩码（关键字）相同，就符合要求，报文就会被保存到接收FIFO。</li>
+</ol>
+</li>
+<li><p>如果使能了过滤器，且报文的ID与所有过滤器的配置都不匹配，CAN外设会丢弃该报文，不存入接收FIFO。</p>
+</li>
+<li><p>每个CAN提供了14个位宽可变的、可配置的过滤器组（13~0）。每个过滤器组x由2个32位寄存器，CAN_FxR1和 CAN_FxR2组成。</p>
+<p><img src="/../images/STM32/CAN18.png" alt="CAN18"></p>
+<p>​    说明：</p>
+<ul>
+<li>当工作于32位屏蔽位模式时，FR1保存标识符，FR2保存屏蔽。FR2某位是1表示来的ID的这位必须和FR1中对应的位一致，FR2某位是0，表示ID的这位不关心。</li>
+<li>当工作于32位标识符模式时。FR1和FR2分别保存两个标识符。这意味着将来只有两个ID会匹配成功。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>STM32中 CAN的位时序：</p>
+<ol>
+<li><p>STM32 外设定义的位时序与我们前面解释的 CAN 标准时序有<strong>一点区别</strong>。</p>
+</li>
+<li><p>标准时序：</p>
+<p><img src="/../images/STM32/CAN19.png" alt="CAN19"></p>
+</li>
+<li><p>STM32的位时序：把<strong>传播时间段和相位缓冲段1做了合并</strong>。</p>
+<p><img src="/../images/STM32/CAN20.png" alt="CAN20"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.kvaser.cn/about-can/can-protocol-tutorial/">https://www.kvaser.cn/about-can/can-protocol-tutorial/</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">如图所示：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAN%E7%89%A9%E7%90%86%E5%B1%82%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">CAN物理层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAN%E5%8D%8F%E8%AE%AE%E5%B1%82%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">CAN协议层：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STM32%E4%B8%AD%E7%9A%84CAN%E5%A4%96%E8%AE%BE%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">STM32中的CAN外设：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&text=STM32 - CAN总线"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&is_video=false&description=STM32 - CAN总线"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - CAN总线&body=Check out this article: http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&title=STM32 - CAN总线"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&name=STM32 - CAN总线&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/&t=STM32 - CAN总线"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
