@@ -9,13 +9,13 @@
     <meta name="description" content="多态： “多态（polymorphism）”指的是同一名字的事物可以完成不同的功能。多态可以分为编译时的多态和运行时的多态。      编译时的多态（静态多态） 主要是指函数的重载（包括运算符的重载）、模版，对重载函数的调用，在编译时就能根据实参确定应该调用哪个函数  函数重载（Function Overloading）：同一作用域内，函数名相同但参数列表不同（参数类型、个数或顺序不同）。 运算符">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++ - 多态">
-<meta property="og:url" content="http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/index.html">
+<meta property="og:url" content="http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/index.html">
 <meta property="og:site_name" content="Lcb3rg">
 <meta property="og:description" content="多态： “多态（polymorphism）”指的是同一名字的事物可以完成不同的功能。多态可以分为编译时的多态和运行时的多态。      编译时的多态（静态多态） 主要是指函数的重载（包括运算符的重载）、模版，对重载函数的调用，在编译时就能根据实参确定应该调用哪个函数  函数重载（Function Overloading）：同一作用域内，函数名相同但参数列表不同（参数类型、个数或顺序不同）。 运算符">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/C++/%E5%A4%9A%E6%80%811.png">
-<meta property="article:published_time" content="2025-04-26T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-30T01:11:55.559Z">
+<meta property="article:published_time" content="2025-03-05T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-03T08:00:16.760Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/C++/%E5%A4%9A%E6%80%811.png">
@@ -85,10 +85,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2025/04/29/STM32-CAN%E6%80%BB%E7%BA%BF/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2025/03/10/C++-%E5%8F%8B%E5%85%83%E5%92%8C%E6%A8%A1%E7%89%88/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2025/04/26/STM32-W5500%E4%BB%A5%E5%A4%AA%E7%BD%91/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2025/02/28/C++-%E7%BB%A7%E6%89%BF/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -101,17 +101,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&text=C++ - 多态"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&is_video=false&description=C++ - 多态"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=C++ - 多态&body=Check out this article: http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&name=C++ - 多态&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&t=C++ - 多态"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&text=C++ - 多态"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&is_video=false&description=C++ - 多态"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++ - 多态&body=Check out this article: http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&name=C++ - 多态&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&t=C++ - 多态"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -143,7 +143,7 @@
       
     <div class="postdate">
       
-        <time datetime="2025-04-26T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-04-26</time>
+        <time datetime="2025-03-05T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-03-05</time>
         
       
     </div>
@@ -282,17 +282,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&text=C++ - 多态"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&is_video=false&description=C++ - 多态"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=C++ - 多态&body=Check out this article: http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&name=C++ - 多态&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/26/C++-%E5%A4%9A%E6%80%81/&t=C++ - 多态"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&text=C++ - 多态"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&is_video=false&description=C++ - 多态"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++ - 多态&body=Check out this article: http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&title=C++ - 多态"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&name=C++ - 多态&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/05/C++-%E5%A4%9A%E6%80%81/&t=C++ - 多态"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
