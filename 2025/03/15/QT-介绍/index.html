@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="QT的概述： QT是一个跨平台的 C++ 图形用户界面（GUI）应用程序开发框架，它不仅提供了创建 GUI 界面的各种组件（如窗口、按钮、文本框等），还包含了丰富的非 GUI 功能模块，支持从桌面应用到嵌入式系统、移动设备的多平台开发，是现代软件开发中极具灵活性和扩展性的工具集。  图形用户界面 ：（GUI）  图形用户界面（Graphical User Interface，简称 GUI，又称图形">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QT - 介绍">
+<meta property="og:url" content="http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="QT的概述： QT是一个跨平台的 C++ 图形用户界面（GUI）应用程序开发框架，它不仅提供了创建 GUI 界面的各种组件（如窗口、按钮、文本框等），还包含了丰富的非 GUI 功能模块，支持从桌面应用到嵌入式系统、移动设备的多平台开发，是现代软件开发中极具灵活性和扩展性的工具集。  图形用户界面 ：（GUI）  图形用户界面（Graphical User Interface，简称 GUI，又称图形">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Qt/Qt1.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt2.png">
+<meta property="article:published_time" content="2025-03-15T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-04T01:57:40.452Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Qt/Qt1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>QT - 介绍</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/10/C++-%E5%8F%8B%E5%85%83%E5%92%8C%E6%A8%A1%E7%89%88/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&text=QT - 介绍"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&is_video=false&description=QT - 介绍"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=QT - 介绍&body=Check out this article: http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&name=QT - 介绍&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&t=QT - 介绍"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#QT%E7%9A%84%E6%A6%82%E8%BF%B0%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">QT的概述：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qt%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Qt的基本操作：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        QT - 介绍
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-03-15T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-03-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="QT的概述："><a href="#QT的概述：" class="headerlink" title="QT的概述："></a>QT的概述：</h2><ol>
+<li><p>QT是一个跨平台的 C++ 图形用户界面（GUI）应用程序开发框架，它不仅提供了创建 GUI 界面的各种组件（如窗口、按钮、文本框等），还包含了丰富的非 GUI 功能模块，支持从桌面应用到嵌入式系统、移动设备的多平台开发，是现代软件开发中极具灵活性和扩展性的工具集。</p>
+</li>
+<li><p>图形用户界面 ：（GUI）</p>
+<ol>
+<li>图形用户界面（Graphical User Interface，简称 GUI，又称图形用户接口）是指采用图形方式显示的计算机操作用户界面。  </li>
+<li>图形用户界面是一种人与计算机通信的界面显示格式，允许用户使用鼠标等输入设备操纵屏幕上的图标或菜单选项，以选择命令、调用文件、启动程序或执行其它一些日常任务。</li>
+</ol>
+</li>
+<li><p>Qt 的 pro 文件：</p>
+<ul>
+<li><p>在使用 Qt 向导生成的应用程序.pro 文件格式如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">QT       += core gui</span><br><span class="line"></span><br><span class="line"><span class="built_in">greaterThan</span>(QT_MAJOR_VERSION, <span class="number">4</span>): QT += widgets</span><br><span class="line"></span><br><span class="line">CONFIG += c+<span class="number">+11</span></span><br><span class="line"></span><br><span class="line"># You can make your code fail to compile <span class="keyword">if</span> it uses deprecated APIs.</span><br><span class="line"># In order to <span class="keyword">do</span> so, uncomment the following line.</span><br><span class="line">#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=<span class="number">0x060000</span>    <span class="meta"># disables all the APIs deprecated before Qt 6.0.0</span></span><br><span class="line"></span><br><span class="line">SOURCES += \</span><br><span class="line">    main.cpp \</span><br><span class="line">    qtcode.cpp</span><br><span class="line"></span><br><span class="line">HEADERS += \</span><br><span class="line">    qtcode.h</span><br><span class="line"></span><br><span class="line">FORMS += \</span><br><span class="line">    qtcode.ui</span><br><span class="line"></span><br><span class="line"># Default rules <span class="keyword">for</span> deployment.</span><br><span class="line">qnx: target.path = /tmp/$$&#123;TARGET&#125;/bin</span><br><span class="line"><span class="keyword">else</span>: unix:!android: target.path = /opt/$$&#123;TARGET&#125;/bin</span><br><span class="line">!<span class="built_in">isEmpty</span>(target.path): INSTALLS += target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>.pro 就是工程文件(project)，它是 qmake 自动生成的用于生产 makefile 的配置文件。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Qt的基本操作："><a href="#Qt的基本操作：" class="headerlink" title="Qt的基本操作："></a>Qt的基本操作：</h2><ul>
+<li>QObject 是 Qt 内置的父类。 Qt 中提供的很多类都是直接或者间接继承自 QObject。借助 Qt 助手了解 Qt 的类（找到 Qt 类的族谱）</li>
+</ul>
+<ol>
+<li><p>基本控件的创建：</p>
+<ul>
+<li><p>实例化一个按键在窗口上，并修改窗口、按键大小，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> WIDGET_H </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QWidget&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QPushButton&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> : <span class="keyword">public</span> QWidget</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Widget</span>(QWidget *parent = <span class="literal">nullptr</span>);</span><br><span class="line">    ~<span class="built_in">Widget</span>();</span><br><span class="line">    QPushButton *MyButton1; <span class="comment">//公有的属性:为了后期还可以找到空间</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// WIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;widget.h&quot;</span></span></span><br><span class="line">Widget::<span class="built_in">Widget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">setWindowTitle</span>(<span class="string">&quot;Qt Demo&quot;</span>); <span class="comment">//设置窗口名称</span></span><br><span class="line">    <span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">800</span>, <span class="number">500</span>)); <span class="comment">//设置窗口尺寸</span></span><br><span class="line">    MyButton1 = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="keyword">this</span>); <span class="comment">//在堆区实例化一个按键，并将地址给类的一个属性</span></span><br><span class="line">    MyButton1MyButton1-&gt;<span class="built_in">setText</span>(<span class="string">&quot;我是个按键&quot;</span>); <span class="comment">//修改按键名称</span></span><br><span class="line">    MyButton1-&gt;<span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">500</span>, <span class="number">300</span>)); <span class="comment">//修改按键尺寸</span></span><br><span class="line">&#125;</span><br><span class="line">Widget::~<span class="built_in">Widget</span>()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/Qt/Qt1.png" alt="Qt1"></p>
+</li>
+</ul>
+</li>
+<li><p>坐标体系：</p>
+<ul>
+<li><p>控件创建之后的左上角默认坐标为（0，0）</p>
+<p><img src="/../images/Qt/Qt2.png" alt="Qt2"></p>
+</li>
+</ul>
+</li>
+<li><p>对象树：</p>
+<ol>
+<li>Qt 引入对象树的概念，在一定程度上解决了内存问题。</li>
+<li>在 Qt 中创建对象的时候会提供一个 Parent 对象指针，其中 QObject 是以对象树的形式组织起来的。</li>
+<li>当你创建一个 QObject 对象时，会看到 QObject 的构造函数接收一个 QObject 指针作为参数，这个参数就是 parent，也就是父对象指针。这相当于，在创建 QObject 对象时，可以提供一个其父对象，我们创建的这个 QObject 对象会自动添加到其父对象的 children()列表中，也就是说，每个控件都有一个孩子列表当父对象析构的时候，这个 children()列表中的所有对象也会被析构。  </li>
+<li>QWidget 是能够在屏幕上显示的一切组件的父类。</li>
+<li>QWidget 继承自 QObject，因此也继承了这种对象树关系。一个子类自动地成为父组件的一个子组件。因此，它会显示在父组件的坐标系统中，被父组件的边界剪裁。例如，当用户关闭一个对话框的时候，应用程序将其删除，那么，我们希望属于这个对话框的按钮、图标等应该一起被删除。事实就是如此，因为这些都是对话框的子组件。当然，我们也可以自己删除子对象，它们会自动从其父对象 children()列表中删除。比如，当我们删除了一个工具栏时，其所在的主窗口会自动将该工具栏从其子对象列表中删除，并且自动调整屏幕显示。</li>
+<li>工作准则：<ol>
+<li>当一个 QObject 对象在堆上创建的时候， Qt 会同时为其创建一个对象树。 不过，对象树中对象的顺序是没有定义的。这意味着，销毁这些对象的顺序也是未定义的。任何对象树中的 QObject 对象 delete 的时候，如果这个对象有 parent， 则自动将其从 parent 的 children()列表中删除；如果有孩子，则自动 delete 每一个孩子。 </li>
+<li>注意：由于局部对象的析构顺序应为实例化的相反过程，在使用对象树时，某些特殊情况也会出现一些问题。</li>
+<li>养成习惯：<ol>
+<li>按照标准顺序实例化对象—在实例化对象时指定父对象</li>
+<li>大胆的在堆区实例化对象（new）</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#QT%E7%9A%84%E6%A6%82%E8%BF%B0%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">QT的概述：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qt%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Qt的基本操作：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&text=QT - 介绍"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&is_video=false&description=QT - 介绍"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=QT - 介绍&body=Check out this article: http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&title=QT - 介绍"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&name=QT - 介绍&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/&t=QT - 介绍"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

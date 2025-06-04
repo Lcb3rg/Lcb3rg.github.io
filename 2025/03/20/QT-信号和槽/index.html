@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="信号与槽概述： 在 Qt 中，用户和控件的每次交互过程称为一个事件  比如 “用户点击按钮” 是一个事件， “用户关闭窗口” 也是一个事件。每个事件都会发出一个信号，例如用户点击按钮会发出 “按钮被点击” 的信号，用户关闭窗口会发出 “窗口被关闭” 的信号。   Qt 中的所有控件都具有接收信号的能力，一个控件还可以接收多个不同的信号。对于接收到的每个信号，控件都会做出相应的响应动作  例如，按钮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QT - 信号和槽">
+<meta property="og:url" content="http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="信号与槽概述： 在 Qt 中，用户和控件的每次交互过程称为一个事件  比如 “用户点击按钮” 是一个事件， “用户关闭窗口” 也是一个事件。每个事件都会发出一个信号，例如用户点击按钮会发出 “按钮被点击” 的信号，用户关闭窗口会发出 “窗口被关闭” 的信号。   Qt 中的所有控件都具有接收信号的能力，一个控件还可以接收多个不同的信号。对于接收到的每个信号，控件都会做出相应的响应动作  例如，按钮">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Qt/Qt3.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt4.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt5.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt6.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt7.png">
+<meta property="article:published_time" content="2025-03-20T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-04T02:13:00.730Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Qt/Qt3.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>QT - 信号和槽</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/04/24/STM32-RS485%E4%B8%8EModBus%E5%8D%8F%E8%AE%AE/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/15/QT-%E4%BB%8B%E7%BB%8D/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&text=QT - 信号和槽"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&is_video=false&description=QT - 信号和槽"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=QT - 信号和槽&body=Check out this article: http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&name=QT - 信号和槽&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&t=QT - 信号和槽"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E6%A6%82%E8%BF%B0%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">信号与槽概述：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E7%9A%84%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E4%B8%8Econnect%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">系统自带的信号与槽与connect：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">自定义信号和槽：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%93%BE%E6%8E%A5%E4%BF%A1%E5%8F%B7%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">信号链接信号：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD%E7%9A%84%E4%BC%A0%E5%8F%82%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">信号和槽的传参：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">Lambda表达式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        QT - 信号和槽
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-03-20T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-03-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="信号与槽概述："><a href="#信号与槽概述：" class="headerlink" title="信号与槽概述："></a>信号与槽概述：</h2><ol>
+<li><p>在 Qt 中，用户和控件的每次交互过程称为一个事件</p>
+<ol>
+<li>比如 “用户点击按钮” 是一个事件， “用户关闭窗口” 也是一个事件。每个事件都会发出一个信号，例如用户点击按钮会发出 “按钮被点击” 的信号，用户关闭窗口会发出 “窗口被关闭” 的信号。</li>
+</ol>
+</li>
+<li><p>Qt 中的所有控件都具有接收信号的能力，一个控件还可以接收多个不同的信号。对于接收到的每个信号，控件都会做出相应的响应动作</p>
+<ol>
+<li>例如，按钮所在的窗口接收到 “按钮被点击” 的信号后，会做出 “关闭自己” 的响应动作；再比如输入框自己接收到 “输入框被点击” 的信号后，会做出 “显示闪烁的光标，等待用户输入数据” 的响应动作。在 Qt 中，对信号做出的响应动作就称之为<strong>槽</strong>。</li>
+</ol>
+</li>
+<li><p>信号和槽是 Qt 特有的消息传输机制，它能将相互独立的控件关联起来。比如， “按钮”和 “窗口” 本身是两个独立的控件，点击 “按钮” 并不会对 “窗口” 造成任何影响。通过信号和槽机制，可以将 “按钮” 和 “窗口” 关联起来，实现 “点击按钮会使窗口关闭” 的效果。</p>
+<p><img src="/../images/Qt/Qt3.png" alt="Qt3"></p>
+</li>
+<li><p>信号和槽：</p>
+<ol>
+<li>系统提供的信号和槽–直接使用的信号和槽</li>
+<li>自定义信号和槽–提供了方式可以自己 DIY 信号、槽</li>
+</ol>
+</li>
+</ol>
+<h2 id="系统自带的信号与槽与connect："><a href="#系统自带的信号与槽与connect：" class="headerlink" title="系统自带的信号与槽与connect："></a>系统自带的信号与槽与connect：</h2><ol>
+<li><p>使用 Qt 助手查找当前控件支持的系统信号和槽。</p>
+</li>
+<li><p>在 Qt 中，QObject 类提供了一个静态成员函数 connect()，该函数专门用来关联指定的信号函数和槽函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QMetaObject::Connection <span class="title">QObject::connect</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> QObject *sender,       <span class="comment">// 发送信号的对象</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">char</span> *signal,          <span class="comment">// 信号的签名</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> QObject *receiver,     <span class="comment">// 接收信号的对象</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">char</span> *method,          <span class="comment">// 槽函数的签名</span></span></span></span><br><span class="line"><span class="params"><span class="function">    Qt::ConnectionType type = Qt::AutoConnection <span class="comment">// 连接类型</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>sender  发送者  信号的发送者</li>
+<li>signal  信号  具体发送的信号</li>
+<li>receiver  接收者  事情发生之后需要做的事情的执行者</li>
+<li>method  槽函数  接收者得到信号之后做的事情(信号、槽)</li>
+<li>type  类型（可选）  信号的触发类型</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;widget.h&quot;</span></span></span><br><span class="line">Widget::<span class="built_in">Widget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">setWindowTitle</span>(<span class="string">&quot;Qt Demo&quot;</span>);<span class="comment">//设置窗口名称</span></span><br><span class="line">    <span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">800</span>, <span class="number">500</span>)); <span class="comment">//设置窗口尺寸</span></span><br><span class="line">    MyButton1 = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="keyword">this</span>); <span class="comment">//在堆区实例化一个按键，并将地址给类的一个属性</span></span><br><span class="line">    MyButton1MyButton1-&gt;<span class="built_in">setText</span>(<span class="string">&quot;点击关闭窗口&quot;</span>); <span class="comment">//修改按键名称</span></span><br><span class="line">    MyButton1-&gt;<span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">500</span>, <span class="number">300</span>)); <span class="comment">//修改按键尺寸</span></span><br><span class="line">    MyButton1-&gt;<span class="built_in">move</span>(<span class="built_in">QPoint</span>(<span class="number">150</span>, <span class="number">100</span>));<span class="comment">//把按钮放在父窗口的 (150,100) 位置</span></span><br><span class="line">    <span class="comment">//Qt 4 写法的 connect</span></span><br><span class="line">    <span class="built_in">connect</span>(MyButton1,<span class="built_in">SIGNAL</span>(<span class="built_in">clicked</span>()),<span class="keyword">this</span>,<span class="built_in">SLOT</span>(<span class="built_in">close</span>()));</span><br><span class="line">    <span class="comment">//Qt 5 写法的 connect</span></span><br><span class="line">    <span class="built_in">connect</span>(MyButton1,&amp;QPushButton::clicked,<span class="keyword">this</span>,&amp;Widget::close);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="自定义信号和槽："><a href="#自定义信号和槽：" class="headerlink" title="自定义信号和槽："></a>自定义信号和槽：</h2><ol>
+<li>自定义信号：<ol>
+<li>在头文件中需要使用 signals 关键字声明</li>
+<li>返回值类型必须是 void</li>
+<li>可以有参数，但参数不能有默认值</li>
+<li>不需要实现，只需声明即可</li>
+<li>使用关键字 emit 触发信号</li>
+<li>可以重载</li>
+</ol>
+</li>
+<li>自定义槽：<ol>
+<li>在头文件中需要使用 slots 关键字声明</li>
+<li>需要声明和实现</li>
+<li>可以有参数，可以有默认值</li>
+<li>返回值类型可以是任意类型</li>
+<li>可以重载</li>
+</ol>
+</li>
+<li>注意：信号和槽没有特定配对关系：可以一个信号连接多个槽，也可以一个槽函数被多个信号连接</li>
+</ol>
+<h2 id="信号链接信号："><a href="#信号链接信号：" class="headerlink" title="信号链接信号："></a>信号链接信号：</h2><ol>
+<li><p>信号也可以直接连接信号。</p>
+</li>
+<li><p>语法：使用connect函数</p>
+<ol>
+<li><p>Qt4 语法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">connect</span>(</span><br><span class="line">    senderObject,      <span class="comment">// 发送信号的对象指针</span></span><br><span class="line">    <span class="built_in">SIGNAL</span>(<span class="built_in">senderSignal</span>()),  <span class="comment">// 发送的信号（必须用 SIGNAL() 宏包裹）</span></span><br><span class="line">    receiverObject,    <span class="comment">// 接收信号的对象指针</span></span><br><span class="line">    <span class="built_in">SIGNAL</span>(<span class="built_in">receiverSignal</span>()) <span class="comment">// 触发的目标信号（必须用 SIGNAL() 宏包裹）</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Qt5 语法：不支持，想实现信号连接信号，可以通过中间槽函数转发信号</p>
+</li>
+</ol>
+</li>
+<li><p>例子：</p>
+<p><img src="/../images/Qt/Qt4.png" alt="Qt4"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;widget.h&quot;</span></span></span><br><span class="line">Widget::<span class="built_in">Widget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">setWindowTitle</span>(<span class="string">&quot;Qt Demo&quot;</span>); <span class="comment">//设置窗口名称</span></span><br><span class="line">    <span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">800</span>, <span class="number">500</span>)); <span class="comment">//设置窗口尺寸</span></span><br><span class="line">    pButtonLog = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="keyword">this</span>);</span><br><span class="line">    pButtonLog-&gt;<span class="built_in">setText</span>(<span class="string">&quot;输出 log&quot;</span>); <span class="comment">//修改按键名称</span></span><br><span class="line">    pButtonLog-&gt;<span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">100</span>, <span class="number">60</span>)); <span class="comment">//修改按键尺寸</span></span><br><span class="line">    pButtonLog-&gt;<span class="built_in">move</span>(<span class="built_in">QPoint</span>(<span class="number">150</span>, <span class="number">100</span>));</span><br><span class="line">    pButtonThree = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="keyword">this</span>);</span><br><span class="line">    pButtonThree-&gt;<span class="built_in">setText</span>(<span class="string">&quot;Three&quot;</span>); <span class="comment">//修改按键名称</span></span><br><span class="line">    pButtonThree-&gt;<span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">100</span>, <span class="number">60</span>)); <span class="comment">//修改按键尺寸</span></span><br><span class="line">    pButtonThree-&gt;<span class="built_in">move</span>(<span class="built_in">QPoint</span>(<span class="number">550</span>, <span class="number">100</span>));</span><br><span class="line">    <span class="comment">//信号连接信号</span></span><br><span class="line">    <span class="built_in">connect</span>(pButtonLog,<span class="built_in">SIGNAL</span>(<span class="built_in">clicked</span>()),<span class="keyword">this</span>,<span class="built_in">SIGNAL</span>(<span class="built_in">sgSignal1</span>()));</span><br><span class="line">    <span class="built_in">connect</span>(pButtonThree,<span class="built_in">SIGNAL</span>(<span class="built_in">clicked</span>()),<span class="keyword">this</span>,<span class="built_in">SIGNAL</span>(<span class="built_in">sgSignal2</span>()));</span><br><span class="line">    <span class="comment">//信号连接槽函数</span></span><br><span class="line">    <span class="built_in">connect</span>(<span class="keyword">this</span>,<span class="built_in">SIGNAL</span>(<span class="built_in">sgSignal1</span>()),<span class="keyword">this</span>,<span class="built_in">SLOT</span>(<span class="built_in">vWidgetSlotSignal1</span>()));</span><br><span class="line">    <span class="built_in">connect</span>(<span class="keyword">this</span>,<span class="built_in">SIGNAL</span>(<span class="built_in">sgSignal2</span>()),<span class="keyword">this</span>,<span class="built_in">SLOT</span>(<span class="built_in">vWidgetSlotSignal2</span>()));</span><br><span class="line">&#125;</span><br><span class="line">Widget::~<span class="built_in">Widget</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">delete</span> pButtonLog;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Widget::vWidgetSlotSignal1</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;我是信号 1 触发的槽函数 1&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Widget::vWidgetSlotSignal2</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;我是信号 2 触发的槽函数 2&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/Qt/Qt5.png" alt="Qt5"></p>
+</li>
+</ol>
+<h2 id="信号和槽的传参："><a href="#信号和槽的传参：" class="headerlink" title="信号和槽的传参："></a>信号和槽的传参：</h2><ol>
+<li><p>信号和槽连接时， 形参列表必须一一对应（信号发生时，会将参数给对应的槽函数）</p>
+</li>
+<li><p>信号和槽函数支持重载</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> WIDGET_H </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIDGET_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QWidget&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QPushButton&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QDebug&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QLineEdit&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> : <span class="keyword">public</span> QWidget</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Widget</span>(QWidget *parent = <span class="literal">nullptr</span>);</span><br><span class="line">    ~<span class="built_in">Widget</span>();</span><br><span class="line">    QPushButton *pButtonLog;</span><br><span class="line">    QLineEdit *Input;</span><br><span class="line">signals:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">sgSignal_GetEditLineText</span><span class="params">(QString &amp;Text)</span></span>;</span><br><span class="line"><span class="keyword">public</span> slots:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">vWidgetSlot_Button</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">vWidgetSlot_Log</span><span class="params">(QString &amp;Text)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// WIDGET_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;widget.h&quot;</span></span></span><br><span class="line">Widget::<span class="built_in">Widget</span>(QWidget *parent) : <span class="built_in">QWidget</span>(parent)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">setWindowTitle</span>(<span class="string">&quot;Qt Demo&quot;</span>); <span class="comment">//设置窗口名称</span></span><br><span class="line">    <span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">800</span>, <span class="number">500</span>)); <span class="comment">//设置窗口尺寸</span></span><br><span class="line">    pButtonLog = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="keyword">this</span>);</span><br><span class="line">    pButtonLog-&gt;<span class="built_in">setText</span>(<span class="string">&quot;clicked&quot;</span>); <span class="comment">//修改按键名称</span></span><br><span class="line">    pButtonLog-&gt;<span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">100</span>, <span class="number">60</span>)); <span class="comment">//修改按键尺寸</span></span><br><span class="line">    pButtonLog-&gt;<span class="built_in">move</span>(<span class="built_in">QPoint</span>(<span class="number">150</span>, <span class="number">100</span>));</span><br><span class="line">    Input = <span class="keyword">new</span> <span class="built_in">QLineEdit</span>(<span class="keyword">this</span>);</span><br><span class="line">    Input-&gt;<span class="built_in">setText</span>(<span class="string">&quot;Input&quot;</span>);</span><br><span class="line">    Input-&gt;<span class="built_in">resize</span>(<span class="built_in">QSize</span>(<span class="number">500</span>, <span class="number">30</span>));</span><br><span class="line">    Input-&gt;<span class="built_in">move</span>(<span class="built_in">QPoint</span>(<span class="number">150</span>, <span class="number">35</span>));</span><br><span class="line">    <span class="comment">//信号和槽函数的形参必须一致</span></span><br><span class="line">    <span class="built_in">connect</span>(pButtonLog,<span class="built_in">SIGNAL</span>(<span class="built_in">clicked</span>()),<span class="keyword">this</span>,<span class="built_in">SLOT</span>(<span class="built_in">vWidgetSlot_Button</span>()));</span><br><span class="line">    <span class="built_in">connect</span>(<span class="keyword">this</span>,<span class="built_in">SIGNAL</span>(<span class="built_in">sgSignal_GetEditLineText</span>(QString &amp;)),<span class="keyword">this</span>,<span class="built_in">SLOT</span>(<span class="built_in">vWidgetSlot_Log</span>(QString &amp;)));</span><br><span class="line">&#125;</span><br><span class="line">Widget::~<span class="built_in">Widget</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">delete</span> pButtonLog;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Widget::vWidgetSlot_Button</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    QString temp;temp = Input-&gt;<span class="built_in">text</span>();</span><br><span class="line">    <span class="function">emit <span class="title">sgSignal_GetEditLineText</span><span class="params">(temp)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Widget::vWidgetSlot_Log</span><span class="params">(QString &amp;Text)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;你输入的内容为： &quot;</span> &lt;&lt; Text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Lambda表达式："><a href="#Lambda表达式：" class="headerlink" title="Lambda表达式："></a>Lambda表达式：</h2><ol>
+<li><p>Lambda 表达式是 C++11 引入的新特性，允许在代码中直接定义匿名函数。</p>
+</li>
+<li><p>Lambda 的组成部分包括捕获列表、参数列表、可变规格、返回类型和函数体。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">只支持 Qt5 写法 </span><br><span class="line">[capture](parameters) mutable-&gt;return-type&#123;</span><br><span class="line">    statement</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[捕获列表](参数列表) mutable(可选) 异常属性(可选) -&gt; 返回类型(可选) &#123;</span><br><span class="line">    // 函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>捕获列表：</p>
+<ul>
+<li><p>[]标识一个 Lambda 的开始，这部分必须存在，不能省</p>
+<p><img src="/../images/Qt/Qt6.png" alt="Qt6"></p>
+<p><img src="/../images/Qt/Qt7.png" alt="Qt7"></p>
+</li>
+<li><p>[&#x3D;]：以值的方式捕获所有外部变量</p>
+</li>
+<li><p>[&amp;]：以引用的方式捕获所有外部变量</p>
+</li>
+<li><p>[this]：捕获当前类的 this 指针</p>
+</li>
+<li><p>[a, &amp;b]：混合捕获方式</p>
+</li>
+</ul>
+</li>
+<li><p>参数列表：</p>
+<ul>
+<li>()操作符：重载函数参数</li>
+<li>当()操作符，没有参数时，这部分可以省略。</li>
+<li>有参数时，可以通过按值（如： (a,b)）和按引用（如： (&amp;a,&amp;b)）两种方式进行传递。</li>
+</ul>
+</li>
+<li><p>可变规格：(mutable)</p>
+<ul>
+<li>mutable 声明，这部分可以省略。</li>
+<li>按值传递函数对象参数时，加上 mutable 修饰符后，可以修改按值传递进来的拷贝。</li>
+</ul>
+</li>
+<li><p>返回类型：</p>
+<ul>
+<li>表示的是返回值类型，标识函数返回值的类型，当返回值是void，或者函数体中只有一处 return的地方（此时编译器可以自动推断出返回值类型）时， 这部分可以省略。</li>
+</ul>
+</li>
+<li><p>函数体：</p>
+<ul>
+<li>{}，标识函数的实现，这部分不能省略，但是函数体可以为空。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E6%A6%82%E8%BF%B0%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">信号与槽概述：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E7%9A%84%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E4%B8%8Econnect%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">系统自带的信号与槽与connect：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">自定义信号和槽：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%93%BE%E6%8E%A5%E4%BF%A1%E5%8F%B7%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">信号链接信号：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD%E7%9A%84%E4%BC%A0%E5%8F%82%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">信号和槽的传参：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">Lambda表达式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&text=QT - 信号和槽"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&is_video=false&description=QT - 信号和槽"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=QT - 信号和槽&body=Check out this article: http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&title=QT - 信号和槽"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&name=QT - 信号和槽&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/20/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/&t=QT - 信号和槽"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
