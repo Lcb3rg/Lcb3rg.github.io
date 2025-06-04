@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="QWidget： 控件基类：  Qt 内置的父类—QObject 控件的基类（QObject 派生类）： QWidget QWidget 派生了两个派生类（工程模板）： QMainwindow、 QDialog QMainwindow 适合做一些桌面应用： keil VScode QDialog 对话框   UI文件：  Qt 项目中，后缀为“.ui”的文件是可视化设计的窗体的定义文件，如 wid">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QT - 扩展应用">
+<meta property="og:url" content="http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="QWidget： 控件基类：  Qt 内置的父类—QObject 控件的基类（QObject 派生类）： QWidget QWidget 派生了两个派生类（工程模板）： QMainwindow、 QDialog QMainwindow 适合做一些桌面应用： keil VScode QDialog 对话框   UI文件：  Qt 项目中，后缀为“.ui”的文件是可视化设计的窗体的定义文件，如 wid">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Qt/Qt8.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt9.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt10.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt11.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt12.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt13.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt14.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt15.png">
+<meta property="og:image" content="http://example.com/images/Qt/Qt16.png">
+<meta property="article:published_time" content="2025-03-21T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-04T13:06:39.160Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Qt/Qt8.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>QT - 扩展应用</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/04/24/STM32-RS485%E4%B8%8EModBus%E5%8D%8F%E8%AE%AE/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/17/QT-%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&text=QT - 扩展应用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&is_video=false&description=QT - 扩展应用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=QT - 扩展应用&body=Check out this article: http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&name=QT - 扩展应用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&t=QT - 扩展应用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#QWidget%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">QWidget：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QMainWindow%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">QMainWindow：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%AF%9D%E6%A1%86QDialog%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">对话框QDialog：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8E%A7%E4%BB%B6%E5%BA%94%E7%94%A8%E6%89%A9%E5%B1%95%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">常用控件应用扩展：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%9C%BA%E5%88%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">信号机制与事件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        QT - 扩展应用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-03-21T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-03-21</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="QWidget："><a href="#QWidget：" class="headerlink" title="QWidget："></a>QWidget：</h2><ol>
+<li><p>控件基类：</p>
+<ol>
+<li>Qt 内置的父类—QObject</li>
+<li>控件的基类（QObject 派生类）： QWidget</li>
+<li>QWidget 派生了两个派生类（工程模板）： QMainwindow、 QDialog</li>
+<li>QMainwindow 适合做一些桌面应用： keil VScode QDialog 对话框</li>
+</ol>
+</li>
+<li><p>UI文件：</p>
+<ul>
+<li><p>Qt 项目中，后缀为“.ui”的文件是可视化设计的窗体的定义文件，如 widget.ui。双击项目文件目录树中的文件 widget.ui，会打开一个集成在 Qt Creator 中的 Qt Designer 对窗体进行可视化设计</p>
+<p><img src="/../images/Qt/Qt8.png" alt="Qt8"></p>
+<p><img src="/../images/Qt/Qt9.png" alt="Qt9"></p>
+</li>
+<li><p>注意：</p>
+<ul>
+<li>一旦使用系统自带的信号和槽：不需要自己写 connect。</li>
+<li>如果使用到自定义信号、自定义的槽， ui 工具将无能为力。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>资源文件：</p>
+<ol>
+<li>在 Qt 中，资源文件（Resource Files）是一种用于管理应用程序中的静态资源的机制。这些资源可以包括图像、音频、文本文件等。</li>
+<li>Qt 资源文件使用后缀名为.qrc，是一种 XML 格式的文件，通过将这些资源打包成二进制文件，可以方便地集成到应用程序中，无需单独处理这些文件。</li>
+</ol>
+</li>
+<li><p>布局方式：</p>
+<ul>
+<li><p>布局方式时 Qt 提供的一种工具（弹簧） —设计好的界面可以自由拉升，而不变形空间构思能力。</p>
+<p><img src="/../images/Qt/Qt10.png" alt="Qt10"></p>
+</li>
+</ul>
+</li>
+<li><p>设计师界面类：</p>
+<ul>
+<li>Qt 设计师界面类，是 Qt 框架中用于分离界面设计与业务逻辑的重要机制，通过可视化工具 Qt Designer 创建的 .ui 文件生成。</li>
+</ul>
+</li>
+</ol>
+<h2 id="QMainWindow："><a href="#QMainWindow：" class="headerlink" title="QMainWindow："></a>QMainWindow：</h2><ol>
+<li><p>QMainWindow 基本介绍：</p>
+<ol>
+<li><p>QMainWindow（QWidget 的子类），提供了一个主应用程序窗口。</p>
+</li>
+<li><p>窗口为构建应用程序的用户界面提供了一个框架。 Qt 有 QMainWindow 及其相关的主窗口管理类。</p>
+</li>
+<li><p>QMainWindow 有自己的布局，可以在其中添加 QToolBar（可添加多个）、 QDockWidget （可添加多个）、 QMenuBar 和 QStatusBar。布局有一个中心区域，可以被任何类型的小部件占据。</p>
+</li>
+<li><p>QMainWindow 构成：</p>
+<ol>
+<li><p>一个菜单栏(menu bar) ：位置固定，最多有一个，内部子对象只能是菜单项</p>
+</li>
+<li><p>多个工具栏（tool bars）：位置不固定，数量无上限，内部子对象只能是菜单项</p>
+</li>
+<li><p>多个铆接部件(dock widgets)：位置不固定，数量无上限，内部可以有任意类型的子对象</p>
+</li>
+<li><p>一个状态栏(status bar)：位置固定，最多有一个，没有子对象</p>
+</li>
+<li><p>一个中心部件(central widget)：位置固定，最多有一个，内部可以有任意类型的子对象</p>
+<p><img src="/../images/Qt/Qt11.png" alt="Qt11"></p>
+</li>
+<li><p>MDK ARM示例：</p>
+<p><img src="/../images/Qt/Qt12.png" alt="Qt12"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>菜单栏与菜单项（QMenuBar、 QAction）：</p>
+<ol>
+<li>一个主窗口最多只有一个菜单栏。位于主窗口顶部、 主窗口标题栏下面。</li>
+<li>菜单栏可以存储一些整个系统需要的工具、选项：打开文件、新建工程、视图选择、软件配置。</li>
+<li>菜单栏的构造：<ol>
+<li>菜单栏</li>
+<li>可以有多个菜单</li>
+<li>每个菜单下可以有多个菜单项</li>
+</ol>
+</li>
+<li>操作步骤：<ol>
+<li>先创建菜单栏</li>
+<li>创建菜单，并将添加到菜单栏下  </li>
+<li>创建菜单项，并将其添加到对应的菜单下</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>工具栏（QToolBar）：</p>
+<ul>
+<li>主窗口的工具栏上可以有多个工具条，通常采用一个菜单对应一个工具条的的方式，也可根据需要进行工具条的划分。</li>
+<li>需要加头文件 #include <QToolBar></QToolBar></li>
+</ul>
+</li>
+<li><p>状态栏（QStatusBar）：</p>
+<ul>
+<li>派生自 QWidget 类，使用方法与 QWidget 类似， QStatusBar 类常用成员函数状态栏也只能最多有一个</li>
+</ul>
+</li>
+<li><p>中心部件（setCentralWidget）：</p>
+<ul>
+<li>中心显示的部件都可以作为核心部件，例如一个记事本文件，可以利用 QTextEdit 做核心部件</li>
+</ul>
+</li>
+<li><p>铆接部件（QDockWidget）：</p>
+<ul>
+<li>铆接部件 QDockWidget，也称浮动窗口，可以有多个</li>
+<li>中心部件与铆接部件内部可以使用任意的控件替代：可以是文本编辑器、表格、树形图…….</li>
+</ul>
+</li>
+</ol>
+<h2 id="对话框QDialog："><a href="#对话框QDialog：" class="headerlink" title="对话框QDialog："></a>对话框QDialog：</h2><ol>
+<li><p>对话框概述：</p>
+<ol>
+<li><p>我们有的时候打开某些网站，不经意间可能就会弹出各种奇奇怪怪的窗口，这个就可以叫做“对话框”，对话框往往在用户与用户之间进行“短平快” 的操作。</p>
+</li>
+<li><p>对话框是 GUI 程序中不可或缺的组成部分。 一些不适合在主窗口实现的功能组件可以设置在对话框中。对话框通常是一个顶层窗口，出现在程序最上层，用于实现短期任务或者简洁的用户交互。</p>
+</li>
+<li><p>Qt 常用的内置对话框有：</p>
+<ol>
+<li><p>QMessageBox（消息框）</p>
+</li>
+<li><p>QColorDialog（颜色对话框）</p>
+</li>
+<li><p>QFontDialog （字体对话框）</p>
+</li>
+<li><p>QInputDialog（输入对话框）</p>
+</li>
+<li><p>QFiledialog（文件对话框）</p>
+<p><img src="/../images/Qt/Qt13.png" alt="Qt13"></p>
+</li>
+</ol>
+</li>
+<li><p>QDialog 也是 QWidget 的派生类。</p>
+</li>
+<li><p>对话框主要可以分为模态对话框和⾮模态对话框：</p>
+<ol>
+<li>模态对话框指的是：显示后无法与父窗口进行交互，是一种阻塞式的对话框。使用QDialog::exec()函数调用。</li>
+<li>非模态对话框显示后独立存在，可以同时与父窗口进行交互，是一种非阻塞式对话框，使用 QDialog::show()函数调用。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="常用控件应用扩展："><a href="#常用控件应用扩展：" class="headerlink" title="常用控件应用扩展："></a>常用控件应用扩展：</h2><ol>
+<li><p>QLabel 文本、图片、动图设置</p>
+<ol>
+<li>QLabel 类：文本标签，可以容载文本、图片、动图（作为载体）</li>
+</ol>
+</li>
+<li><p>自定义控件：</p>
+<ol>
+<li>具体操作如下：</li>
+<li>创建一个新的 Form</li>
+<li>设计好新创建的 Form</li>
+<li>设计原有的 Form， 添加一个容器</li>
+<li>将容器的某一页提升为自定义控件</li>
+<li>将页面提升为新类（新 Form）</li>
+</ol>
+</li>
+</ol>
+<h2 id="信号机制与事件："><a href="#信号机制与事件：" class="headerlink" title="信号机制与事件："></a>信号机制与事件：</h2><ol>
+<li><p>事件概述：</p>
+<ol>
+<li><p>事件是应用程序内部或者外部产生的事情或者动作的统称。</p>
+</li>
+<li><p>事件的引入：</p>
+<ol>
+<li>事件与信号槽非常类似：用户进行的各种操作，会产生事件。开发人员可以给事件关联上处理函数，当事件触发的时候，就能够执行到对应的代码。</li>
+<li>事件本身是操作系统提供的机制。 Qt 也同样把操作系统事件机制进行了封装。但是由于事件对应的代码编写起来不是很方便。 Qt 对于事件机制又进行了进一步的封装，就得到了信号槽。然而值得注意的是—信号槽就是对于事件的进一步封装， 事件是信号槽的底层机制。</li>
+<li>实际 Qt 开发程序过程中，绝大部分和用户之间进行的交互都是通过“信号槽”来完成的。有些特殊情况下，信号槽不一定能搞定某个用户的动作行为， Qt 没有提供对应的信号。 此时就需要通过重写事件处理函数的形式，来手动处理事件的响应逻辑。</li>
+</ol>
+</li>
+<li><p>Qt 中的事件：</p>
+<ol>
+<li><p>在 Qt 中使用一个对象来表示一个事件。所有的 Qt 事件均继承于抽象类 QEvent。事件是由系统或者 Qt 平台本身在不同的时刻发出的。</p>
+</li>
+<li><p>当用户按下鼠标、敲下键盘，或者是窗口需要重新绘制的时候，都会发出一个相应的事件。一些事件是在用户操作时发出，如键盘事件、鼠标事件等，另一些事件则是由系统本身自动发出，如定时器事件。</p>
+</li>
+<li><p>常见的 Qt 事件如下：</p>
+<p><img src="/../images/Qt/Qt14.png" alt="Qt14"></p>
+</li>
+</ol>
+</li>
+<li><p>事件的处理：</p>
+<ol>
+<li><p>事件处理一般常用的方法为： 重写相关的 Event 函数。 在 Qt 中，几乎所有的 Event 函数都是虚函数，所以可以重新实现。</p>
+</li>
+<li><p>如：在实现鼠标的进入和离开事件时，直接重新实现 enterEvent()和 leaveEvent()即可。</p>
+</li>
+<li><p>一个事件有 APP 传递到代码层的逻辑：</p>
+<p><img src="/../images/Qt/Qt15.png" alt="Qt15"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>鼠标事件：</p>
+<ol>
+<li>在 Qt 框架中，处理鼠标事件是创建交互式图形用户界面的关键部分。鼠标事件包括鼠标点击、双击、移动、滚轮滚动等。这些事件由 QMouseEvent 类表示，它提供了关于鼠标事件的详细信息，如鼠标位置、按钮状态等。</li>
+<li>在 widget.ui 创建一个 QLabel， 并提升为新类（基类为 QLabel）</li>
+</ol>
+</li>
+<li><p>事件分发器：</p>
+<ol>
+<li>Qt 拦截消息的五种方法：<ol>
+<li>重写框架类 QCoreApplication 的 notify 函数，这个函数将得到整个框架中所有窗口的消息</li>
+<li>给框架类安装一个事件过滤器</li>
+<li>给某窗口安装一个事件过滤器</li>
+<li>继承某窗口并覆写事件分发器 event 函数（该函数负责某个窗口中派发所有子消息）</li>
+<li>继承某窗口并重写窗口的某个子消息（鼠标进入、 退出、 点击、 键盘点击）</li>
+</ol>
+</li>
+<li>在 Qt 中，事件分发器(EventDispatcher)是一个核心概念，用于处理 GUI 应用程序中的事件。</li>
+<li>事件分发器负责将事件从一个对象传递到另一个对象，直到事件被处理或被取消。</li>
+<li>每个继承自 QObject 类或 QObject 类本⾝都可以在本类中重写 event 函数，来实现相关事件的捕获和拦截。</li>
+<li>在 Qt 中，我们发送的事件都是传给了 QObject 对象，更具体点是传给了 QObject 对象的 event()函数。所有的事件都会进入到这个函数里面，那么我们处理事件就要重写这个event()函数。 event()函数本身不会去处理事件，是而根据事件类型（type 值）调用不同的事件处理函数。</li>
+<li>如果事件在一个类中未被处理， Qt 会继续将事件传递给父对象或下一个事件过滤器（如果有的话）。如果事件最终没有被任何对象处理，它会被传递给默认的事件处理机制。</li>
+<li>当事件已被处理， Qt 会停止事件的进一步传播。</li>
+</ol>
+</li>
+<li><p>事件过滤器：</p>
+<ol>
+<li>事件过滤器是在应用程序分发到 event 事件分发器之前，再做一次更高级的拦截。</li>
+<li>每个设备默认没有事件过滤器， 需要安装+重写</li>
+</ol>
+</li>
+<li><p>绘图系统与 paintEvent 事件：</p>
+<ol>
+<li><p>Qt 的绘图系统类似于 MCU 单片机的 LCD 裸机开发（区别于 STemWin、 LVGL） —基于一个画点函数（坐标、 颜色）</p>
+</li>
+<li><p>Qt 的绘图系统允许使用相同的 API 在屏幕和打印设备上进行绘制。整个绘图系统基于QPainter、 QPainterDevice 和 QPaintEngine 三个类。</p>
+<ol>
+<li>QPainter（画家） 用来执行绘制的操作</li>
+<li>QPaintDevice（画板） 是一个二维空间的抽象，这个二维空间可以由 QPainter 在上面进行绘制</li>
+<li>QPaintEngine（画笔） 提供 painter 在不同的设备上进行绘制的统一的接口</li>
+</ol>
+</li>
+<li><p>Qt 的绘图系统实际上是说，使用 QPainter 使用画笔画刷等工具在QPainterDevice 上面进行绘制，它们之间使用 QPaintEngine 引擎进行通讯。</p>
+<p><img src="/../images/Qt/Qt16.png" alt="Qt16"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#QWidget%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">QWidget：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#QMainWindow%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">QMainWindow：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%AF%9D%E6%A1%86QDialog%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">对话框QDialog：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8E%A7%E4%BB%B6%E5%BA%94%E7%94%A8%E6%89%A9%E5%B1%95%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">常用控件应用扩展：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%9C%BA%E5%88%B6%E4%B8%8E%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">信号机制与事件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&text=QT - 扩展应用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&is_video=false&description=QT - 扩展应用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=QT - 扩展应用&body=Check out this article: http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&title=QT - 扩展应用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&name=QT - 扩展应用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/03/21/QT-%E6%89%A9%E5%B1%95%E5%BA%94%E7%94%A8/&t=QT - 扩展应用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
