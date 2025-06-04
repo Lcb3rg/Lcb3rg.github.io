@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/Qt/Qt6.png">
 <meta property="og:image" content="http://example.com/images/Qt/Qt7.png">
 <meta property="article:published_time" content="2025-03-17T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-04T02:16:52.823Z">
+<meta property="article:modified_time" content="2025-06-04T02:19:16.319Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/Qt/Qt3.png">
@@ -164,14 +164,14 @@
   <div class="content e-content" itemprop="articleBody">
     <h2 id="信号与槽概述："><a href="#信号与槽概述：" class="headerlink" title="信号与槽概述："></a>信号与槽概述：</h2><ol>
 <li><p>在 Qt 中，用户和控件的每次交互过程称为一个事件</p>
-<ol>
+<ul>
 <li>比如 “用户点击按钮” 是一个事件， “用户关闭窗口” 也是一个事件。每个事件都会发出一个信号，例如用户点击按钮会发出 “按钮被点击” 的信号，用户关闭窗口会发出 “窗口被关闭” 的信号。</li>
-</ol>
+</ul>
 </li>
 <li><p>Qt 中的所有控件都具有接收信号的能力，一个控件还可以接收多个不同的信号。对于接收到的每个信号，控件都会做出相应的响应动作</p>
-<ol>
+<ul>
 <li>例如，按钮所在的窗口接收到 “按钮被点击” 的信号后，会做出 “关闭自己” 的响应动作；再比如输入框自己接收到 “输入框被点击” 的信号后，会做出 “显示闪烁的光标，等待用户输入数据” 的响应动作。在 Qt 中，对信号做出的响应动作就称之为<strong>槽</strong>。</li>
-</ol>
+</ul>
 </li>
 <li><p>信号和槽是 Qt 特有的消息传输机制，它能将相互独立的控件关联起来。比如， “按钮”和 “窗口” 本身是两个独立的控件，点击 “按钮” 并不会对 “窗口” 造成任何影响。通过信号和槽机制，可以将 “按钮” 和 “窗口” 关联起来，实现 “点击按钮会使窗口关闭” 的效果。</p>
 <p><img src="/../images/Qt/Qt3.png" alt="Qt3"></p>
