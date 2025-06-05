@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="WiFi概述： Wi-Fi，又称“无线网路”，是Wi-Fi联盟的商标，一个基于IEEE 802.11标准的无线局域网技术。  WIFI可以看成是IEEE 802.11的一种具体实现。  IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行管">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 - Wi-Fi通讯">
+<meta property="og:url" content="http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="WiFi概述： Wi-Fi，又称“无线网路”，是Wi-Fi联盟的商标，一个基于IEEE 802.11标准的无线局域网技术。  WIFI可以看成是IEEE 802.11的一种具体实现。  IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行管">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/STM32/wifi1.png">
+<meta property="og:image" content="http://example.com/images/STM32/wifi2.png">
+<meta property="og:image" content="http://example.com/images/STM32/wifi3.png">
+<meta property="og:image" content="http://example.com/images/STM32/wifi4.png">
+<meta property="og:image" content="http://example.com/images/STM32/wifi5.png">
+<meta property="og:image" content="http://example.com/images/STM32/wifi6.png">
+<meta property="og:image" content="http://example.com/images/STM32/wifi7.png">
+<meta property="og:image" content="http://example.com/images/STM32/wifi8.png">
+<meta property="article:published_time" content="2025-04-03T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-05T13:07:17.029Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/STM32/wifi1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>STM32 - Wi-Fi通讯</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/04/09/STM32-%E8%93%9D%E7%89%99%E9%80%9A%E8%AE%AF/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/29/STM32-W5500%E4%BB%A5%E5%A4%AA%E7%BD%91/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&text=STM32 - Wi-Fi通讯"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&is_video=false&description=STM32 - Wi-Fi通讯"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - Wi-Fi通讯&body=Check out this article: http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&name=STM32 - Wi-Fi通讯&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&t=STM32 - Wi-Fi通讯"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WiFi%E6%A6%82%E8%BF%B0%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">WiFi概述：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wi-Fi%E7%9A%84%E9%A2%91%E6%AE%B55G%E5%92%8C2-4G%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Wi-Fi的频段5G和2.4G：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wi-Fi%E7%9A%84%E4%BF%A1%E9%81%93%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">Wi-Fi的信道：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WiFi%E5%B8%B8%E8%A7%81%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">WiFi常见的概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WiFi%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">WiFi模块：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        STM32 - Wi-Fi通讯
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-03T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-04-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="WiFi概述："><a href="#WiFi概述：" class="headerlink" title="WiFi概述："></a>WiFi概述：</h2><ol>
+<li><p>Wi-Fi，又称“无线网路”，是Wi-Fi联盟的商标，一个基于IEEE 802.11标准的无线局域网技术。</p>
+</li>
+<li><p>WIFI可以看成是IEEE 802.11的一种<strong>具体实现</strong>。</p>
+</li>
+<li><p>IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行管理。</p>
+</li>
+</ol>
+<h2 id="Wi-Fi的频段5G和2-4G："><a href="#Wi-Fi的频段5G和2-4G：" class="headerlink" title="Wi-Fi的频段5G和2.4G："></a>Wi-Fi的频段5G和2.4G：</h2><ul>
+<li><p>2.4G Wi-Fi与5G Wi-Fi最本质的区别即工作频段（无线电波的频率）不一样，5G Wi-Fi频段有更高的频率和频宽，可以提供更高的速率和更小的信道干扰。</p>
+<p><img src="/../images/STM32/wifi1.png" alt="wifi1"></p>
+</li>
+</ul>
+<h2 id="Wi-Fi的信道："><a href="#Wi-Fi的信道：" class="headerlink" title="Wi-Fi的信道："></a>Wi-Fi的信道：</h2><ol>
+<li><p>目前用的频段有2个，5G和2.4G频段，每个频段又分为若干频道，又称为信道。如果把频段理解为高速公路的话，那么信道可以理解高速公路上的车道。</p>
+</li>
+<li><p>2.4G的信道：</p>
+<ol>
+<li><p>在标准协议里将 2.4GHz 频段划分出 13 个相互交叠的信道，每个信道的频宽是20MHz（802.11g、802.11n每个信道占用20MHz，802.11b每个信道占用22MHz），每个信道都有自己的中心频率。</p>
+</li>
+<li><p>13 个信道可以找出 3 个独立信道，即没有相互交叠的信道。独立信道由于没有频率的交叠区，相邻 AP 使用这3个独立信道不会彼此产生干扰。</p>
+</li>
+<li><p>如下图中的1、6、11就是三个互不交叠的独立信道：</p>
+<p><img src="/../images/STM32/wifi2.png" alt="wifi2"></p>
+</li>
+</ol>
+</li>
+<li><p>5G的信道：</p>
+<ol>
+<li><p>标准协议将 5GHz 频段分为 24 个 20MHz 宽的信道，且每个信道都为独立信道。这为 WLAN 提供了丰富的信道资源，更多的独立信道也使得信道绑定更有价值。信道绑定是指将两个信道绑定成一个信道使用，能提供更大的带宽。如两个20MHz的独立信道绑定在一起可以获得40MHz的吞吐量，这好比将两条道路合并成一条使用，自然就提高了道路的通过能力。</p>
+</li>
+<li><p>下图中，黑色的半圆表示独立信道，红色的半圆表示标准协议推荐的信道绑定。</p>
+<p><img src="/../images/STM32/wifi3.png" alt="wifi3"></p>
+</li>
+</ol>
+</li>
+<li><p>信道的穿墙能力：</p>
+<ol>
+<li><strong>5G Wi-Fi</strong>相比2.4G Wi-Fi<strong>穿墙能力较弱</strong>，这是由电磁波的物理特性决定的：波长越长衰减越少，也更容易绕过障碍物继续传播。</li>
+<li>5G信号频率高、波长短，而2.4G信号频率低、波长长，所以5G信号穿过障碍物时衰减更大，穿墙能力比2.4G信号弱。</li>
+</ol>
+</li>
+</ol>
+<h2 id="WiFi常见的概念："><a href="#WiFi常见的概念：" class="headerlink" title="WiFi常见的概念："></a>WiFi常见的概念：</h2><ol>
+<li><p>AP：</p>
+<ol>
+<li><p>无线AP（Wireless Access Point）是“无线接入点”的缩写。单纯性无线AP就是一个无线的交换机，仅仅是提供无线信号发射的功能。其工作原理是将网络信号通过双绞线传送过来，经过AP产品的编译，将电信号转换成为无线电讯号发送出来，形成无线网的覆盖。</p>
+</li>
+<li><p>家用无线路由器可以看成是一个带路由功能的无线AP。</p>
+<p><img src="/../images/STM32/wifi4.png" alt="wifi4"></p>
+</li>
+</ol>
+</li>
+<li><p>STA（Station）：</p>
+<ol>
+<li>STA 即站点，也称为无线客户端，指的是配备有无线网络接口的设备，如笔记本电脑、智能手机、平板电脑、无线打印机等。</li>
+</ol>
+</li>
+<li><p>SSID（Service Set Identifier）：</p>
+<ol>
+<li>SSID 即服务集标识符，是无线网络的名称。</li>
+<li>SSID 用于标识一个特定的无线网络，当多个接入点（AP）组成一个无线网络时，它们可以使用相同的 SSID，以便无线客户端能够识别并连接到这个网络。例如，在家庭或办公室中，无线路由器设置的网络名称就是 SSID。</li>
+</ol>
+</li>
+<li><p>BSSID（Basic Service Set Identifier）：</p>
+<ol>
+<li>BSSID 即基本服务集标识符，是接入点（AP）的媒体访问控制（MAC）地址。</li>
+<li>每一个网络设备都有其用于识别的物理地址，称作MAC地址，一般情况下出厂会有一个默认值，可更改，也有其固定的命名格式，也是设备识别的标识符。</li>
+<li>BSSID 是针对设备说的，对于 STA 的设备来说，拿到 AP 接入点的 MAC 地址就是这个 BSSID。</li>
+</ol>
+</li>
+<li><p>ESSID（Extended Service Set Identifier）：</p>
+<ol>
+<li>ESSID 即扩展服务集标识符，实际上 ESSID 与 SSID 是相同的概念，只是在不同的语境下使用。如果有好几个无线路由器都叫这个名字，那么我们就相当于把这个 SSID 扩大了，所以这几个无线路由器共同的这个名字就叫ESSID。</li>
+<li>BSSID 就是具体的某个连锁店编号（001）或地址。SSID 就是连锁店的名字或者照片ESSID 就是连锁店的总公司或者招牌or品牌。一般SSID和ESSID都是相同的。</li>
+</ol>
+</li>
+</ol>
+<h2 id="WiFi模块："><a href="#WiFi模块：" class="headerlink" title="WiFi模块："></a>WiFi模块：</h2><ol>
+<li><p>ESP32-C3模块的特点：</p>
+<ol>
+<li>高性能处理器：<ol>
+<li>ESP32-C3 搭载 RISC-V 32位单核处理器，时钟频率高达160 MHz。</li>
+</ol>
+</li>
+<li>丰富的内存资源：<ol>
+<li>内置 400KB SRAM 和 384KB ROM，支持 SOC（片上系统）模式开发，为程序运行和数据存储提供了充足的空间，能够满足不同应用场景下的需求</li>
+</ol>
+</li>
+<li>多种外设接口：<ol>
+<li>具有22个可编程 GPIO管脚、内置 400 KB SRAM，支持通过 SPI、Dual SPI、Quad SPI 和 QPI 接口外接多个 flash，满足各类物联网产品功能需求。</li>
+</ol>
+</li>
+<li>行业领先的射频性能：<ol>
+<li>ESP32-C3 集成 2.4 GHz Wi-Fi 和支持长距离的 Bluetooth 5（LE），有助于构建覆盖范围更广、射频性能更强的物联网设备。它还支持蓝牙 Mesh（Bluetooth Mesh）协议和乐鑫 Wi-Fi Mesh，在较高的工作温度下仍能保持卓越的射频性能。此外，ESP32-C3 的耐高温特性也使其成为照明和工控领域的理想选择。</li>
+</ol>
+</li>
+<li>完善的安全机制：<ol>
+<li>ESP32-C3 支持基于 RSA-3072 算法的安全启动和基于 AES-128&#x2F;256-XTS 算法的 flash 加密功能，确保设备安全连接；创新的数字签名模块和 HMAC 模块确保设备身份安全；支持加密算法的硬件加速器确保设备在本地网络和云上安全传输数据。</li>
+</ol>
+</li>
+<li>成熟的软件支持：<ol>
+<li>ESP32-C3 沿用乐鑫成熟的物联网开发框架 ESP-IDF。ESP-IDF 已成功赋能了数以亿计的物联网设备，并历经了严格的测试和发布周期。开发人员基于其成熟的软件架构，凭借对 API 和工具的熟悉，将更容易构建 ESP32-C3 应用程序或进行程序迁移。ESP32-C3 也支持在<strong>从机模式</strong>下工作，可通过 <strong>ESP-AT 和 ESP-Hosted</strong> <strong>SDK</strong> 为外部主机 <strong>MCU</strong> <strong>提供 Wi-Fi 与 Bluetooth</strong> <strong>LE</strong> <strong>连接功能</strong>。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>ESP32-C3的使用：</p>
+<ol>
+<li><p>ESP32-C3本身就可以作为一个单片机使用，但是可以把ESP32-C3作为一个Wi-Fi&#x2F;蓝牙模块使用。</p>
+</li>
+<li><p>当STM32与ESP32-C3使用串口进行通讯时，STM32可以给ESP32-C3发送命令，这种命令叫ESP-AT指令。</p>
+</li>
+<li><p>ESP-AT指令：</p>
+<ol>
+<li><p>ESP-AT 是乐鑫开发的可直接用于量产的物联网应用固件，旨在降低客户开发成本，快速形成产品。通过 ESP-AT 指令，可以快速加入无线网络、连接云平台、实现数据通信以及远程控制等功能，真正的通过无线通讯实现万物互联。</p>
+</li>
+<li><p>ESP-AT 是基于 ESP-IDF 实现的软件工程。它使 ESP32-C3 模组作为从机，MCU 作为主机。MCU 发送 AT 命令给 ESP32-C3 模组，控制 ESP32-C3 模组执行不同的操作，并接收 ESP32-C3 模组返回的 AT 响应。</p>
+</li>
+<li><p>ESP-AT 提供了大量功能不同的 AT 命令，如 Wi-Fi 命令、TCP&#x2F;IP 命令、Bluetooth LE 命令、Bluetooth 命令、MQTT 命令、HTTP 命令、Ethernet 命令等。</p>
+</li>
+<li><p>AT 命令以 “AT”开始，代表 Attention，以新的一行（CR LF）为结尾。输入的每条命令都会返回 OK 或 ERROR 的响应，表示当前命令的最终执行结果。</p>
+</li>
+<li><p>注意，所有 AT 命令均为串行执行，每次只能执行一条命令。因此，在使用 AT 命令时，应等待上一条命令执行完毕后，再发送下一条命令。如果上一条命令未执行完毕，又发送了新的命令，则会返回 busy p…</p>
+</li>
+<li><p>默认配置下，MCU 通过 UART 连接至 ESP32-C3 模组、发送 AT 命令以及接收 AT 响应。但是，用户也可以根据实际使用情况修改程序，使用其他的通信接口，例如 SDIO。同样，用户也可以基于 ESP-AT 工程，自行开发更多的 AT 命令，以实现更多的功能。</p>
+<p><img src="/../images/STM32/wifi5.png" alt="wifi5"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>ESP32-C3支持的WiFi工作模式：</p>
+<ol>
+<li><p><strong>基站模式</strong>，即 STA 模式或 Wi-Fi 客户端模式，此时 ESP32 连接到接入点 （AP）。相当于 ESP32 是手机，连接你家里的路由器。</p>
+<p><img src="/../images/STM32/wifi6.png" alt="wifi6"></p>
+</li>
+<li><p><strong>AP模式</strong>，即 Soft-AP 模式或接入点模式，此时基站连接到 ESP32。相当于ESP32是手机，给别人开热点。</p>
+<p><img src="/../images/STM32/wifi7.png" alt="wifi7"></p>
+</li>
+<li><p><strong>AP-STA共存模式</strong>，ESP32 既是接入点，同时又作为基站连接到另外一个接入点。相当于你手机蹭别人的wifi网，又给自己人开热点。</p>
+<p><img src="/../images/STM32/wifi8.png" alt="wifi8"></p>
+</li>
+</ol>
+<ul>
+<li>上述模式的各种安全模式为WPA、WPA2 及 WEP 等。</li>
+<li>还具有Scan扫描接入点功能，包括主动扫描和被动扫描。</li>
+<li>使用混杂模式监控 IEEE802.11 Wi-Fi 数据包。</li>
+</ul>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WiFi%E6%A6%82%E8%BF%B0%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">WiFi概述：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wi-Fi%E7%9A%84%E9%A2%91%E6%AE%B55G%E5%92%8C2-4G%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Wi-Fi的频段5G和2.4G：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wi-Fi%E7%9A%84%E4%BF%A1%E9%81%93%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">Wi-Fi的信道：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WiFi%E5%B8%B8%E8%A7%81%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">WiFi常见的概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WiFi%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">WiFi模块：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&text=STM32 - Wi-Fi通讯"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&is_video=false&description=STM32 - Wi-Fi通讯"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=STM32 - Wi-Fi通讯&body=Check out this article: http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&title=STM32 - Wi-Fi通讯"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&name=STM32 - Wi-Fi通讯&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/&t=STM32 - Wi-Fi通讯"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
