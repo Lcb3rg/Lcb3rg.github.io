@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/STM32/LoRa1.png">
 <meta property="article:published_time" content="2025-04-15T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-06T14:35:56.629Z">
+<meta property="article:modified_time" content="2025-06-06T14:59:41.702Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/STM32/LoRa1.png">
@@ -199,7 +199,55 @@
 <p><img src="/../images/STM32/LoRa1.png" alt="LoRa1"></p>
 </li>
 </ol>
-<h2 id="LoRa通讯的关键参数："><a href="#LoRa通讯的关键参数：" class="headerlink" title="LoRa通讯的关键参数："></a>LoRa通讯的关键参数：</h2><h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+<h2 id="LoRa通讯的关键参数："><a href="#LoRa通讯的关键参数：" class="headerlink" title="LoRa通讯的关键参数："></a>LoRa通讯的关键参数：</h2><ul>
+<li><strong>载波频率：</strong><ul>
+<li>LoRa的工作频率。范围在410MHz-493MHz。典型值433MHz，470MHz，490MHz。</li>
+</ul>
+</li>
+<li><strong>发射功率：</strong><ul>
+<li>发射功率越大，信号能传输的距离就越远，单位是dBm。</li>
+<li><strong>dBm</strong> 是分贝毫瓦（decibel-milliwatts）的缩写，是一个基于对数的单位，用于表示功率相对于1毫瓦（mW）的级别。</li>
+</ul>
+</li>
+<li><strong>空中速率：</strong><ul>
+<li>LoRa 的“空中速率”（也称为“空中数据速率”或“无线数据速率”）指的是 LoRa 系统在无线空中接口上实现的<strong>数据传输速率</strong>。</li>
+<li>这个速率是指在 LoRa 通信中，数据以多快的速度通过空中从一个设备传输到另一个设备。</li>
+<li>空中速率受多种因素影响，包括扩频因子（Spreading Factor, SF）、带宽（Bandwidth）、编码率（Coding Rate）等。</li>
+</ul>
+</li>
+<li><strong>扩频因子（SF）：</strong><ul>
+<li>LoRa 通信技术中的一个关键参数，它影响着 LoRa 信号的传输范围、数据速率和能耗。</li>
+<li>LoRa 技术通常提供从SF7到SF12的扩频因子选择。</li>
+<li><strong>SF7</strong> 提供最高的数据传输速率和最短的传输距离。</li>
+<li><strong>SF12</strong> 则提供最远的传输距离，但数据传输速率最低。</li>
+</ul>
+</li>
+<li><strong>带宽（BW）：</strong><ul>
+<li>带宽是指可用于 LoRa 传输的频率范围。</li>
+<li>带宽越宽，可传输的数据量越大，因此空中速率会提高。</li>
+</ul>
+</li>
+<li><strong>编码率（CR）：</strong><ul>
+<li>编码率是指数据冗余度的级别。</li>
+<li>增加编码率可以提高传输的可靠性，但会稍微降低空中速率。</li>
+</ul>
+</li>
+<li><strong>同步字（Sync Word）：</strong><ul>
+<li>LoRa 通信中的同步字（Sync Word）是用来区分和识别特定 LoRa 网络的一种机制。</li>
+<li>它是一个预定义的字节序列，用于帮助 LoRa 接收器区分目标网络的信号和其他LoRa信号或背景噪声。</li>
+<li>在 LoRa 通信中，同步字对于确保数据包的正确识别和网络的隔离非常重要。</li>
+<li>同步字的值通常可以自定义，允许用户根据需求设置不同的值以创建独立的 LoRa 网络。</li>
+<li>所有在同一个 LoRa 网络中的设备应该使用相同的同步字。</li>
+</ul>
+</li>
+<li><strong>数据包前导码：</strong><ul>
+<li>LoRa 数据包中的前导码（Preamble）是 LoRa 通信协议中非常重要的一个组成部分。</li>
+<li>前导码位于数据包的开始部分，是一系列预定义的模式，用于帮助接收器准确地同步到发送方的信号。</li>
+<li>前导码的长度可以根据通信需求进行配置，长的前导码可以提高接收器同步的准确性，特别是在信号弱或环境噪声大的情况下。然而，过长的前导码可能会增加整个数据包的传输时间，从而影响通信的效率。</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
   </div>
 </article>
 
