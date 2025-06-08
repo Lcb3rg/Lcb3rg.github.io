@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://example.com/images/STM32/%E8%93%9D%E7%89%996.png">
 <meta property="og:image" content="http://example.com/images/STM32/%E8%93%9D%E7%89%997.png">
 <meta property="article:published_time" content="2025-04-09T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-05T14:00:43.188Z">
+<meta property="article:modified_time" content="2025-06-08T14:13:34.391Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/STM32/%E8%93%9D%E7%89%991.png">
@@ -202,19 +202,24 @@
 </ul>
 </li>
 <li><strong>安全管理层</strong>（SM）<ul>
-<li>SMP 层用于生成加密密钥和身份密钥。SMP 还管理加密密钥和身份密钥的存储，并负责生成随机地址并将随机地址解析为已知设备身份。</li>
+<li>SMP 层用于生成加密密钥和身份密钥。</li>
+<li>SMP 还管理加密密钥和身份密钥的存储，并负责生成随机地址并将随机地址解析为已知设备身份。</li>
 </ul>
 </li>
 <li><strong>通用访问配置文件层</strong>（GAP）<ul>
-<li>GAP 层代表所有蓝牙设备通用的基本功能，例如传输、协议和应用程序配置文件使用的模式和访问程序。GAP 服务包括设备发现、连接模式、安全、身份验证、关联模型和服务发现。</li>
+<li>GAP 层代表所有蓝牙设备通用的基本功能，例如传输、协议和应用程序配置文件使用的模式和访问程序。</li>
+<li>GAP 服务包括设备发现、连接模式、安全、身份验证、关联模型和服务发现。</li>
 </ul>
 </li>
 <li><strong>属性协议层</strong>（ATT）<ul>
-<li>ATT层用来定义用户命令及命令操作的数据，比如读取某个数据或者写某个数据。BLE引入了Attribute概念，用来描述一条一条的数据。Attribute除了定义数据，同时定义该数据可以使用的ATT命令，因此这一层被称为ATT层。</li>
+<li>ATT层用来定义用户命令及命令操作的数据，比如读取某个数据或者写某个数据。</li>
+<li>BLE引入了Attribute概念，用来描述一条一条的数据。</li>
+<li>Attribute除了定义数据，同时定义该数据可以使用的ATT命令，因此这一层被称为ATT层。</li>
 </ul>
 </li>
 <li><strong>通用属性配置文件层</strong>（GATT）<ul>
-<li>GATT 层表示属性服务器和可选的属性客户端的功能。该配置文件描述了属性服务器中使用的服务、特征和属性的层次结构。该层提供用于发现、读取、写入和指示服务特性和属性的接口。</li>
+<li>GATT 层表示属性服务器和可选的属性客户端的功能，该配置文件描述了属性服务器中使用的服务、特征和属性的层次结构。</li>
+<li>GATT 层提供用于发现、读取、写入和指示服务特性和属性的接口。</li>
 </ul>
 </li>
 </ol>

@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="WiFi概述： Wi-Fi，又称“无线网路”，是Wi-Fi联盟的商标，一个基于IEEE 802.11标准的无线局域网技术。  WIFI可以看成是IEEE 802.11的一种具体实现。  IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行管">
+    <meta name="description" content="WiFi概述： Wi-Fi，又称“无线网路”，是Wi-Fi联盟的商标，一个基于IEEE 802.11标准的无线局域网技术。  WIFI可以看成是IEEE 802.11的一种具体实现。  IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，该标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STM32 - Wi-Fi通讯">
 <meta property="og:url" content="http://example.com/2025/04/03/STM32-Wi-Fi%E9%80%9A%E8%AE%AF/index.html">
 <meta property="og:site_name" content="Lcb3rg">
-<meta property="og:description" content="WiFi概述： Wi-Fi，又称“无线网路”，是Wi-Fi联盟的商标，一个基于IEEE 802.11标准的无线局域网技术。  WIFI可以看成是IEEE 802.11的一种具体实现。  IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行管">
+<meta property="og:description" content="WiFi概述： Wi-Fi，又称“无线网路”，是Wi-Fi联盟的商标，一个基于IEEE 802.11标准的无线局域网技术。  WIFI可以看成是IEEE 802.11的一种具体实现。  IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，该标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/STM32/wifi1.png">
 <meta property="og:image" content="http://example.com/images/STM32/wifi2.png">
@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://example.com/images/STM32/wifi7.png">
 <meta property="og:image" content="http://example.com/images/STM32/wifi8.png">
 <meta property="article:published_time" content="2025-04-03T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-05T13:07:17.029Z">
+<meta property="article:modified_time" content="2025-06-08T13:57:39.103Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/STM32/wifi1.png">
@@ -170,7 +170,7 @@
 </li>
 <li><p>WIFI可以看成是IEEE 802.11的一种<strong>具体实现</strong>。</p>
 </li>
-<li><p>IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行管理。</p>
+<li><p>IEEE 802.11标准定义一个媒体访问控制（MAC）和几个物理层（PHY）规范，为局域内的固定，便携式和可移动终端（STA）提供无线连接，该标准还为监管机构提供了一种标准化方法，对局域网通信的一个或多个频带进行管理。</p>
 </li>
 </ol>
 <h2 id="Wi-Fi的频段5G和2-4G："><a href="#Wi-Fi的频段5G和2-4G：" class="headerlink" title="Wi-Fi的频段5G和2.4G："></a>Wi-Fi的频段5G和2.4G：</h2><ul>
@@ -183,7 +183,7 @@
 </li>
 <li><p>2.4G的信道：</p>
 <ol>
-<li><p>在标准协议里将 2.4GHz 频段划分出 13 个相互交叠的信道，每个信道的频宽是20MHz（802.11g、802.11n每个信道占用20MHz，802.11b每个信道占用22MHz），每个信道都有自己的中心频率。</p>
+<li><p>在标准协议里将  2.4GHz  频段划分出 13 个相互交叠的信道，每个信道的频宽是20MHz（802.11g、802.11n每个信道占用20MHz，802.11b每个信道占用22MHz），每个信道都有自己的中心频率。</p>
 </li>
 <li><p>13 个信道可以找出 3 个独立信道，即没有相互交叠的信道。独立信道由于没有频率的交叠区，相邻 AP 使用这3个独立信道不会彼此产生干扰。</p>
 </li>
@@ -203,8 +203,8 @@
 </li>
 <li><p>信道的穿墙能力：</p>
 <ol>
-<li><strong>5G Wi-Fi</strong>相比2.4G Wi-Fi<strong>穿墙能力较弱</strong>，这是由电磁波的物理特性决定的：波长越长衰减越少，也更容易绕过障碍物继续传播。</li>
-<li>5G信号频率高、波长短，而2.4G信号频率低、波长长，所以5G信号穿过障碍物时衰减更大，穿墙能力比2.4G信号弱。</li>
+<li>5G Wi-Fi 相比 2.4G Wi-Fi <strong>穿墙能力较弱</strong>，这是由电磁波的物理特性决定的：波长越长衰减越少，也更容易绕过障碍物继续传播。</li>
+<li>5G 信号频率高、波长短，而 2.4G 信号频率低、波长长，所以 5G 信号穿过障碍物时衰减更大，穿墙能力比 2.4G 信号弱。</li>
 </ol>
 </li>
 </ol>
@@ -288,7 +288,7 @@
 </li>
 <li><p>AT 命令以 “AT”开始，代表 Attention，以新的一行（CR LF）为结尾。输入的每条命令都会返回 OK 或 ERROR 的响应，表示当前命令的最终执行结果。</p>
 </li>
-<li><p>注意，所有 AT 命令均为串行执行，每次只能执行一条命令。因此，在使用 AT 命令时，应等待上一条命令执行完毕后，再发送下一条命令。如果上一条命令未执行完毕，又发送了新的命令，则会返回 busy p…</p>
+<li><p>注意：所有 AT 命令均为串行执行，每次只能执行一条命令。因此，在使用 AT 命令时，应等待上一条命令执行完毕后，再发送下一条命令。如果上一条命令未执行完毕，又发送了新的命令，则会返回 busy p…</p>
 </li>
 <li><p>默认配置下，MCU 通过 UART 连接至 ESP32-C3 模组、发送 AT 命令以及接收 AT 响应。但是，用户也可以根据实际使用情况修改程序，使用其他的通信接口，例如 SDIO。同样，用户也可以基于 ESP-AT 工程，自行开发更多的 AT 命令，以实现更多的功能。</p>
 <p><img src="/../images/STM32/wifi5.png" alt="wifi5"></p>
@@ -311,8 +311,8 @@
 </ol>
 <ul>
 <li>上述模式的各种安全模式为WPA、WPA2 及 WEP 等。</li>
-<li>还具有Scan扫描接入点功能，包括主动扫描和被动扫描。</li>
-<li>使用混杂模式监控 IEEE802.11 Wi-Fi 数据包。</li>
+<li>此模块还具有Scan扫描接入点功能，包括主动扫描和被动扫描。</li>
+<li>还可以使用混杂模式监控 IEEE802.11 Wi-Fi 数据包。</li>
 </ul>
 </li>
 </ol>
