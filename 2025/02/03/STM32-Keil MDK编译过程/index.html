@@ -6,17 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="看门狗： 看门狗是一种计时硬件电路。  **作用：**当系统环境比较恶劣复杂的时候，程序可能会出现一些不可预料的错误，导致程序卡死，崩溃等情况。看门狗就可以及时的重置程序，使程序重新从头开始运行。  STM32 有2个看门狗，独立看门狗和**窗口看门狗，**独立看门狗号称宠物狗，窗口看门狗号称警犬。（是根据精度来定义命名的）   独立看门狗 ： IWDG（Independent watchdog，">
+    <meta name="description" content="普通 .C 源文件到可执行的过程： 分为：预处理（Preprocessing），编译（Compilation），汇编（Assemble），链接（Linking）。   预处理： 以“#”号开头的预处理指令，比如包含#include,宏定义指定#define等。在源程序中这些指令都放在函数之外，而且一般放在源文件的前面。使用预处理器把源文件（c&#x2F;h）经过预处理生成xxx.i文件。（简单来说">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STM32 - Keil MDK编译过程">
 <meta property="og:url" content="http://example.com/2025/02/03/STM32-Keil%20MDK%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Lcb3rg">
-<meta property="og:description" content="看门狗： 看门狗是一种计时硬件电路。  **作用：**当系统环境比较恶劣复杂的时候，程序可能会出现一些不可预料的错误，导致程序卡死，崩溃等情况。看门狗就可以及时的重置程序，使程序重新从头开始运行。  STM32 有2个看门狗，独立看门狗和**窗口看门狗，**独立看门狗号称宠物狗，窗口看门狗号称警犬。（是根据精度来定义命名的）   独立看门狗 ： IWDG（Independent watchdog，">
+<meta property="og:description" content="普通 .C 源文件到可执行的过程： 分为：预处理（Preprocessing），编译（Compilation），汇编（Assemble），链接（Linking）。   预处理： 以“#”号开头的预处理指令，比如包含#include,宏定义指定#define等。在源程序中这些指令都放在函数之外，而且一般放在源文件的前面。使用预处理器把源文件（c&#x2F;h）经过预处理生成xxx.i文件。（简单来说">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/STM32/Keil1.png">
+<meta property="og:image" content="http://example.com/images/STM32/Keil2.png">
+<meta property="og:image" content="http://example.com/images/STM32/Keil3.png">
+<meta property="og:image" content="http://example.com/images/STM32/Keil4.png">
+<meta property="og:image" content="http://example.com/images/STM32/Keil5.png">
 <meta property="article:published_time" content="2025-02-03T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-13T14:24:54.681Z">
+<meta property="article:modified_time" content="2025-06-14T03:34:09.156Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/STM32/Keil1.png">
     
     
       
@@ -116,7 +122,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9C%8B%E9%97%A8%E7%8B%97%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">看门狗：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%AC%E7%AB%8B%E7%9C%8B%E9%97%A8%E7%8B%97-%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">独立看门狗 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E7%9C%8B%E9%97%A8%E7%8B%97%E5%8F%B7%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">窗口看门狗号：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">对比：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A-C-%E6%BA%90%E6%96%87%E4%BB%B6%E5%88%B0%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">普通 .C 源文件到可执行的过程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Keil-MDK%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B-%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Keil MDK编译过程 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BB%84%E6%88%90%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">程序组成：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%9D%99%E6%AD%A2%E7%8A%B6%E6%80%81%E5%92%8C%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">程序的静止状态和运行状态：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
       </div>
     
   </span>
@@ -156,76 +162,61 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h2 id="看门狗："><a href="#看门狗：" class="headerlink" title="看门狗："></a>看门狗：</h2><ol>
-<li><p>看门狗是一种<strong>计时硬件电路</strong>。</p>
-</li>
-<li><p>**作用：**当系统环境比较恶劣复杂的时候，程序可能会出现一些不可预料的错误，导致程序卡死，崩溃等情况。看门狗就可以及时的重置程序，使程序重新从头开始运行。</p>
-</li>
-<li><p>STM32 有2个看门狗，<strong>独立看门狗</strong>和**窗口看门狗，**独立看门狗号称宠物狗，窗口看门狗号称警犬。（是根据精度来定义命名的）</p>
-</li>
+    <h2 id="普通-C-源文件到可执行的过程："><a href="#普通-C-源文件到可执行的过程：" class="headerlink" title="普通 .C 源文件到可执行的过程："></a>普通 .C 源文件到可执行的过程：</h2><ol>
+<li>分为：预处理（Preprocessing），编译（Compilation），汇编（Assemble），链接（Linking）。</li>
 </ol>
-<h2 id="独立看门狗-："><a href="#独立看门狗-：" class="headerlink" title="独立看门狗 ："></a>独立看门狗 ：</h2><ol>
-<li><p>IWDG（Independent watchdog，独立看门狗），独立看门狗用通俗一点的话来解释就是一个<strong>12 位</strong>的<strong>递减</strong>计数器，当计数器的值从某个值一直减到 0 的时候，系统就会产生一个复位信号，即 IWDG_RESET，如果在计数没减到 0 之前，刷新了计数器的值的话，那么就不会产生复位信号，这个刷新计数器值的动作就是我们经常说的喂狗。</p>
+<ul>
+<li>预处理：<ul>
+<li>以“#”号开头的预处理指令，比如包含#include,宏定义指定#define等。在源程序中这些指令都放在函数之外，而且一般放在源文件的前面。使用预处理器把源文件（c&#x2F;h）经过预处理生成xxx.i文件。（简单来说就是展开程序中的宏等）</li>
+</ul>
 </li>
-<li><p>独立看门狗的计数器是一个 12 位的递减计数器，最大值为 0XFFF，最小值 0 。</p>
+<li>编译<ul>
+<li>指将经过预处理文件（xxx.i）之后的程序转换成特定汇编（xxx.s）代码的过程。</li>
+</ul>
 </li>
+<li>汇编<ul>
+<li>汇编过程将上一步生成的汇编代码转换成机器码，这一步产生的文件叫做目标文件，是二进制格式。</li>
+</ul>
+</li>
+<li>链接<ul>
+<li>链接过程使用链接器将上述目标文件与其它目标文件、库文件、启动文件等链接起来生成可执行文件。其他目标文件包括静态连接库和动态连接库。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Keil-MDK编译过程-："><a href="#Keil-MDK编译过程-：" class="headerlink" title="Keil MDK编译过程 ："></a>Keil MDK编译过程 ：</h2><p><img src="/../images/STM32/Keil1.png" alt="Keil1"></p>
+<ul>
+<li>**编译：**Keil MDK 软件使用的编译器是 armcc 和 armasm，它们根据每个 c&#x2F;c++ 和汇编源文件编译成对应的以 “ .o ” 为后缀名的对象文件 (Object Code，也称目标文件)，其内容主要是从源文件编译得到的机器码，包含了代码、数据以及调试使用的信息。</li>
+<li>**链接：**链接器 armlink 把各个 .o 文件及库文件链接成一个映像文件 “.axf” 或 “.elf” 。</li>
+<li>**格式转换：**一般来说 Windows 或 Linux 系统使用链接器直接生成可执行映像文件 elf 后，内核根据该文件的信息加载后，就可以运行程序了，但在单片机平台上，需要把该文件的内容加载到芯片上，所以还需要对链接器生成的 elf 映像文件利用格式转换器 fromelf 转换成 “.bin”或“.hex”文件，交给下载器下载到芯片的 FLASH 或 ROM 中。</li>
+</ul>
+<p><img src="/../images/STM32/Keil2.png" alt="Keil2"></p>
+<h2 id="程序组成："><a href="#程序组成：" class="headerlink" title="程序组成："></a>程序组成：</h2><p><img src="/../images/STM32/Keil3.png" alt="Keil3"></p>
+<ol>
+<li>经过链接后代码分为4部分，分别为：Code、RO-data、RW-data、ZI-data</li>
 </ol>
-<h2 id="窗口看门狗号："><a href="#窗口看门狗号：" class="headerlink" title="窗口看门狗号："></a>窗口看门狗号：</h2><ol>
-<li>WWDG（Window watchdog，窗口看门狗），窗口看门狗跟独立看门狗一样，也是一个递减计数器不断的往下递减计数，当计数器减到一个固定值 0x40（T6位减到0）时还不喂狗的话，产生复位，这个值叫窗口的<strong>下限</strong>，是固定的值，不能改变，这个是跟独立看门狗类似的地方。不同的地方是窗口看门狗的计数器的值在减到某一个数之前喂狗的话也会产生复位，这个值叫窗口的<strong>上限</strong>，<strong>上限值由用户</strong>独立设置，窗口看门狗计数器的值必须在<strong>上窗口和下窗口之间</strong>才可以喂狗，喂早了喂晚了都不行，这就是窗口看门狗中窗口两个字的含义。</li>
-<li>比如：上&#x2F;下限：（10,5），如果在 10 之前喂狗也会产生复位，只能在 5-10 之间喂狗才不会产生复位。</li>
-<li>窗口看门狗的计数器是一个递减计数器，共有 7 位，其值存在控制寄存器 CR 的 T[6:0] 位，当 7 个位全部为 1 时是 0X7F，这个是最大值。</li>
-<li>当递减到 T6 位变成 0 时，即从 0X40 变为 0X3F 时候，会产生看门狗复位。值 0X40 是看门狗能够递减到的最小值，所以计数器的值只能是：0X40~0X7F 之间。</li>
-<li>当递减计数器递减到 0X40 的时候，不是马上产生复位，如果使能了提前唤醒中断：CFR 位 9 (EWI) 置 1，则产生提前唤醒中断，如果真进入了这个中断的话，就说明程序肯定是出问题了，那么在中断服务程序里面我们就需要做最重要的工作，比如保存重要数据，或者报警等，这个中断我们也叫它<strong>死前中断</strong>。</li>
-</ol>
-<h2 id="对比："><a href="#对比：" class="headerlink" title="对比："></a>对比：</h2><table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">独立看门狗</th>
-<th align="center">窗口看门狗</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>复位</strong></td>
-<td align="center">计数减到0</td>
-<td align="center">计数器减到0X40和过早重装计数器</td>
-</tr>
-<tr>
-<td align="center"><strong>喂狗方式</strong></td>
-<td align="center">键寄存器写入0xAAAA，重装固定值RLR</td>
-<td align="center">直接写入寄存器，写多少重装多少</td>
-</tr>
-<tr>
-<td align="center"><strong>中断</strong></td>
-<td align="center">无</td>
-<td align="center">死前中断</td>
-</tr>
-<tr>
-<td align="center"><strong>时钟源</strong></td>
-<td align="center">LSI（40KHz）</td>
-<td align="center">PCLK1（36MHz）</td>
-</tr>
-<tr>
-<td align="center"><strong>预分频系数</strong></td>
-<td align="center">4，8，32，64，128，256</td>
-<td align="center">1，2，4，8</td>
-</tr>
-<tr>
-<td align="center"><strong>计数器</strong></td>
-<td align="center">12位</td>
-<td align="center">6位</td>
-</tr>
-<tr>
-<td align="center"><strong>超时时间</strong></td>
-<td align="center">0.1ms到26214.4ms</td>
-<td align="center">113us到58.25ms</td>
-</tr>
-<tr>
-<td align="center"><strong>用途</strong></td>
-<td align="center">独立工作，对时间精度要求比较低</td>
-<td align="center">要求看门狗在计时窗口起作用</td>
-</tr>
-</tbody></table>
+<ul>
+<li><strong>Code</strong>：代码区。指代程序中的代码，即函数体的大小，这些会被存储到ROM（Flash）中。注意程序中未使用的函数也会算在Code中，也即会占用FLASH空间，因此不用的函数最好删除掉，以免占用过多FLASH空间。</li>
+<li><strong>RO-data</strong>：Read Only data，即只读数据区，它指程序中用到的只读数据，这些数据被存储在ROM 区，因而程序不能修改其内容。例如 C 语言中 const 关键字定义的变量就是典型的RO-data，还有已经初始化的字符串等。</li>
+<li><strong>RW-data</strong>：Read Write data，即可读写数据区。特指已初始化的可读可写全局&#x2F;静态变量。初始化为“非 0 值”的可读写数据，程序刚运行时，这些数据具有非 0 的初始值，且运行的时候它们会常驻在 RAM 区，因而应用程序可以修改其内容。例如 C 语言中使用定义的全局变量，且定义时赋予“非 0 值”给该变量进行初始化。</li>
+<li><strong>ZI-data</strong>：Zero Initialie data，即 0 初始化数据，它指初始化为“0 值”的可读写数据区。它与RW-data 的区别是程序刚运行时这些数据初始值全都为 0，而后续运行过程与 RW-data 的性质一样，它们也常驻在 RAM 区，因而应用程序可以更改其内容。例如 C 语言中使用定义的全局变量，且定义时赋予“0 值”给该变量进行初始化 (若定义该变量时没有赋予初始值，编译器会把它当 ZI-data 来对待，初始化为 0)。</li>
+<li><strong>局部变量</strong>存储在ZI-Data的堆栈空间中。</li>
+<li>在 C 语言中，函数内部定义的局部变量属于栈空间，进入函数的时候从向栈空间申请内存给局部变量，退出时释放局部变量，归还内存空间。而使用 malloc 动态分配的变量属于堆空间。在程序中的栈空间和堆空间都是属于ZI-data 区域的，这些空间都会被初始值化为 0 值。编译器给出的 ZI-data 占用的空间值中包含了堆栈的大小。</li>
+</ul>
+<p>   <img src="/../images/STM32/Keil4.png" alt="Keil4"></p>
+<h2 id="程序的静止状态和运行状态："><a href="#程序的静止状态和运行状态：" class="headerlink" title="程序的静止状态和运行状态："></a>程序的静止状态和运行状态：</h2><p><img src="/../images/STM32/Keil5.png" alt="Keil5"></p>
+<ul>
+<li><strong>静止状态</strong><ul>
+<li>向Flash中下载程序时，其实仅仅下载的是CODE+RO-data+RW-data的内容，意思就是说，在掉电情况下，Flash里面的记忆体仅包含CODE+RO-data+ RW-data这三块。</li>
+</ul>
+</li>
+<li><strong>运行状态</strong><ul>
+<li>当上电后，程序运行时，首先程序会从特定的地址进行启动，启动时会将 RW-data 的数据载入到 SRAM 中（启动文件中有一段代码是干这件事的， ST 已经帮我们做完了这件事）。</li>
+<li>单片机的 RO 区域不需要载入到 SRAM ，内核直接从 FLASH 读取指令运行。</li>
+<li>那 ZI-data 的数据怎么办呢？对于初始值为 0 全局变量来说，因为要在 Code 区要调用该全局变量，所以肯定要对其进行描述，程序运行时就知道了，原来你是初始值为 0 的全局变数呀，然后就在 SRAM 区给你分配了一段固定区域的地址。</li>
+<li>对于局部变量来说， 会自动分配大小，不用我们管。SRAM 中一段特定的区域是运行 ZI-data 数据， RW-DATA+ZI-DATA 就是程序运行总共会占用 SRAM 的长度，生成局部变量的栈空间包含在 ZI-data 区的范围。</li>
+</ul>
+</li>
+</ul>
 <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
   </div>
 </article>
@@ -255,7 +246,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9C%8B%E9%97%A8%E7%8B%97%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">看门狗：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%AC%E7%AB%8B%E7%9C%8B%E9%97%A8%E7%8B%97-%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">独立看门狗 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E7%9C%8B%E9%97%A8%E7%8B%97%E5%8F%B7%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">窗口看门狗号：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">对比：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A-C-%E6%BA%90%E6%96%87%E4%BB%B6%E5%88%B0%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">普通 .C 源文件到可执行的过程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Keil-MDK%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B-%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Keil MDK编译过程 ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BB%84%E6%88%90%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">程序组成：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%9D%99%E6%AD%A2%E7%8A%B6%E6%80%81%E5%92%8C%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">程序的静止状态和运行状态：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
       </div>
     
 
