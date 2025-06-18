@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Makefile 介绍： Makefile 是一种配置文件，它可以指定工程中的源文件的编译顺序、重新编译哪些文件以及执行更复杂的操作  就像一个Shell脚本，可以执行操作系统的命令  Makefile 可以更有效率地管理工程中的源文件，提高工作效率   Makefile 的基本书写规则：12target（目标）... : prerequisites（依赖）...     command（命令）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux - Makefile">
+<meta property="og:url" content="http://example.com/2025/05/10/Linux-Makefile/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="Makefile 介绍： Makefile 是一种配置文件，它可以指定工程中的源文件的编译顺序、重新编译哪些文件以及执行更复杂的操作  就像一个Shell脚本，可以执行操作系统的命令  Makefile 可以更有效率地管理工程中的源文件，提高工作效率   Makefile 的基本书写规则：12target（目标）... : prerequisites（依赖）...     command（命令）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Linux/Make1.png">
+<meta property="og:image" content="http://example.com/images/Linux/Make2.png">
+<meta property="og:image" content="http://example.com/images/Linux/Make3.png">
+<meta property="article:published_time" content="2025-05-10T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-18T08:33:51.815Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Linux/Make1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Linux - Makefile</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/05/06/Linux-%E4%BB%8B%E7%BB%8D%E5%92%8CShell%E8%84%9A%E6%9C%AC/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/05/10/Linux-Makefile/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/05/10/Linux-Makefile/&text=Linux - Makefile"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/05/10/Linux-Makefile/&is_video=false&description=Linux - Makefile"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux - Makefile&body=Check out this article: http://example.com/2025/05/10/Linux-Makefile/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/05/10/Linux-Makefile/&name=Linux - Makefile&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/05/10/Linux-Makefile/&t=Linux - Makefile"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Makefile-%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">Makefile 介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Makefile-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%B9%A6%E5%86%99%E8%A7%84%E5%88%99%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Makefile 的基本书写规则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#make-%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9D%A1%E4%BB%B6%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">make 执行的条件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E9%9A%90%E8%97%8F-%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">指令的隐藏 @：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#make-%E8%BF%90%E8%A1%8C%E5%85%B6%E4%BB%96%E7%9B%AE%E6%A0%87%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">make 运行其他目标：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E7%A9%BA%E7%9B%AE%E6%A0%87%E8%A7%84%E5%88%99%EF%BC%9A%EF%BC%88clean%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">清空目标规则：（clean）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E8%A7%84%E5%88%99%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">变量规则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E7%9B%AE%E6%A0%87%E4%B8%8E%E4%BC%AA%E7%9B%AE%E6%A0%87%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">指定目标与伪目标：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Linux - Makefile
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-05-10T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-05-10</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Makefile-介绍："><a href="#Makefile-介绍：" class="headerlink" title="Makefile 介绍："></a>Makefile 介绍：</h2><ol>
+<li><p>Makefile 是一种配置文件，它可以指定工程中的源文件的编译顺序、重新编译哪些文件以及执行更复杂的操作</p>
+</li>
+<li><p>就像一个Shell脚本，可以执行操作系统的命令</p>
+</li>
+<li><p>Makefile 可以更有效率地管理工程中的源文件，提高工作效率</p>
+</li>
+</ol>
+<h2 id="Makefile-的基本书写规则："><a href="#Makefile-的基本书写规则：" class="headerlink" title="Makefile 的基本书写规则："></a>Makefile 的基本书写规则：</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target（目标）... : prerequisites（依赖）... </span><br><span class="line">    command（命令）</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>目标 (Target)<ul>
+<li>通常是需要生成的文件名（如 <code>app.exe</code>, <code>main.o</code>）</li>
+<li>也可以是伪目标（执行操作而非生成文件，如 <code>clean</code>）</li>
+</ul>
+</li>
+<li>依赖 (Prerequisites)<ul>
+<li>生成目标所需的文件或其他目标（用空格分隔）</li>
+<li>当依赖比目标更新时，命令会被执行</li>
+</ul>
+</li>
+<li>命令 (Command)<ul>
+<li>生成目标的具体操作指令（必须用 Tab 缩进，不能用空格）</li>
+<li>每条命令在独立的 Shell 中执行，失败则终止构建</li>
+</ul>
+</li>
+</ol>
+<p><img src="/../images/Linux/Make1.png" alt="Make1"></p>
+<h2 id="make-执行的条件："><a href="#make-执行的条件：" class="headerlink" title="make 执行的条件："></a>make 执行的条件：</h2><ol>
+<li><p>make 命令执行时，需要一个 Makefile 文件，以告诉 make 命令需要怎么样的去编译和链接程序</p>
+</li>
+<li><p>默认提供的 makefile 文件有三类名称: “GNUmakefile”、“makefile” 和 “Makefile”(GNU make 找寻默认的 Makefile 的顺序)</p>
+</li>
+</ol>
+<h2 id="指令的隐藏-："><a href="#指令的隐藏-：" class="headerlink" title="指令的隐藏 @："></a>指令的隐藏 @：</h2><ul>
+<li><p>在指令前加符号 @ 可以在终端上隐藏指令，不会在终端上显示出来</p>
+<p> <img src="/../images/Linux/Make2.png" alt="Make2"></p>
+</li>
+</ul>
+<h2 id="make-运行其他目标："><a href="#make-运行其他目标：" class="headerlink" title="make 运行其他目标："></a>make 运行其他目标：</h2><ol>
+<li>makefile 文件可以有多个目标，但是只会执行第一个目标</li>
+<li>在 make 指令后追加目标名称即可执行其他目标</li>
+</ol>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MyTarget：</span><br><span class="line">    @echo <span class="string">&quot;hello world&quot;</span></span><br><span class="line">    </span><br><span class="line"><span class="section">MyCmd:</span></span><br><span class="line">    @pwd</span><br><span class="line">    @ls</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>终端执行的时候：make MyCmd  指定名称，就会执行MyCmd</li>
+</ul>
+<h2 id="清空目标规则：（clean）"><a href="#清空目标规则：（clean）" class="headerlink" title="清空目标规则：（clean）"></a>清空目标规则：（clean）</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clean：</span><br><span class="line">    rm *.i  <span class="comment">#表示删除所有后缀为.i的文件</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="变量规则："><a href="#变量规则：" class="headerlink" title="变量规则："></a>变量规则：</h2><ol>
+<li><p>变量的定义与引用：</p>
+<ol>
+<li><p>变量在声明时需要给予初值，而在使用时，需要给在变量名前加上 “$” 符号，但最好用小括号（）或是大括号 {} 把变量给包括起来</p>
+</li>
+<li><p>如果要使用真实的 “$” 字符，需要用 “$$” 来表示</p>
+</li>
+<li><p>变量可以应用在目标、依赖、指令</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=123</span><br><span class="line">b=<span class="variable">$(a)</span> <span class="comment">#引用 a 给到 b</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>递归赋值 &#x3D; ：</p>
+<ol>
+<li><p>在 “&#x3D;” 左侧是变量，右侧是变量的值</p>
+</li>
+<li><p>右侧变量的值可以定义在文件的任何一处，也就是说， 右侧中的变量不一定非要是已定义好的值，其也可以使用后面定义的值</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=123</span><br><span class="line">b=<span class="variable">$(a)</span></span><br><span class="line">a=456</span><br><span class="line"><span class="section">val:</span></span><br><span class="line">    echo <span class="variable">$(a)</span> <span class="comment">#a 的值变成 456</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>赋值 :&#x3D; :</p>
+<ul>
+<li>:&#x3D; 相当于C语言的 &#x3D;</li>
+</ul>
+</li>
+<li><p>查询赋值 ?&#x3D; ：</p>
+<ul>
+<li>例如： Temp ?&#x3D; Val</li>
+<li>执行代码时，查询 Temp 变量是否被定义过？</li>
+<li>如果 Temp 没有被定义过，那么变量 Temp 的值就是“Val”</li>
+<li>如果 Temp 先前被定义过，那么这条语将什么也不做</li>
+<li>注意：赋值方式是递归赋值</li>
+</ul>
+</li>
+<li><p>替换赋值 $(val:a&#x3D;b)</p>
+<ul>
+<li><p>格式是 “$(var:a&#x3D;b)” 或 “${var:a&#x3D;b}”</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo := a.1o b.o c.o </span><br><span class="line">bar := $(foo:.o=.c) <span class="comment">#foo里面的 .o 被替换为 .c</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>变量的多层引用：</p>
+<ul>
+<li><p>类似于 shell ${!Value}， makefile 中的格式为 $($(Value))</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Temp = 2025</span><br><span class="line">Value = Temp</span><br><span class="line">echo $(<span class="variable">$(Value)</span>) <span class="comment">#输出结果2025</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>追加赋值 +&#x3D; ：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Temp=1.c 2.c</span><br><span class="line">Temp+=3.c</span><br><span class="line">现在 Temp 等于 1.c 2.c 3.c</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>特殊变量：</p>
+<p><img src="/../images/Linux/Make3.png" alt="Make3"></p>
+</li>
+</ol>
+<h2 id="指定目标与伪目标："><a href="#指定目标与伪目标：" class="headerlink" title="指定目标与伪目标："></a>指定目标与伪目标：</h2><ul>
+<li>all 这个伪目标是所有目标的目标，其功能一般是编译所有的目标</li>
+<li>clean 这个伪目标功能是删除所有被 make 创建的文件</li>
+<li>install 这个伪目标功能是安装已编译好的程序，其实就是把目标执行文件拷贝到指定的目标中去</li>
+<li>print 这个伪目标的功能是例出改变过的源文件</li>
+<li>tar 这个伪目标功能是把源程序打包备份。也就是一个tar文件</li>
+<li>dist 这个伪目标功能是创建一个压缩文件，一般是把tar文件压成 Z 文件或是 gz 文件</li>
+<li>TAGS 这个伪目标功能是更新所有的目标，以备完整地重编译使用</li>
+<li>check 和 test 这两个伪目标一般用来测试 makefile 的流程</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.PHONY:<span class="keyword">all</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">all</span>:Target1 Target2 Target3</span><br><span class="line"></span><br><span class="line">Target1:</span><br><span class="line">    <span class="variable">@echo</span> &quot;Target1 是终极目标&quot;</span><br><span class="line">Target2:</span><br><span class="line">    <span class="variable">@echo</span> &quot;Target2 是终极目标&quot;</span><br><span class="line">Target3:</span><br><span class="line">    <span class="variable">@echo</span> &quot;Target3 是终极目标&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行 make 会把Target1 Target2 Target3全部执行</li>
+</ul>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Makefile-%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">Makefile 介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Makefile-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%B9%A6%E5%86%99%E8%A7%84%E5%88%99%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Makefile 的基本书写规则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#make-%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9D%A1%E4%BB%B6%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">make 执行的条件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E9%9A%90%E8%97%8F-%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">指令的隐藏 @：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#make-%E8%BF%90%E8%A1%8C%E5%85%B6%E4%BB%96%E7%9B%AE%E6%A0%87%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">make 运行其他目标：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E7%A9%BA%E7%9B%AE%E6%A0%87%E8%A7%84%E5%88%99%EF%BC%9A%EF%BC%88clean%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">清空目标规则：（clean）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E8%A7%84%E5%88%99%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">变量规则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E7%9B%AE%E6%A0%87%E4%B8%8E%E4%BC%AA%E7%9B%AE%E6%A0%87%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">指定目标与伪目标：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/05/10/Linux-Makefile/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/05/10/Linux-Makefile/&text=Linux - Makefile"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/05/10/Linux-Makefile/&is_video=false&description=Linux - Makefile"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux - Makefile&body=Check out this article: http://example.com/2025/05/10/Linux-Makefile/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/05/10/Linux-Makefile/&title=Linux - Makefile"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/05/10/Linux-Makefile/&name=Linux - Makefile&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/05/10/Linux-Makefile/&t=Linux - Makefile"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
