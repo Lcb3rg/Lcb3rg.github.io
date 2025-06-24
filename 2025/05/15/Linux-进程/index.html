@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="系统调用： 系统调用的概念：  系统调用是操作系统提供给用户程序的一组“特殊”函数接口（API 接口） 用户程序可以通过 API接口 获得操作系统（内核）提供的服务   系统调用的返回值：  系统调用 API接口 返回值有两种可能： 负数 –&gt; 错误 0     –&gt;成功   系统调用的错误信息存放在全局变量 errno 中，用户可用 perror 函数打印出错信息    文件 I&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux - 进程">
+<meta property="og:url" content="http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Lcb3rg">
+<meta property="og:description" content="系统调用： 系统调用的概念：  系统调用是操作系统提供给用户程序的一组“特殊”函数接口（API 接口） 用户程序可以通过 API接口 获得操作系统（内核）提供的服务   系统调用的返回值：  系统调用 API接口 返回值有两种可能： 负数 –&gt; 错误 0     –&gt;成功   系统调用的错误信息存放在全局变量 errno 中，用户可用 perror 函数打印出错信息    文件 I&amp;#">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B1.png">
+<meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B2.png">
+<meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B3.png">
+<meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B4.png">
+<meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B5.png">
+<meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B6.png">
+<meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B7.png">
+<meta property="article:published_time" content="2025-05-15T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-24T14:19:23.663Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Linux - 进程</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/05/10/Linux-Makefile/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&text=Linux - 进程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&is_video=false&description=Linux - 进程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux - 进程&body=Check out this article: http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&name=Linux - 进程&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&t=Linux - 进程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">系统调用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6-I-O%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">文件 I&#x2F;O：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">进程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Linux - 进程
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lcb3rg</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-05-15T00:00:00.000Z" class="dt-published" itemprop="datePublished">2025-05-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="系统调用："><a href="#系统调用：" class="headerlink" title="系统调用："></a>系统调用：</h2><ol>
+<li><p>系统调用的概念：</p>
+<ol>
+<li>系统调用是操作系统提供给用户程序的一组“特殊”函数接口（API 接口）</li>
+<li>用户程序可以通过 API接口 获得操作系统（内核）提供的服务</li>
+</ol>
+</li>
+<li><p>系统调用的返回值：</p>
+<ol>
+<li>系统调用 API接口 返回值有两种可能：<ul>
+<li>负数 –&gt; 错误</li>
+<li>0     –&gt;成功</li>
+</ul>
+</li>
+<li>系统调用的错误信息存放在全局变量 errno 中，用户可用 perror 函数打印出错信息</li>
+</ol>
+</li>
+</ol>
+<h2 id="文件-I-O："><a href="#文件-I-O：" class="headerlink" title="文件 I&#x2F;O："></a>文件 I&#x2F;O：</h2><ol>
+<li>文件描述符：文件描述符是非负整数，是文件的标识</li>
+<li>打开现有文件或新建文件时，系统（内核）会返回一个文件描述符</li>
+<li>具体操作是有四个函数：<ol>
+<li>open() 函数：<ul>
+<li>函数功能：打开或创建文件&#x2F;设备，并返回用于后续操作的文件描述符</li>
+<li>函数原型：<ul>
+<li>int open(const char *pathname, int flags); </li>
+<li>int open(const char *pathname, int flags, mode_t mode);</li>
+</ul>
+</li>
+<li>函数头文件：<ul>
+<li>#include &lt;sys&#x2F;types.h&gt; </li>
+<li>#include &lt;sys&#x2F;stat.h&gt; </li>
+<li>#include &lt;fcntl.h&gt;</li>
+</ul>
+</li>
+<li>函数参数：<ul>
+<li>pathname  打开文件的路径&#x2F;名称</li>
+<li>flags  文件打开方式</li>
+<li>mode  此参数是否传递要看 flags 是否包含 O_CREAT</li>
+</ul>
+</li>
+<li>函数返回值：<ul>
+<li>正确情况：返回一个文件描述符（file descriptor）</li>
+<li>错误情况 ：返回 -1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>close() 函数：<ul>
+<li>函数功能：关闭一个当前进程的文件描述符</li>
+<li>函数原型： int close(int fd);</li>
+<li>函数头文件： #include &lt;unistd.h&gt;</li>
+<li>函数参数：要关闭的文件描述符（编号）</li>
+<li>函数返回值：0-关闭成功，1-关闭失败</li>
+</ul>
+</li>
+<li>read() 函数：<ul>
+<li>函数功能：从文件描述符 fd 指定的文件中读取 count 个字节数据，存储到 buf 指向的空间</li>
+<li>函数原型： ssize_t read(int fd, void *buf, size_t count);</li>
+<li>函数头文件： #include &lt;unistd.h&gt;</li>
+<li>函数参数：<ul>
+<li>fd  文件描述符</li>
+<li>buf  万能指针，任意类型的空间（某个空间的首地址）</li>
+<li>count  读取的字节数</li>
+</ul>
+</li>
+<li>函数返回值： 0-关闭成功，1-关闭失败</li>
+</ul>
+</li>
+<li>write() 函数：<ul>
+<li>函数功能：向文件描述符 fd 指定的文件中写入从 buf 首地址开始的 count 个字节数据</li>
+<li>函数原型： ssize_t write(int fd, const void *buf, size_t count);</li>
+<li>函数头文件： #include &lt;unistd.h&gt;</li>
+<li>函数参数：<ul>
+<li>fd  文件描述符</li>
+<li>buf  万能指针，任意类型的空间（某个空间的首地址）</li>
+<li>count  写入的字节数</li>
+</ul>
+</li>
+<li>函数返回值： 0-关闭成功，1-关闭失败</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="进程："><a href="#进程：" class="headerlink" title="进程："></a>进程：</h2><ol>
+<li><p>进程（Process） 是操作系统中，正在运行的程序实例</p>
+</li>
+<li><p>查询进程的 shell 指令 ps（常用指令 <strong>ps -aux</strong>）</p>
+</li>
+<li><p>进程的状态：</p>
+<p><img src="/../images/Linux/%E8%BF%9B%E7%A8%8B1.png" alt="进程1"></p>
+<p><img src="/../images/Linux/%E8%BF%9B%E7%A8%8B2.png" alt="进程2"></p>
+</li>
+<li><p>进程的状态标识：</p>
+<p><img src="/../images/Linux/%E8%BF%9B%E7%A8%8B3.png" alt="进程3"></p>
+</li>
+<li><p>**ulimit 指令：**可以查询和设置系统的资源配置</p>
+</li>
+<li><p>进程控制块（PCB）：</p>
+<ol>
+<li>Linux 通过控制 PCB 来管理进程</li>
+<li>OS 是根据 PCB 来对并发执行的进程进行控制和管理的</li>
+<li>系统在创建一个进程的时候会开辟一段内存空间存放与此进程相关的 PCB 数据结构。PCB 是操作系统中最重要的记录型数据结构。 PCB 中记录了用于描述进程进展情况及控制进程运行所需的全部信息。 PCB 是进程存在的唯一标志，在 Linux 中 PCB 存放在 task_struct结构体中</li>
+<li>PCB 的工作职责与结构：<ol>
+<li>进程状态,将记录进程在等待,运行,或死锁：进程状态</li>
+<li>调度信息, 由哪个调度函数调度,怎样调度等：资源</li>
+<li>进程的通讯状况</li>
+<li>因为要插入进程树,必须有联系父子兄弟的指针, 当然是 task_struct 型</li>
+<li>时间信息, 比如计算好执行的时间, 以便 cpu 分配</li>
+<li>标号,决定改进程归属</li>
+<li>可以读写打开的一些文件信息</li>
+<li>进程上下文和内核上下文</li>
+<li>处理器上下文</li>
+<li>内存信息</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>进程号：</p>
+<ol>
+<li><p>每个进程都由一个进程号（PID）来标识，其类型为 pid_t</p>
+</li>
+<li><p>进程号的范围： 0～ &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;pid_max</p>
+</li>
+<li><p><strong>0 号进程</strong>：通常也被称为 idle 进程或者 swapper 进程，是 linux 启动的第一个进程</p>
+</li>
+<li><p><strong>1 号进程</strong>： 称为 init 进程，其中包含收养所有的孤儿进程</p>
+</li>
+<li><p>注意：进程号总是唯一的（在进程没有结束、被杀死之前），但进程号可以重用，当一个进程终止后，其进程号就可以再次使用了</p>
+</li>
+<li><p>PID、PPID、PGID：</p>
+<ul>
+<li><p>PID（进程 ID）：进程的唯一标识符，由内核分配，每个运行的进程都有一个独特的 PID</p>
+</li>
+<li><p>PPID（父进程 ID）：当前进程的父进程的 PID</p>
+</li>
+<li><p>PGID（进程组 ID）：进程组的标识符，同一组的进程共享相同的 PGID</p>
+<p><img src="/../images/Linux/%E8%BF%9B%E7%A8%8B4.png" alt="进程4"></p>
+</li>
+</ul>
+</li>
+<li><p>查看进程号函数：</p>
+<ol>
+<li>getpid() 查看进程 ID</li>
+<li>getppid() 查看父进程 ID</li>
+<li>getpgid()查看进程组 ID</li>
+<li>指令查看 PID 、 PPID、 PGID： ps -e -o pid,ppid,pgid,comm</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><ol>
+<li><p>进程的应用：</p>
+<ol>
+<li><p>进程的创建 fork()、 vfork() ：</p>
+<ol>
+<li>fork() 函数功能：创建一个新进程（本进程的子进程）</li>
+<li>fork() 函数返回值:<ol>
+<li>fork() 函数有两个返回值，但是本质上还是一个返回值</li>
+<li>成功：<ul>
+<li>正整数 —在父进程（本进程）返回的是子进程的 PID</li>
+<li>0    —在子进程返回0</li>
+</ul>
+</li>
+<li>失败：返回 -1</li>
+</ol>
+</li>
+<li>fork 函数运行：<ul>
+<li>父进程与子进程运行的先后顺序不确定</li>
+<li>将父进程的地址空间的数据完全复制到子进程</li>
+</ul>
+</li>
+<li>vfork() 函数：<ul>
+<li>vfork() 保证子进程先运行，在它调用 exec 或 exit 之后，父进程才可能被调度运行，在子进程中调用 exec 或 exit 之前， 子进程在父进程的地址空间中运行，也就是说 vfork 并不会重新开辟 4G 空间给子进程，父进程暂停运行，让子进程运行</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>进程的终止 _exit()、exit()：</p>
+<ol>
+<li>进程可以主动的终止当前进程的运行，并告诉 OS 可以释放本进程的 PCB</li>
+<li>_exit()函数 是一个系统调用 API，运行在内核态</li>
+<li>exit()函数 是一个标准库函数，运行在用户态</li>
+<li>正常情况下返回 0 代表无错误，其他表示异常</li>
+<li>参数范围最好是-128 ~ +127</li>
+</ol>
+</li>
+<li><p>回收进程资源 wait()、 waitpid()：</p>
+<ol>
+<li><p>子进程的返回状态存储在 wait、 waitpid 的参数 wstatus 中，但是 state 并不是子进程返回值，需要我们使用宏函数提取出来</p>
+</li>
+<li><p>wait()函数：</p>
+<ol>
+<li>函数原型：pid_t wait(int *wstatus); </li>
+<li>函数功能：等待当前进程（父进程） 的子进程结束，并回收其子进程资源（<strong>阻塞型</strong>）</li>
+<li>函数参数：指针类型 提供一个缓冲区地址，存储的是子进程返回的状态</li>
+<li>返回值：正数 成功，结束子进程的 PID，-1 失败（但是不会返回，此函数是阻塞型）</li>
+</ol>
+</li>
+<li><p>waitpid()函数：</p>
+<ol>
+<li><p>函数功能：等待指定的进程结束，并回收其进程资源</p>
+</li>
+<li><p>函数参数：</p>
+<ol>
+<li><p>参数 1：等待进程的 PID </p>
+<p><img src="/../images/Linux/%E8%BF%9B%E7%A8%8B5.png" alt="进程5"></p>
+</li>
+<li><p>参数 2：和 wait 的参数一样</p>
+<p><img src="/../images/Linux/%E8%BF%9B%E7%A8%8B6.png" alt="进程6"></p>
+</li>
+</ol>
+</li>
+<li><p>返回值：</p>
+<p><img src="/../images/Linux/%E8%BF%9B%E7%A8%8B7.png" alt="进程7"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45031801/article/details/139797659">【Linux进程】Linux下的—七大进程状态（什么是进程状态？Linux下有哪些进程状态？）_linux进程状态详解-CSDN博客</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li>
+        
+          <li><a href="/links/">links</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">系统调用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6-I-O%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">文件 I&#x2F;O：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">进程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&text=Linux - 进程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&is_video=false&description=Linux - 进程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux - 进程&body=Check out this article: http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&title=Linux - 进程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&name=Linux - 进程&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/05/15/Linux-%E8%BF%9B%E7%A8%8B/&t=Linux - 进程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Lcb3rg">Projects</a></li><!--
+     --><!--
+       --><li><a href="/links/">links</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
