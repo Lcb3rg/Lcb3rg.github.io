@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B6.png">
 <meta property="og:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B7.png">
 <meta property="article:published_time" content="2025-05-15T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-24T14:19:23.663Z">
+<meta property="article:modified_time" content="2025-06-25T07:08:53.867Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/Linux/%E8%BF%9B%E7%A8%8B1.png">
@@ -314,7 +314,6 @@
 </li>
 </ol>
 </li>
-<li><ol>
 <li><p>进程的应用：</p>
 <ol>
 <li><p>进程的创建 fork()、 vfork() ：</p>
@@ -385,7 +384,41 @@
 </li>
 </ol>
 </li>
+<li><p>僵尸进程、孤儿进程、守护进程：</p>
+<ol>
+<li>僵尸进程：<ul>
+<li>如果一个进程已经终止，但是它的父进程尚未调用 wait() 或 waitpid() 对它进行清理，这时的进程状态称为僵死状态，处于僵死状态的进程称为僵尸进程(zombie process)。</li>
+<li>任何进程在刚终止时都是僵尸进程，正常情况下，僵尸进程都立刻被父进程清理了。</li>
+<li>在 Linux 系统中，僵尸进程（Zombie Process）是指已经完成执行（终止）但其父进程尚未收集其退出状态（exit status）的进程，僵尸进程本身已经不再执行任何任务，所有资源（如 CPU、内存等）都已释放，但它仍然在进程表中占据一个条目，直到父进程调用 wait()或 waitpid() 等系统调用来获取子进程的退出状态。</li>
+<li><strong>养成习惯：</strong> fork 和 wait 要成对出现</li>
+</ul>
+</li>
+<li>孤儿进程：<ul>
+<li>如果父进程退出而它的一个或多个子进程还在运行，那么这些子进程就被称为孤儿进程</li>
+<li>孤儿进程最终将被 init 进程 (进程号为 1 的 init 进程) 所收养并由 init 进程完成对它们的状态收集工作</li>
+<li>孤儿进程是没有危害的，孤儿进程是没有父进程的子进程，当孤儿进程没有父进程时，内核就会 init 设置为孤儿进程的父进程， init 进程就会调用 wait 去释放那些已经退出的子进程，当孤儿进程完成其声明周期之后， init 会释放掉其状态信息，孤儿进程实际上是不占用资源的，不会像僵尸进程那样占用 ID,损害运行系统</li>
+</ul>
+</li>
+<li>守护进程：<ul>
+<li>守护进程也有人称呼为天使进程</li>
+<li>Linux Daemon（守护进程）是运行在后台的一种特殊进程，它独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件，它不需要用户输入就能运行而且提供某种服务，不是对整个系统就是对某个用户程序提供服务， Linux 系统的大多数服务器就是通过守护进程实现的</li>
+<li>常见的守护进程包括系统日志进程 syslogd、 web 服务器 httpd、邮件服务器 sendmail和数据库服务器 mysqld 等</li>
+<li>守护进程一般在系统启动时开始运行，除非强行终止，否则直到系统关机都保持运行。守护进程经常以超级用户（root）权限运行，因为它们要使用特殊的端口（1-1024）或访问某些特殊的资源</li>
+<li>如果一个守护进程的父进程是 init 进程，则是因为它真正的父进程在 fork 出子进程后就先于子进程 exit 退出了，所以它是一个由 init 继承的孤儿进程</li>
+<li>守护进程是非交互式程序，没有控制终端，所以任何输出，无论是向标准输出设备 stdout 还是标准出错设备 stderr 的输出都需要特殊处理</li>
+</ul>
+</li>
 </ol>
+</li>
+<li><p>进程的替换：</p>
+</li>
+<li><p>每个进程都占用一个 PID，可能存在某个 PID 有特定的任务（比如 1 号进程），但是在某个时刻此进程的处理规则有细微的修改，或者需要将事件交给进程 B 处理，为了保证进程 B 拿到的 PID 为进程 A 的 PID，此过程称之为进程替换</p>
+</li>
+<li><p>exec 内涵 exit 的功能</p>
+</li>
+<li><p>exec 是一个函数族，里面有很多关于进程替换的函数（功能类似）</p>
+</li>
+<li><p>exec 函数族与一般的函数不同，exec 函数族中的函数执行成功后不会返回，只有调用失败了，它们才会返回 -1，失败后从原程序的调用点接着往下执行</p>
 </li>
 </ol>
 <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45031801/article/details/139797659">【Linux进程】Linux下的—七大进程状态（什么是进程状态？Linux下有哪些进程状态？）_linux进程状态详解-CSDN博客</a></p>
